@@ -1,0 +1,34 @@
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+button:focus-visible {
+  outline: 3px solid #88b96f;
+  outline-offset: 3px;
+}
+.level-info {
+  margin-bottom: 16px;
+}
+
+.next-level-button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 16px;
+  background: #387f4b;
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.next-level-button:hover {
+  background: #2d693d;
+}
