@@ -111,9 +111,53 @@ export default function App() {
     return Math.min(Math.max(saved, 1), LEVELS.length);
   });
   const [game, setGame] = useState(() => createGame(currentLevel));
+  const [timeLeft, setTimeLeft] = useState(90);
+const [totalTime, setTotalTime] = useState(90);
+const [difficulty, setDifficulty] = useState("Medium");
+
+const difficultyTimes = {
+  Easy: 120,
+  Medium: 90,
+  Hard: 60,
+};
+
+const [levelStars, setLevelStars] = useState(() => {
+  try {
+    return JSON.parse(localStorage.getItem("appleWormStars")) || {};
+  } catch {
+    return {};
+  }
+});
   const level = getLevel(currentLevel);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [showLevels, setShowLevels] = useState(false);
+  useEffect(() => {
+  if (game.status !== "playing") return;
+
+  const timer = setInterval(() => {
+    setTimeLeft((previous) => {
+      if (previous <= 1) {
+        clearInterval(timer);
+
+        setGame((current) => {
+          if (current.status !== "playing") return current;
+
+          return {
+            ...current,
+            status: "failed",
+            message: "Time's up! Restart and try again.",
+          };
+        });
+
+        return 0;
+      }
+
+      return previous - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [game.status, currentLevel]);
   const audioContextRef = useRef(null);
   const playTone = useCallback((frequency, duration = 0.12, type = "sine") => {
     if (!soundEnabled) return;
@@ -138,6 +182,36 @@ export default function App() {
       oscillator.stop(now + duration + 0.01);
     } catch { /* Sound is optional; gameplay still works without it. */ }
   }, [soundEnabled]);
+
+useEffect(() => {
+  if (game.status !== "won") return;
+
+  let earnedStars = 1;
+
+  if (timeLeft >= totalTime * 0.6 && game.moves <= 25) {
+    earnedStars = 3;
+  } else if (timeLeft >= totalTime * 0.3 && game.moves <= 40) {
+    earnedStars = 2;
+  }
+
+  setLevelStars((previous) => {
+    const oldStars = previous[currentLevel] || 0;
+    const bestStars = Math.max(oldStars, earnedStars);
+
+    const updatedStars = {
+      ...previous,
+      [currentLevel]: bestStars,
+    };
+
+    localStorage.setItem(
+      "appleWormStars",
+      JSON.stringify(updatedStars)
+    );
+
+    return updatedStars;
+  });
+}, [game.status, game.moves, currentLevel, timeLeft, totalTime]);
+
 
   const moveWorm = useCallback((dx, dy) => {
     // Trigger audio directly from the key/button interaction to avoid render/effect delay.
@@ -218,14 +292,30 @@ export default function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [moveWorm]);
 
-  const restart = () => setGame(createGame(currentLevel));
+  //const restart = () => setGame(createGame(currentLevel));
 
-  const openLevel = (levelNumber) => {
-    if (levelNumber < 1 || levelNumber > unlockedLevel) return;
-    setCurrentLevel(levelNumber);
-    localStorage.setItem("appleWormCurrentLevel", String(levelNumber));
-    setGame(createGame(levelNumber));
-  };
+const restart = () => {
+  const selectedTime = difficultyTimes[difficulty];
+
+  setTimeLeft(selectedTime);
+  setTotalTime(selectedTime);
+  setGame(createGame(currentLevel));
+};
+
+  
+const openLevel = (levelNumber) => {
+  if (levelNumber < 1 || levelNumber > unlockedLevel) return;
+
+  setCurrentLevel(levelNumber);
+  localStorage.setItem("appleWormCurrentLevel", String(levelNumber));
+
+  const selectedTime = difficultyTimes[difficulty];
+  setTimeLeft(selectedTime);
+  setTotalTime(selectedTime);
+
+  setGame(createGame(levelNumber));
+};
+
 
   const goToNextLevel = () => {
     if (game.status !== "won" || currentLevel >= LEVELS.length) return;
@@ -235,6 +325,9 @@ export default function App() {
     setUnlockedLevel(highest);
     localStorage.setItem("appleWormUnlockedLevel", String(highest));
     localStorage.setItem("appleWormCurrentLevel", String(nextLevel));
+    const selectedTime = difficultyTimes[difficulty];
+setTimeLeft(selectedTime);
+setTotalTime(selectedTime);
     setGame(createGame(nextLevel));
   };
 
@@ -316,7 +409,48 @@ export default function App() {
         </section>
       )}
 
+<div className="difficulty-selector">
+  <p className="difficulty-title">CHOOSE YOUR DIFFICULTY</p>
+
+  <div className="difficulty-options">
+    {Object.entries(difficultyTimes).map(([name, seconds]) => (
+      <button
+        key={name}
+        type="button"
+        className={`difficulty-btn ${difficulty === name ? "active" : ""}`}
+        onClick={() => {
+          if (game.status === "playing") return;
+
+          setDifficulty(name);
+          setTimeLeft(seconds);
+          setTotalTime(seconds);
+        }}
+      >
+        <span>
+          {name === "Easy" ? "🌱" : name === "Medium" ? "⚡" : "🔥"}
+        </span>
+        <strong>{name}</strong>
+        <small>
+          {String(Math.floor(seconds / 60)).padStart(2, "0")}:
+          {String(seconds % 60).padStart(2, "0")}
+        </small>
+      </button>
+    ))}
+  </div>
+</div>
+
       <section className="arcade-hud" aria-label="Game status">
+
+  <div className={`hud-item ${timeLeft <= 15 ? "timer-warning" : ""}`}>
+    <span className="hud-icon">⏱️</span>
+    <div>
+      <small>TIME LEFT</small>
+      <strong>
+        {String(Math.floor(timeLeft / 60)).padStart(2, "0")}:
+        {String(timeLeft % 60).padStart(2, "0")}
+      </strong>
+    </div>
+  </div>
         <div className="hud-item"><span className="hud-icon">🍎</span><div><small>APPLES LEFT</small><strong>{game.apples.length}<em> / {level.apples.length}</em></strong></div></div>
         <div className="hud-item"><span className="hud-icon">⭐</span><div><small>YOUR SCORE</small><strong>{game.score}</strong></div></div>
         <div className="hud-item"><span className="hud-icon">👣</span><div><small>MOVES</small><strong>{game.moves}</strong></div></div>
@@ -373,6 +507,17 @@ export default function App() {
               <h2>{game.status === "won" ? (currentLevel === LEVELS.length ? "Master Worm!" : `Level ${currentLevel} cleared!`) : "Oops! Not this time"}</h2>
               <p>{game.status === "won" ? (currentLevel === LEVELS.length ? "You conquered all 50 levels. Amazing work!" : "Amazing! Ready for the next challenge?") : game.message}</p>
               <div className="result-stats"><span><strong>{game.score}</strong><small>Score</small></span><span><strong>{game.moves}</strong><small>Moves</small></span></div>
+              
+{game.status === "won" && (
+  <div className="result-stars">
+    {[1, 2, 3].map((star) => (
+      <span key={star} className="result-star">
+        {star <= (levelStars[currentLevel] || 1) ? "⭐" : "☆"}
+      </span>
+    ))}
+  </div>
+)}
+
               <div className="result-modal-actions">
                 {game.status === "won" && currentLevel < LEVELS.length ? <button className="primary-button" onClick={goToNextLevel}>Next Level <span>→</span></button> : null}
                 {game.status === "won" && currentLevel === LEVELS.length ? <button className="primary-button" onClick={() => openLevel(1)}>Play Again <span>↻</span></button> : null}
