@@ -409,55 +409,7 @@ setTotalTime(selectedTime);
         </section>
       )}
 
-<div className="difficulty-selector">
-  <p className="difficulty-title">CHOOSE YOUR DIFFICULTY</p>
-
-  <div className="difficulty-options">
-    {Object.entries(difficultyTimes).map(([name, seconds]) => (
-      <button
-        key={name}
-        type="button"
-        className={`difficulty-btn ${difficulty === name ? "active" : ""}`}
-        onClick={() => {
-          if (game.status === "playing") return;
-
-          setDifficulty(name);
-          setTimeLeft(seconds);
-          setTotalTime(seconds);
-        }}
-      >
-        <span>
-          {name === "Easy" ? "🌱" : name === "Medium" ? "⚡" : "🔥"}
-        </span>
-        <strong>{name}</strong>
-        <small>
-          {String(Math.floor(seconds / 60)).padStart(2, "0")}:
-          {String(seconds % 60).padStart(2, "0")}
-        </small>
-      </button>
-    ))}
-  </div>
-</div>
-
-      <section className="arcade-hud" aria-label="Game status">
-
-  <div className={`hud-item ${timeLeft <= 15 ? "timer-warning" : ""}`}>
-    <span className="hud-icon">⏱️</span>
-    <div>
-      <small>TIME LEFT</small>
-      <strong>
-        {String(Math.floor(timeLeft / 60)).padStart(2, "0")}:
-        {String(timeLeft % 60).padStart(2, "0")}
-      </strong>
-    </div>
-  </div>
-        <div className="hud-item"><span className="hud-icon">🍎</span><div><small>APPLES LEFT</small><strong>{game.apples.length}<em> / {level.apples.length}</em></strong></div></div>
-        <div className="hud-item"><span className="hud-icon">⭐</span><div><small>YOUR SCORE</small><strong>{game.score}</strong></div></div>
-        <div className="hud-item"><span className="hud-icon">👣</span><div><small>MOVES</small><strong>{game.moves}</strong></div></div>
-        <div className={`hud-status ${game.status}`}><span className="status-dot" />{game.status === "won" ? "LEVEL CLEARED" : game.status === "failed" ? "TRY AGAIN" : game.apples.length === 0 ? "PORTAL OPEN" : "ADVENTURE ON"}</div>
-      </section>
-
-      <section className="game-layout">
+<section className="game-layout">
         <div className="board-panel">
           <div className="board-heading">
             <div><span className="board-kicker">CURRENT MISSION</span><strong>{level.name}</strong></div>
@@ -548,6 +500,53 @@ setTotalTime(selectedTime);
         </div>
 
         <aside className="sidebar">
+          <div className="difficulty-selector">
+            <p className="difficulty-title">CHOOSE YOUR DIFFICULTY</p>
+          
+            <div className="difficulty-options">
+              {Object.entries(difficultyTimes).map(([name, seconds]) => (
+                <button
+                  key={name}
+                  type="button"
+                  className={`difficulty-btn ${difficulty === name ? "active" : ""}`}
+                  onClick={() => {
+                    setDifficulty(name);
+                    setTimeLeft(seconds);
+                    setTotalTime(seconds);
+                    setGame(createGame(currentLevel));
+                  }}
+                >
+                  <span>
+                    {name === "Easy" ? "🌱" : name === "Medium" ? "⚡" : "🔥"}
+                  </span>
+                  <strong>{name}</strong>
+                  <small>
+                    {String(Math.floor(seconds / 60)).padStart(2, "0")}:
+                    {String(seconds % 60).padStart(2, "0")}
+                  </small>
+                </button>
+              ))}
+            </div>
+          </div>
+          
+                <section className="arcade-hud" aria-label="Game status">
+          
+            <div className={`hud-item ${timeLeft <= 15 ? "timer-warning" : ""}`}>
+              <span className="hud-icon">⏱️</span>
+              <div>
+                <small>TIME LEFT</small>
+                <strong>
+                  {String(Math.floor(timeLeft / 60)).padStart(2, "0")}:
+                  {String(timeLeft % 60).padStart(2, "0")}
+                </strong>
+              </div>
+            </div>
+                  <div className="hud-item"><span className="hud-icon">🍎</span><div><small>APPLES LEFT</small><strong>{game.apples.length}<em> / {level.apples.length}</em></strong></div></div>
+                  <div className="hud-item"><span className="hud-icon">⭐</span><div><small>YOUR SCORE</small><strong>{game.score}</strong></div></div>
+                  <div className="hud-item"><span className="hud-icon">👣</span><div><small>MOVES</small><strong>{game.moves}</strong></div></div>
+                  <div className={`hud-status ${game.status}`}><span className="status-dot" />{game.status === "won" ? "LEVEL CLEARED" : game.status === "failed" ? "TRY AGAIN" : game.apples.length === 0 ? "PORTAL OPEN" : "ADVENTURE ON"}</div>
+                </section>
+
           <div className="mission-card">
             <div className="mission-card-top"><span className="mission-icon">🎯</span><span className="mission-label">YOUR OBJECTIVE</span></div>
             <h2>Ready, worm?</h2>
@@ -571,3 +570,4 @@ setTotalTime(selectedTime);
     </main>
   );
 }
+

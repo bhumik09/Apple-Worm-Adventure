@@ -474,3 +474,472 @@ p {
   }
 }
 
+/* ===== Right-side game information panel ===== */
+
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  align-items: start;
+  gap: 20px;
+}
+
+.game-layout > .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.sidebar .difficulty-selector {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.85);
+  text-align: left;
+}
+
+.sidebar .difficulty-title {
+  margin: 0 0 12px;
+  color: #c4b5fd;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.sidebar .difficulty-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.sidebar .difficulty-btn {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #1e293b;
+  color: #f8fafc;
+  text-align: left;
+}
+
+.sidebar .difficulty-btn.active {
+  border-color: #facc15;
+  background: #292524;
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.12);
+}
+
+.sidebar .arcade-hud {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar .hud-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 9px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.85);
+}
+
+.sidebar .hud-icon {
+  font-size: 20px;
+}
+
+.sidebar .hud-item small {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+
+.sidebar .hud-item strong {
+  font-size: 17px;
+}
+
+.sidebar .hud-status {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .game-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .game-layout > .sidebar {
+    width: 100%;
+  }
+
+  .sidebar .difficulty-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sidebar .difficulty-btn {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 4px;
+  }
+}
+
+/* ===== Make Time, Apple, Score and Moves easy to read ===== */
+
+.sidebar .hud-item {
+  background: #ffffff !important;
+  border: 2px solid #cbd5e1 !important;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.sidebar .hud-item small {
+  color: #475569 !important;
+  font-weight: 800;
+}
+
+.sidebar .hud-item strong {
+  color: #0f172a !important;
+  font-weight: 900;
+}
+
+.sidebar .hud-icon {
+  color: #0f172a !important;
+}
+
+/* ===== Premium Arcade Board Polish ===== */
+
+/* Game board ko rounded arcade panel look */
+.game-board {
+  border: 3px solid #64748b;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 5px rgba(148, 163, 184, 0.12),
+    0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Board cells ko neat aur clean banana */
+.game-cell {
+  transition: background-color 0.15s ease;
+}
+
+/* Worm ko standout look */
+.worm-segment {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 7px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+/* Apple ko highlight karna */
+.apple {
+  filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.65));
+}
+
+/* Board mobile screen par fit rahe */
+@media (max-width: 600px) {
+  .game-board {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+}
+
+/* ===== Professional Win / Game Over Popup ===== */
+
+.game-result-modal {
+  background: linear-gradient(145deg, #ffffff, #eaf2ff) !important;
+  color: #0f172a !important;
+  border: 2px solid #facc15 !important;
+  border-radius: 24px !important;
+  box-shadow:
+    0 0 0 6px rgba(250, 204, 21, 0.12),
+    0 24px 60px rgba(0, 0, 0, 0.4) !important;
+  padding: 28px !important;
+  text-align: center;
+}
+
+.game-result-modal h2,
+.game-result-modal h3,
+.game-result-modal p {
+  color: #0f172a !important;
+}
+
+.game-result-modal button {
+  border-radius: 12px;
+  font-weight: 800;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-result-modal button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+}
+
+.result-hero-icon {
+  font-size: 56px;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.15));
+  margin-bottom: 12px;
+}
+
+/* ===== Consistent Arcade Button Design ===== */
+
+.game-result-modal button,
+.sidebar button {
+  font-weight: 800;
+  border-radius: 12px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.game-result-modal button:hover,
+.sidebar button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.game-result-modal button:active,
+.sidebar button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.game-result-modal button:focus-visible,
+.sidebar button:focus-visible {
+  outline: 3px solid #facc15;
+  outline-offset: 3px;
+}
+
+/* Mobile par buttons easily clickable hon */
+@media (max-width: 600px) {
+  .game-result-modal button,
+  .sidebar button {
+    min-height: 42px;
+  }
+}
+
+/* ===== Mobile Friendly Game Controls ===== */
+
+@media (max-width: 600px) {
+  /* Game layout mobile par fit rahe */
+  .game-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  /* Sidebar ke buttons touch karne mein easy hon */
+  .sidebar button {
+    min-height: 46px;
+    padding: 10px 12px;
+    font-size: 14px;
+    touch-action: manipulation;
+  }
+
+  /* Game board screen se bahar na nikle */
+  .game-board {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  /* Mobile par result popup fit rahe */
+  .game-result-modal {
+    width: calc(100% - 24px);
+    max-width: 420px;
+    box-sizing: border-box;
+    padding: 20px !important;
+  }
+}
+
+/* ===== Professional Arcade Movement Controls ===== */
+
+.board-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 12px;
+  background: #0f172a;
+  border: 2px solid #475569;
+  border-radius: 18px;
+  box-shadow: 0 6px 0 #020617;
+}
+
+.controls .horizontal-controls {
+  display: flex;
+  gap: 7px;
+}
+
+.controls button {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #334155, #1e293b);
+  color: #ffffff;
+  border: 2px solid #64748b;
+  border-radius: 12px;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #020617;
+  transition: transform 0.12s ease, background 0.12s ease;
+  touch-action: manipulation;
+}
+
+.controls button:hover {
+  background: #4f46e5;
+  border-color: #a5b4fc;
+}
+
+.controls button:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.controls button:focus-visible {
+  outline: 3px solid #facc15;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .board-bottom-row {
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .controls {
+    padding: 10px;
+  }
+
+  .controls button {
+    width: 54px;
+    height: 54px;
+    font-size: 26px;
+  }
+
+  .keyboard-tip {
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+}
+
+/* ===== Premium Progress and Quick Tip Cards ===== */
+
+.progress-card,
+.tip-card {
+  padding: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  color: #f8fafc;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.progress-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.progress-heading strong {
+  color: #facc15;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.progress-track {
+  height: 10px;
+  margin: 16px 0 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #334155;
+}
+
+.progress-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22c55e, #a3e635);
+  transition: width 0.35s ease;
+}
+
+.progress-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.tip-card > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #facc15;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.tip-card p {
+  margin: 0;
+  color: #f1f5f9;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+footer span:first-child {
+  color: #facc15;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+  .progress-card,
+  .tip-card {
+    padding: 15px;
+  }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
