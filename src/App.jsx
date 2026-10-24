@@ -159,6 +159,80 @@ const [levelStars, setLevelStars] = useState(() => {
   return () => clearInterval(timer);
 }, [game.status, currentLevel]);
   const audioContextRef = useRef(null);
+  const musicRef = useRef({
+  timer: null,
+  noteIndex: 0,
+});
+
+useEffect(() => {
+  if (!soundEnabled || game.status !== "playing") {
+    if (musicRef.current.timer) {
+      clearInterval(musicRef.current.timer);
+      musicRef.current.timer = null;
+    }
+    return;
+  }
+
+  const notes = [
+    523.25, 659.25, 783.99, 659.25,
+    587.33, 698.46, 880.00, 698.46,
+    523.25, 659.25, 783.99, 1046.50,
+    880.00, 783.99, 659.25, 587.33,
+  ];
+
+  let context;
+
+  const playMusicNote = () => {
+    try {
+      const Audio = window.AudioContext || window.webkitAudioContext;
+      if (!Audio) return;
+
+      if (!audioContextRef.current) {
+        audioContextRef.current = new Audio();
+      }
+
+      context = audioContextRef.current;
+
+      if (context.state === "suspended") {
+        context.resume();
+      }
+
+      const frequency =
+        notes[musicRef.current.noteIndex % notes.length];
+
+      musicRef.current.noteIndex += 1;
+
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      const now = context.currentTime;
+
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, now);
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.linearRampToValueAtTime(0.025, now + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+
+      oscillator.start(now);
+      oscillator.stop(now + 0.3);
+    } catch {
+      // Music is optional; gameplay should continue normally.
+    }
+  };
+
+  playMusicNote();
+  musicRef.current.timer = setInterval(playMusicNote, 350);
+
+  return () => {
+    if (musicRef.current.timer) {
+      clearInterval(musicRef.current.timer);
+      musicRef.current.timer = null;
+    }
+  };
+}, [soundEnabled, game.status]);
   const playTone = useCallback((frequency, duration = 0.12, type = "sine") => {
     if (!soundEnabled) return;
     try {
@@ -396,12 +470,36 @@ setTotalTime(selectedTime);
               const levelNumber = index + 1;
               const isLocked = levelNumber > unlockedLevel;
               return (
-                <button key={item.name} type="button"
-                  className={`level-select-button ${currentLevel === levelNumber ? "active" : ""}`}
-                  disabled={isLocked} onClick={() => { openLevel(levelNumber); setShowLevels(false); }}
-                  title={isLocked ? `Complete Level ${levelNumber - 1} to unlock` : item.name}>
-                  {isLocked ? "🔒" : levelNumber}
-                </button>
+                
+<button
+  key={item.name}
+  type="button"
+  className={`level-select-button ${currentLevel === levelNumber ? "active" : ""}`}
+  disabled={isLocked}
+  onClick={() => {
+    openLevel(levelNumber);
+    setShowLevels(false);
+  }}
+  title={isLocked ? `Complete Level ${levelNumber - 1} to unlock` : item.name}
+>
+  {isLocked ? (
+    <span>🔒</span>
+  ) : (
+    <>
+      <span>
+        {levelStars[levelNumber] ? "✅ " : ""}
+        {levelNumber}
+      </span>
+      <small className="level-name">{item.name}</small>
+      {levelStars[levelNumber] > 0 && (
+        <small className="level-stars">
+          {"⭐".repeat(levelStars[levelNumber])}
+        </small>
+      )}
+    </>
+  )}
+</button>
+
               );
             })}
           </div>
@@ -556,12 +654,63 @@ setTotalTime(selectedTime);
               <li><span>3</span><div><strong>Avoid the rocks</strong><small>Plan each move carefully</small></div></li>
             </ul>
           </div>
-
+{/* 
           <div className="progress-card">
             <div className="progress-heading"><span>ADVENTURE PROGRESS</span><strong>{Math.round((unlockedLevel / LEVEL_COUNT) * 100)}%</strong></div>
             <div className="progress-track"><span style={{ width: `${(unlockedLevel / LEVEL_COUNT) * 100}%` }} /></div>
             <div className="progress-foot"><span>Level {unlockedLevel} unlocked</span><span>{LEVEL_COUNT} levels</span></div>
-          </div>
+          </div> */}
+
+<div className="progress-card">
+  <div className="progress-heading">
+    <span>🏆 ADVENTURE PROGRESS</span>
+    <strong>
+      {Math.round((unlockedLevel / LEVEL_COUNT) * 100)}%
+    </strong>
+  </div>
+
+  <div className="progress-track">
+    <span
+      style={{
+        width: `${(unlockedLevel / LEVEL_COUNT) * 100}%`,
+      }}
+    />
+  </div>
+
+  <div className="progress-foot">
+    <span>Level {unlockedLevel} unlocked</span>
+    <span>{LEVEL_COUNT} levels</span>
+  </div>
+
+  <div className="trophy-stats">
+    <div className="trophy-stat">
+      <span>🎯</span>
+      <strong>{Math.max(0, unlockedLevel - 1)}</strong>
+      <small>Levels Completed</small>
+    </div>
+
+    <div className="trophy-stat">
+      <span>⭐</span>
+      <strong>
+        {Object.values(levelStars).reduce(
+          (total, stars) => total + stars,
+          0
+        )}
+      </strong>
+      <small>Total Stars</small>
+    </div>
+
+    <div className="trophy-stat">
+      <span>🏆</span>
+      <strong>
+        {Object.values(levelStars).filter(
+          (stars) => stars > 0
+        ).length}
+      </strong>
+      <small>Levels Starred</small>
+    </div>
+  </div>
+</div>
 
           <div className="tip-card"><span>💡 QUICK TIP</span><p>{game.apples.length > 0 ? "Think a few steps ahead. The worm grows every time it eats an apple!" : "The portal is open! Find a clear route and finish the level."}</p></div>
         </aside>
