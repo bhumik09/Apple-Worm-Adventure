@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
-import "./ui-polish.css";
 
 import { GAME_NAME } from "./config/gameConfig";
 
@@ -112,8 +111,7 @@ export default function App() {
     return Math.min(Math.max(saved, 1), LEVELS.length);
   });
   const [game, setGame] = useState(() => createGame(currentLevel));
-  const [gameStarted, setGameStarted] = useState(false);
-  const [showDifficulty, setShowDifficulty] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(90);
 const [totalTime, setTotalTime] = useState(90);
 const [difficulty, setDifficulty] = useState("Medium");
@@ -135,7 +133,7 @@ const [levelStars, setLevelStars] = useState(() => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [showLevels, setShowLevels] = useState(false);
   useEffect(() => {
-  if (!gameStarted || game.status !== "playing") return;
+  if (!hasStarted || game.status !== "playing") return;
 
   const timer = setInterval(() => {
     setTimeLeft((previous) => {
@@ -160,7 +158,7 @@ const [levelStars, setLevelStars] = useState(() => {
   }, 1000);
 
   return () => clearInterval(timer);
-}, [gameStarted, game.status, currentLevel]);
+}, [hasStarted, game.status, currentLevel]);
   const audioContextRef = useRef(null);
   const musicRef = useRef({
   timer: null,
@@ -168,7 +166,7 @@ const [levelStars, setLevelStars] = useState(() => {
 });
 
 useEffect(() => {
-  if (!gameStarted || !soundEnabled || game.status !== "playing") {
+  if (!hasStarted || !soundEnabled || game.status !== "playing") {
     if (musicRef.current.timer) {
       clearInterval(musicRef.current.timer);
       musicRef.current.timer = null;
@@ -235,7 +233,7 @@ useEffect(() => {
       musicRef.current.timer = null;
     }
   };
-}, [gameStarted, soundEnabled, game.status]);
+}, [hasStarted, soundEnabled, game.status]);
   const playTone = useCallback((frequency, duration = 0.12, type = "sine") => {
     if (!soundEnabled) return;
     try {
@@ -291,9 +289,8 @@ useEffect(() => {
 
 
   const moveWorm = useCallback((dx, dy) => {
-    if (!gameStarted) return;
     // Trigger audio directly from the key/button interaction to avoid render/effect delay.
-    if (game.status === "playing") {
+    if (hasStarted && game.status === "playing") {
       const head = game.worm[0];
       const next = { x: head.x + dx, y: head.y + dy };
       const eating = game.apples.some((apple) => sameCell(apple, next));
@@ -306,7 +303,7 @@ useEffect(() => {
       }
     }
     setGame((current) => {
-      if (current.status !== "playing") return current;
+      if (!hasStarted || current.status !== "playing") return current;
 
       const head = current.worm[0];
       const next = { x: head.x + dx, y: head.y + dy };
@@ -350,7 +347,7 @@ useEffect(() => {
             : "Keep going — collect every apple!",
       };
     });
-  }, [gameStarted, currentLevel, game, level, playTone]);
+  }, [currentLevel, game, hasStarted, level, playTone]);
 
   useEffect(() => {
     function handleKeyDown(event) {
@@ -384,9 +381,6 @@ const restart = () => {
 const openLevel = (levelNumber) => {
   if (levelNumber < 1 || levelNumber > unlockedLevel) return;
 
-  setGameStarted(true);
-  setShowDifficulty(false);
-  setShowLevels(false);
   setCurrentLevel(levelNumber);
   localStorage.setItem("appleWormCurrentLevel", String(levelNumber));
 
@@ -444,98 +438,6 @@ setTotalTime(selectedTime);
     return "";
   }
 
-
-  if (!gameStarted) {
-    return (
-      <main className="start-screen">
-        <div className="start-card">
-          <div className="start-worm-icon">🐛</div>
-          <p className="start-eyebrow">A LITTLE PUZZLE ADVENTURE</p>
-          <h1>🍎 {GAME_NAME}</h1>
-          <p className="start-description">
-            Plan your path. Collect apples. Reach the portal.
-          </p>
-
-          {!showDifficulty && !showLevels && (
-            <button
-              type="button"
-              className="start-button"
-              onClick={() => setShowDifficulty(true)}
-            >
-              Start Game <span aria-hidden="true">→</span>
-            </button>
-          )}
-
-          {showDifficulty && (
-            <section className="start-choice-panel" aria-label="Choose difficulty">
-              <h2>Choose Difficulty</h2>
-              <p>How challenging should your adventure be?</p>
-              <div className="start-difficulty-options">
-                {Object.entries(difficultyTimes).map(([name, seconds]) => (
-                  <button
-                    key={name}
-                    type="button"
-                    className={`start-difficulty-btn ${difficulty === name ? "active" : ""}`}
-                    onClick={() => {
-                      setDifficulty(name);
-                      setTimeLeft(seconds);
-                      setTotalTime(seconds);
-                      setGame(createGame(currentLevel));
-                      setShowDifficulty(false);
-                      setShowLevels(true);
-                    }}
-                  >
-                    <span>{name === "Easy" ? "🌱" : name === "Medium" ? "⚡" : "🔥"}</span>
-                    <strong>{name}</strong>
-                    <small>{seconds} seconds</small>
-                  </button>
-                ))}
-              </div>
-              <button type="button" className="start-back-button" onClick={() => setShowDifficulty(false)}>
-                ← Back
-              </button>
-            </section>
-          )}
-
-          {showLevels && (
-            <section className="start-level-picker" aria-label="Choose level">
-              <div className="start-level-heading">
-                <h2>Choose Your Level</h2>
-                <p>{unlockedLevel} of {LEVEL_COUNT} levels unlocked</p>
-              </div>
-              <div className="start-level-grid">
-                {LEVELS.map((item, index) => {
-                  const levelNumber = index + 1;
-                  const isLocked = levelNumber > unlockedLevel;
-                  return (
-                    <button
-                      key={item.name}
-                      type="button"
-                      className={`start-level-button ${currentLevel === levelNumber ? "active" : ""}`}
-                      disabled={isLocked}
-                      title={isLocked ? `Complete Level ${levelNumber - 1} to unlock` : item.name}
-                      onClick={() => openLevel(levelNumber)}
-                    >
-                      <span>{isLocked ? "🔒" : levelNumber}</span>
-                      {!isLocked && <small>{item.name}</small>}
-                      {!isLocked && levelStars[levelNumber] > 0 && (
-                        <small className="start-level-stars">{"⭐".repeat(levelStars[levelNumber])}</small>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-              <p className="start-level-help">Complete a level to unlock the next one.</p>
-              <button type="button" className="start-back-button" onClick={() => { setShowLevels(false); setShowDifficulty(true); }}>
-                ← Back to difficulty
-              </button>
-            </section>
-          )}
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main className="app">
       <header className="topbar">
@@ -548,18 +450,9 @@ setTotalTime(selectedTime);
           </div>
         </div>
         <div className="header-actions">
-          <div className="level-badge" aria-label={`Level ${currentLevel} of ${LEVEL_COUNT}`}>
-            <div className="level-badge-top">
-              <span className="level-badge-icon" aria-hidden="true">🏆</span>
-              <span className="level-label">ADVENTURE PROGRESS</span>
-            </div>
-            <div className="level-progress-line">
-              <strong>Level {String(currentLevel).padStart(2, "0")}</strong>
-              <span>{currentLevel} <i>/</i> {LEVEL_COUNT}</span>
-            </div>
-            <div className="level-progress-track" aria-label={`${Math.round((currentLevel / LEVEL_COUNT) * 100)} percent through levels`}>
-              <span style={{ width: `${(currentLevel / LEVEL_COUNT) * 100}%` }} />
-            </div>
+          <div className="level-badge">
+            <span className="level-label">PLAYING LEVEL</span>
+            <span className="level-number">{String(currentLevel).padStart(2, "0")}<small> / {LEVEL_COUNT}</small></span>
           </div>
           <button className="choose-level-trigger" onClick={() => setShowLevels((show) => !show)} aria-expanded={showLevels}>
             ▦ {showLevels ? "Hide levels" : "Choose level"}
@@ -615,13 +508,40 @@ setTotalTime(selectedTime);
         </section>
       )}
 
-<section className="game-layout">
+      {!hasStarted && (
+        <section className="start-screen">
+          <div className="start-art" aria-hidden="true"><span className="start-glow">🌀</span><span className="start-worm">🐛</span><span className="start-apple">🍎</span></div>
+          <p className="start-eyebrow">YOUR NEXT LITTLE ADVENTURE</p>
+          <h2>Ready to crawl?</h2>
+          <p className="start-description">Collect every apple, avoid the rocks, and find the portal to clear each level.</p>
+          <div className="start-difficulty">
+            <p>CHOOSE YOUR DIFFICULTY</p>
+            <div className="difficulty-options">
+              {Object.entries(difficultyTimes).map(([name, seconds]) => (
+                <button key={name} type="button" className={`difficulty-btn ${difficulty === name ? "active" : ""}`} onClick={() => {
+                  setDifficulty(name); setTimeLeft(seconds); setTotalTime(seconds); setGame(createGame(currentLevel));
+                }}>
+                  <span>{name === "Easy" ? "🌱" : name === "Medium" ? "⚡" : "🔥"}</span>
+                  <strong>{name}</strong>
+                  <small>{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, "0")} min</small>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="start-details"><span>🗺️ Level <strong>{currentLevel}</strong> · {level.name}</span><span>🏆 {unlockedLevel}/{LEVEL_COUNT} levels unlocked</span></div>
+          <button className="start-game-button" onClick={() => { setTimeLeft(difficultyTimes[difficulty]); setTotalTime(difficultyTimes[difficulty]); setGame(createGame(currentLevel)); setHasStarted(true); }}><span>▶</span> Start Game</button>
+          <p className="start-controls-note">Use arrow buttons or keyboard arrows / WASD to move</p>
+        </section>
+      )}
+
+{hasStarted && <section className="game-layout">
         <div className="board-panel">
           <div className="board-heading">
             <div><span className="board-kicker">CURRENT MISSION</span><strong>{level.name}</strong></div>
             <span className="board-level-chip">LEVEL {String(currentLevel).padStart(2, "0")}</span>
           </div>
           <div className="board-stage">
+          <div className="board-controls-layout">
           <div className={`board ${game.status === "won" ? "board-won" : ""}`} role="grid" aria-label="Game board">
             {Array.from({ length: SIZE * SIZE }, (_, index) => {
               const x = index % SIZE;
@@ -634,6 +554,15 @@ setTotalTime(selectedTime);
                 </div>
               );
             })}
+          </div>
+          <div className="controls" aria-label="Movement controls">
+            <button onClick={() => moveWorm(0, -1)} aria-label="Move up">↑</button>
+            <div className="horizontal-controls">
+              <button onClick={() => moveWorm(-1, 0)} aria-label="Move left">←</button>
+              <button onClick={() => moveWorm(0, 1)} aria-label="Move down">↓</button>
+              <button onClick={() => moveWorm(1, 0)} aria-label="Move right">→</button>
+            </div>
+          </div>
           </div>
           {game.status !== "playing" && <div className={`game-result-overlay ${game.status}`} role="dialog" aria-live="assertive" aria-label={game.status === "won" ? "Level won" : "Game over"}>
             {game.status === "won" && (
@@ -688,14 +617,6 @@ setTotalTime(selectedTime);
 
           <div className="board-bottom-row">
             <div className="keyboard-tip"><span className="keycap">↑</span><span className="keycap">←</span><span className="keycap">↓</span><span className="keycap">→</span><span>or WASD to move</span></div>
-            <div className="controls" aria-label="Movement controls">
-              <button onClick={() => moveWorm(0, -1)} aria-label="Move up">↑</button>
-              <div className="horizontal-controls">
-                <button onClick={() => moveWorm(-1, 0)} aria-label="Move left">←</button>
-                <button onClick={() => moveWorm(0, 1)} aria-label="Move down">↓</button>
-                <button onClick={() => moveWorm(1, 0)} aria-label="Move right">→</button>
-              </div>
-            </div>
           </div>
 
           <div className="action-dock">
@@ -822,7 +743,7 @@ setTotalTime(selectedTime);
 
           <div className="tip-card"><span>💡 QUICK TIP</span><p>{game.apples.length > 0 ? "Think a few steps ahead. The worm grows every time it eats an apple!" : "The portal is open! Find a clear route and finish the level."}</p></div>
         </aside>
-      </section>
+      </section>}
       <footer><span>🐛 APPLE WORM ADVENTURE</span><span>50 levels · Progress saved on this device</span></footer>
     </main>
   );

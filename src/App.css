@@ -1164,3 +1164,164 @@ footer span:first-child {
 .start-level-button.active,.start-level-button:not(:disabled):hover{border-color:#2e8548;background:#eff8e7;transform:translateY(-1px)}.start-level-button:disabled{background:#f0f2ed;color:#b2b9ad;cursor:not-allowed;opacity:.72}
 .start-level-help{margin:12px 0 0;color:#718575;font-size:12px;text-align:center}
 @media(max-width:560px){.start-screen{padding:14px}.start-card{padding:24px 15px;border-radius:22px}.start-worm-icon{width:68px;height:68px;font-size:38px}.start-difficulty-options{grid-template-columns:1fr}.start-difficulty-btn{min-height:75px;display:grid;grid-template-columns:35px 1fr auto;text-align:left;padding:12px 15px}.start-difficulty-btn>span{grid-row:1;grid-column:1}.start-difficulty-btn strong{grid-row:1;grid-column:2}.start-difficulty-btn small{grid-row:1;grid-column:3}.start-choice-panel,.start-level-picker{padding:15px}.start-level-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.start-level-button{min-height:58px}}
+/* Add this block at the END of src/App.css to style the restored start screen. */
+.start-screen{position:relative;isolation:isolate;overflow:hidden;max-width:900px;margin:22px auto 28px;padding:clamp(24px,5vw,48px);text-align:center;border:1px solid rgba(180,235,158,.32);border-radius:28px;background:radial-gradient(circle at 50% 0%,rgba(104,191,91,.24),transparent 38%),linear-gradient(145deg,#173c2b 0%,#10291f 55%,#172f24 100%);box-shadow:0 24px 70px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.08);color:#f5ffe9}
+.start-art{position:relative;display:flex;align-items:center;justify-content:center;gap:20px;height:100px;margin:0 auto 8px}.start-glow{display:grid;place-items:center;width:76px;height:76px;border-radius:24px;background:rgba(142,255,155,.12);border:1px solid rgba(142,255,155,.28);font-size:45px;filter:drop-shadow(0 0 15px rgba(87,255,138,.35));animation:start-float 3s ease-in-out infinite}.start-worm{font-size:56px;filter:drop-shadow(0 8px 8px rgba(0,0,0,.25));animation:start-float 2.6s ease-in-out infinite reverse}.start-apple{font-size:39px;filter:drop-shadow(0 0 12px rgba(255,85,85,.25));animation:start-float 2.2s ease-in-out infinite}.start-eyebrow{margin:8px 0;color:#b5e99b;font-size:11px;font-weight:900;letter-spacing:2.4px}.start-screen h2{margin:6px 0 10px;font-size:clamp(30px,5vw,48px);line-height:1.1;letter-spacing:-1.5px;color:#fff}.start-description{max-width:510px;margin:0 auto 25px;color:#c5d9c7;font-size:15px;line-height:1.7}.start-difficulty{max-width:590px;margin:0 auto 20px;padding:17px;border:1px solid rgba(211,245,202,.14);border-radius:18px;background:rgba(0,0,0,.15)}.start-difficulty>p{margin:0 0 12px;color:#b5e99b;font-size:10px;font-weight:900;letter-spacing:1.8px}.start-difficulty .difficulty-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.start-difficulty .difficulty-btn{min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(208,235,200,.18);border-radius:13px;background:rgba(255,255,255,.045);color:#eaf6e8;cursor:pointer;transition:transform .18s,border-color .18s,background .18s}.start-difficulty .difficulty-btn:hover{transform:translateY(-2px);border-color:#9ce779}.start-difficulty .difficulty-btn.active{border-color:#a7f17f;background:rgba(142,231,98,.16);box-shadow:0 0 0 2px rgba(167,241,127,.08),0 0 24px rgba(142,231,98,.08)}.start-difficulty .difficulty-btn>span{font-size:22px}.start-difficulty .difficulty-btn strong{font-size:14px}.start-difficulty .difficulty-btn small{font-size:11px;color:#b9cdb8}.start-details{display:flex;justify-content:center;gap:12px 22px;flex-wrap:wrap;margin:0 auto 22px;color:#c8ddc7;font-size:12px}.start-details strong{color:#fff}.start-game-button{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-width:210px;min-height:54px;padding:0 27px;border:0;border-radius:15px;background:linear-gradient(135deg,#b9f779,#78d64e);color:#16351f;font-size:16px;font-weight:900;box-shadow:0 10px 26px rgba(107,209,71,.24);cursor:pointer;transition:transform .18s,filter .18s}.start-game-button:hover{transform:translateY(-3px);filter:brightness(1.06)}.start-game-button span{font-size:17px}.start-controls-note{margin:15px 0 0;color:#9fbaa0;font-size:11px}@keyframes start-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(max-width:600px){.start-screen{margin:14px 0 20px;padding:23px 15px;border-radius:20px}.start-art{height:78px;gap:12px}.start-glow{width:62px;height:62px;font-size:35px;border-radius:19px}.start-worm{font-size:45px}.start-apple{font-size:31px}.start-description{font-size:13px}.start-difficulty{padding:12px 8px}.start-difficulty .difficulty-options{gap:6px}.start-difficulty .difficulty-btn{min-height:78px}.start-difficulty .difficulty-btn strong{font-size:12px}.start-difficulty .difficulty-btn small{font-size:10px}.start-details{font-size:11px;gap:8px 12px}}
+
+/* ===== Gameplay UI: Final Polish ===== */
+
+/* Keep the gameplay theme consistent */
+.game-layout {
+  grid-template-columns: minmax(0, 1.55fr) minmax(235px, 0.72fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.board-panel {
+  background: linear-gradient(145deg, #ffffff, #f7fff1);
+  border: 1px solid #dce9d3;
+  border-radius: 22px;
+  box-shadow: 0 12px 30px rgba(28, 76, 44, 0.09);
+}
+
+.board {
+  background: #d5eac8;
+  border-color: #b9d9a8;
+  box-shadow: inset 0 2px 8px rgba(44, 78, 37, 0.08);
+}
+
+.cell {
+  background: linear-gradient(145deg, #f8fff3, #e7f3dc);
+  border-color: rgba(112, 157, 94, 0.2);
+}
+
+.worm-cell {
+  background: linear-gradient(145deg, #72df68, #238448);
+  border-color: #238448;
+}
+
+/* Stats cards match the green game theme */
+.sidebar .hud-item,
+.sidebar .progress-card,
+.sidebar .tip-card {
+  background: #ffffff !important;
+  border: 1px solid #dce9d3 !important;
+  border-radius: 15px;
+  box-shadow: 0 5px 16px rgba(28, 76, 44, 0.06);
+}
+
+.sidebar .hud-item small {
+  color: #718575 !important;
+}
+
+.sidebar .hud-item strong {
+  color: #205d34 !important;
+}
+
+.sidebar .progress-heading span {
+  color: #718575;
+}
+
+.sidebar .progress-heading strong {
+  color: #328046;
+  font-size: 15px;
+}
+
+.sidebar .progress-foot {
+  color: #718575;
+}
+
+.sidebar .progress-track {
+  background: #edf3e8;
+}
+
+.sidebar .tip-card > span {
+  color: #4b8a44;
+}
+
+.sidebar .tip-card p {
+  color: #647965;
+}
+
+/* Clear, easy-to-use movement controls */
+.controls {
+  background: #eff8e7;
+  border: 1px solid #cfe3c2;
+  border-radius: 16px;
+  box-shadow: 0 4px 0 #c8dfbb;
+}
+
+.controls button {
+  background: linear-gradient(145deg, #ffffff, #dcefd0);
+  color: #28663b;
+  border-color: #bcd9ad;
+  box-shadow: 0 3px 0 #c2dcb5;
+}
+
+.controls button:hover {
+  background: #cce9bc;
+  border-color: #80bd6d;
+}
+
+/* Buttons */
+.dock-button {
+  border-radius: 12px;
+  font-weight: 900;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #38864a, #246337);
+}
+
+.choose-level-trigger {
+  background: linear-gradient(135deg, #38864a, #246337);
+  color: #ffffff;
+}
+
+/* Result popup stays readable */
+.game-result-modal {
+  max-width: 330px;
+  box-sizing: border-box;
+  padding: 20px !important;
+  border-radius: 20px !important;
+}
+
+/* Tablet and mobile layout */
+@media (max-width: 760px) {
+  .game-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .board-panel {
+    padding: 12px;
+  }
+
+  .board-stage .board {
+    width: min(100%, min(48vh, 460px));
+  }
+
+  .board-bottom-row {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 680px) {
+  .board-stage .board {
+    width: min(100%, min(43vh, 460px));
+  }
+
+  .controls {
+    padding: 8px;
+  }
+
+  .controls button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .game-result-modal {
+    padding: 14px !important;
+  }
+}
