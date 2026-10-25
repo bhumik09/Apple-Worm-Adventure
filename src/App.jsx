@@ -132,6 +132,15 @@ const [levelStars, setLevelStars] = useState(() => {
   const level = getLevel(currentLevel);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [showLevels, setShowLevels] = useState(false);
+  
+const [wormSkin, setWormSkin] = useState(
+  () => localStorage.getItem("appleWormSkin") || "green"
+);
+
+useEffect(() => {
+  localStorage.setItem("appleWormSkin", wormSkin);
+}, [wormSkin]);
+
   useEffect(() => {
   if (!hasStarted || game.status !== "playing") return;
 
@@ -548,7 +557,10 @@ setTotalTime(selectedTime);
               const y = Math.floor(index / SIZE);
               return (
                 <div key={`${x}-${y}`}
-                  className={`cell ${game.worm.some((part) => sameCell(part, { x, y })) ? "worm-cell" : ""} ${sameCell(game.worm[0], { x, y }) ? "worm-head" : ""}`}
+                  // className={`cell ${game.worm.some((part) => sameCell(part, { x, y })) ? "worm-cell" : ""} ${sameCell(game.worm[0], { x, y }) ? "worm-head" : ""}`}
+                  
+className={`cell ${game.worm.some((part) => sameCell(part, { x, y })) ? `worm-cell worm-${wormSkin}` : ""} ${sameCell(game.worm[0], { x, y }) ? "worm-head" : ""}`}
+
                   role="gridcell" aria-label={`Row ${y + 1}, column ${x + 1}`}>
                   {getCellContent(x, y)}
                 </div>
@@ -619,12 +631,54 @@ setTotalTime(selectedTime);
             <div className="keyboard-tip"><span className="keycap">↑</span><span className="keycap">←</span><span className="keycap">↓</span><span className="keycap">→</span><span>or WASD to move</span></div>
           </div>
 
-          <div className="action-dock">
-            <button className="dock-button restart-action" onClick={restart}><span>↻</span><small>Restart</small></button>
-            <button className="dock-button" onClick={showHint}><span>✦</span><small>Hint</small></button>
-            <button className="dock-button" onClick={() => setSoundEnabled((enabled) => !enabled)}><span>{soundEnabled ? "♫" : "♩"}</span><small>Sound {soundEnabled ? "On" : "Off"}</small></button>
-          </div>
-        </div>
+          
+<div className="action-dock">
+  <button className="dock-button restart-action" onClick={restart}>
+    <span>↻</span>
+    <small>Restart</small>
+  </button>
+
+  <button className="dock-button" onClick={showHint}>
+    <span>✦</span>
+    <small>Hint</small>
+  </button>
+
+  
+<button
+  className="dock-button"
+  onClick={() => setSoundEnabled((enabled) => !enabled)}
+>
+  <span>{soundEnabled ? "♫" : "♩"}</span>
+  <small>Sound {soundEnabled ? "On" : "Off"}</small>
+</button>
+
+<button
+  className={`dock-button ${wormSkin === "green" ? "skin-selected" : ""}`}
+  onClick={() => setWormSkin("green")}
+>
+  <span>🟢</span>
+  <small>Green {wormSkin === "green" ? "✓" : ""}</small>
+</button>
+
+<button
+  className={`dock-button ${wormSkin === "blue" ? "skin-selected" : ""}`}
+  onClick={() => setWormSkin("blue")}
+>
+  <span>🔵</span>
+  <small>Blue {wormSkin === "blue" ? "✓" : ""}</small>
+</button>
+
+<button
+  className={`dock-button ${wormSkin === "purple" ? "skin-selected" : ""}`}
+  onClick={() => setWormSkin("purple")}
+>
+  <span>🟣</span>
+  <small>Purple {wormSkin === "purple" ? "✓" : ""}</small>
+</button>
+
+</div>
+</div>
+
 
         <aside className="sidebar">
           <div className="difficulty-selector">

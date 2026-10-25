@@ -1325,3 +1325,33 @@ footer span:first-child {
     padding: 14px !important;
   }
 }
+
+/* Worm Skins */
+.worm-green {
+  background: linear-gradient(145deg, #72df68, #238448) !important;
+  border-color: #238448 !important;
+}
+
+.worm-blue {
+  background: linear-gradient(145deg, #67d9ff, #1874c5) !important;
+  border-color: #1874c5 !important;
+}
+
+.worm-purple {
+  background: linear-gradient(145deg, #d6a0ff, #7838c5) !important;
+  border-color: #7838c5 !important;
+}
+
+/* Selected Worm Skin */
+.action-dock .skin-selected {
+  border: 2px solid #287a3d !important;
+  background: linear-gradient(145deg, #e3f7d9, #c8edb8) !important;
+  color: #205d34 !important;
+  box-shadow: 0 0 0 3px rgba(72, 155, 75, 0.18),
+              0 3px 0 #a7d497 !important;
+  transform: translateY(-2px);
+}
+
+.action-dock .skin-selected small {
+  font-weight: 900;
+}
