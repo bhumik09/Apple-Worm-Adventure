@@ -2968,270 +2968,283 @@ button:focus-visible {
 @media (max-width: 900px) {
   html,
   body {
-    height: 100dvh;
-    max-height: 100dvh;
-    overflow: hidden;
-    position: fixed;
-    inset: 0;
+    height: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
 
   .apple-worm-app {
-    height: 100dvh;
-    max-height: 100dvh;
-    overflow: hidden;
-    padding: 4px 6px;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 0;
+    justify-content: space-between;
+    padding: 6px 10px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+    gap: 4px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
-  /* Hide Desktop Clutter */
+  /* Hide Desktop Only Elements */
   .desktop-topbar-wrapper,
   .desktop-only,
   .desktop-controls-wrapper {
     display: none !important;
   }
 
-  /* Show Native Mobile Game HUD & Cockpit */
+  /* Mobile Native Game Header */
   .mobile-header-wrapper {
     display: flex;
     width: 100%;
-    max-width: 480px;
-    margin: 0 auto 4px;
+    max-width: 460px;
+    margin: 0 auto;
     flex-shrink: 0;
   }
 
-  .mobile-cockpit-wrapper {
+  .mobile-game-header {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
     width: 100%;
-    max-width: 480px;
-    margin: 4px auto 0;
-    flex-shrink: 0;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   }
 
+  .mobile-h-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    font-size: 15px;
+  }
+
+  .mobile-h-level {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 10px;
+  }
+
+  .h-level-meta strong {
+    font-size: 11px;
+    max-width: 75px;
+  }
+
+  .h-stat-badge {
+    padding: 4px 7px;
+    font-size: 11px;
+    border-radius: 10px;
+  }
+
+  /* Game Main Stage */
   .game-main-stage {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     flex: 1 1 auto;
-    overflow: hidden;
+    width: 100%;
     min-height: 0;
-    padding-bottom: 0;
+    padding: 0;
   }
 
   .gameplay-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     flex: 1 1 auto;
-    overflow: hidden;
-    gap: 0;
+    gap: 4px;
     min-height: 0;
   }
 
   .board-column {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100%;
     flex: 1 1 auto;
-    overflow: visible;
-    gap: 0;
+    gap: clamp(4px, 1.2vh, 12px);
     padding: 0;
     min-height: 0;
   }
 
-  /* Board auto-sizes to whatever space is left between header and cockpit */
+  /* Intelligent Dynamic Board Sizing:
+     Always leaves space for header (50px) + cockpit (130px) + padding (20px) = 200px
+     Never pushes controls off-screen! */
   .worm-board-container {
     flex: 0 1 auto;
     width: 100%;
-    max-width: min(calc(100vw - 16px), 420px);
-    max-height: min(calc(100dvh - 240px), calc(100vw - 16px), 420px);
+    max-width: min(calc(100vw - 20px), calc(100dvh - 205px), 360px);
+    max-height: min(calc(100vw - 20px), calc(100dvh - 205px), 360px);
     aspect-ratio: 1;
-    margin: auto;
+    margin: 0 auto;
+    touch-action: pan-y;
   }
 
   .board-grid-wrapper {
-    padding: 7px;
+    padding: 6px;
     border-width: 4px;
-    border-radius: 22px;
+    border-radius: 20px;
   }
 
   .board-grid {
-    gap: 3px;
+    gap: 2.5px;
   }
 
   .board-cell {
-    border-radius: 6px;
+    border-radius: 5px;
   }
 
-  /* D-Pad and cockpit must shrink on tiny viewports */
+  /* Mobile Integrated Controller Cockpit - Elevated and Compact */
+  .mobile-cockpit-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    flex-shrink: 0;
+    padding: 0 4px;
+  }
+
   .mobile-control-cockpit {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
     padding: 2px 4px;
   }
 
-  .arcade-dpad-chassis {
-    width: min(144px, 28vw);
-    height: min(144px, 28vw);
-  }
-
-  .arcade-dpad-btn {
-    width: min(48px, 9.5vw);
-    height: min(42px, 8.5vw);
-    font-size: min(15px, 3vw);
-  }
-
-  .arcade-dpad-btn.btn-left,
-  .arcade-dpad-btn.btn-right {
-    width: min(42px, 8.5vw);
-    height: min(48px, 9.5vw);
-  }
-
-  .arcade-dpad-hub {
-    width: min(42px, 8.5vw);
-    height: min(42px, 8.5vw);
+  .cockpit-wing {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
   }
 
   .cockpit-round-btn {
-    width: min(52px, 12vw);
-    height: min(52px, 12vw);
-    border-radius: min(18px, 4vw);
+    width: clamp(44px, 11.5vw, 50px);
+    height: clamp(44px, 11.5vw, 50px);
+    border-radius: 14px;
   }
 
   .cockpit-btn-icon {
-    font-size: min(20px, 4.5vw);
+    font-size: 18px;
+    line-height: 1;
   }
 
   .cockpit-btn-label {
-    font-size: min(9px, 2vw);
+    font-size: 8.5px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+  }
+
+  /* Arcade D-Pad: Sized & Raised so all 4 arrows are 100% visible */
+  .arcade-dpad-chassis {
+    width: clamp(122px, 29vw, 136px);
+    height: clamp(122px, 29vw, 136px);
+    border-width: 2.5px;
+    box-shadow:
+      0 6px 14px rgba(0, 0, 0, 0.14),
+      inset 0 2px 4px #ffffff,
+      inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .arcade-dpad-btn {
+    width: clamp(40px, 9.5vw, 45px);
+    height: clamp(36px, 8.5vw, 40px);
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .arcade-dpad-btn.btn-up {
+    top: 3px;
+    border-radius: 12px 12px 6px 6px;
+  }
+
+  .arcade-dpad-btn.btn-down {
+    bottom: 3px;
+    border-radius: 6px 6px 12px 12px;
+  }
+
+  .arcade-dpad-mid {
+    padding: 0 3px;
+  }
+
+  .arcade-dpad-btn.btn-left {
+    width: clamp(36px, 8.5vw, 40px);
+    height: clamp(40px, 9.5vw, 45px);
+    border-radius: 12px 6px 6px 12px;
+  }
+
+  .arcade-dpad-btn.btn-right {
+    width: clamp(36px, 8.5vw, 40px);
+    height: clamp(40px, 9.5vw, 45px);
+    border-radius: 6px 12px 12px 6px;
+  }
+
+  .arcade-dpad-hub {
+    width: clamp(34px, 8vw, 38px);
+    height: clamp(34px, 8vw, 38px);
+  }
+
+  .hub-core {
+    width: 11px;
+    height: 11px;
   }
 
   /* Start Screen inside mobile frame */
   .start-screen-card {
     max-height: 94dvh;
     overflow-y: auto;
-    padding: 24px 16px;
+    padding: 20px 16px;
     margin: auto;
   }
 
   .start-title {
-    font-size: 32px;
+    font-size: 28px;
   }
 
   .hero-mascot-container {
-    width: 110px;
-    height: 110px;
-    margin-bottom: 12px;
+    width: 96px;
+    height: 96px;
+    margin-bottom: 8px;
   }
 
   .hero-giant-apple {
-    font-size: 64px;
+    font-size: 56px;
   }
 
   .hero-mascot-worm {
-    font-size: 46px;
+    font-size: 40px;
   }
 
   .diff-pill-btn {
-    padding: 10px 6px;
+    padding: 8px 6px;
   }
 
   .btn-start-adventure {
-    padding: 16px;
-    font-size: 19px;
+    padding: 14px;
+    font-size: 18px;
   }
 }
 
-/* Short phones (height ≤ 700px) — extra compact */
-@media (max-width: 900px) and (max-height: 700px) {
-  .worm-board-container {
-    max-height: calc(100dvh - 220px);
-  }
-
+/* Extra Compact Screens (Narrow phones ≤ 380px or short screens ≤ 620px) */
+@media (max-width: 380px), (max-height: 620px) and (max-width: 900px) {
   .mobile-game-header {
-    padding: 5px 8px;
-  }
-
-  .h-stat-badge {
-    padding: 3px 6px;
-    font-size: 11px;
-  }
-
-  .mobile-h-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
-  }
-
-  .arcade-dpad-chassis {
-    width: min(120px, 26vw);
-    height: min(120px, 26vw);
-  }
-
-  .arcade-dpad-btn {
-    width: min(40px, 9vw);
-    height: min(36px, 8vw);
-    font-size: 12px;
-  }
-
-  .arcade-dpad-btn.btn-left,
-  .arcade-dpad-btn.btn-right {
-    width: min(36px, 8vw);
-    height: min(40px, 9vw);
-  }
-
-  .arcade-dpad-hub {
-    width: min(34px, 7.5vw);
-    height: min(34px, 7.5vw);
-  }
-
-  .cockpit-round-btn {
-    width: min(44px, 11vw);
-    height: min(44px, 11vw);
-  }
-}
-
-/* Very short phones (height ≤ 600px) — ultra compact */
-@media (max-width: 900px) and (max-height: 600px) {
-  .worm-board-container {
-    max-height: calc(100dvh - 190px);
-  }
-
-  .mobile-header-wrapper {
-    margin-bottom: 2px;
-  }
-
-  .mobile-cockpit-wrapper {
-    margin-top: 2px;
-  }
-
-  .cockpit-wing {
-    gap: 5px;
-  }
-
-  .arcade-dpad-chassis {
-    width: min(110px, 24vw);
-    height: min(110px, 24vw);
-  }
-
-  .cockpit-round-btn {
-    width: min(40px, 10vw);
-    height: min(40px, 10vw);
-  }
-
-  .cockpit-btn-label {
-    display: none;
-  }
-}
-
-/* Compact Mobile Screens (≤ 420px) */
-@media (max-width: 420px) {
-  .mobile-game-header {
-    padding: 6px 8px;
-    gap: 5px;
+    padding: 4px 6px;
   }
 
   .mobile-h-level {
@@ -3239,19 +3252,59 @@ button:focus-visible {
   }
 
   .h-stat-badge {
-    padding: 4px 7px;
-    font-size: 11px;
+    padding: 3px 5px;
+    font-size: 10.5px;
   }
 
   .mobile-h-btn {
-    width: 34px;
-    height: 34px;
-    font-size: 14px;
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
   }
 
   .worm-board-container {
-    max-width: min(calc(100vw - 12px), 360px);
-    max-height: min(calc(100dvh - 230px), calc(100vw - 12px), 360px);
+    max-width: min(calc(100vw - 16px), calc(100dvh - 180px), 310px);
+    max-height: min(calc(100vw - 16px), calc(100dvh - 180px), 310px);
+  }
+
+  .arcade-dpad-chassis {
+    width: 116px;
+    height: 116px;
+  }
+
+  .arcade-dpad-btn {
+    width: 37px;
+    height: 33px;
+    font-size: 12px;
+  }
+
+  .arcade-dpad-btn.btn-left,
+  .arcade-dpad-btn.btn-right {
+    width: 33px;
+    height: 37px;
+  }
+
+  .arcade-dpad-hub {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cockpit-round-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .cockpit-btn-icon {
+    font-size: 16px;
+  }
+
+  .cockpit-btn-label {
+    font-size: 7.5px;
+  }
+
+  .cockpit-wing {
+    gap: 4px;
   }
 }
 
