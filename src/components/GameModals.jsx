@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { audio } from "../utils/audioEngine";
+import {
+  AppleSvgIcon,
+  StarSvgIcon,
+  TrophySvgIcon,
+  GiftSvgIcon,
+  SoundSvgIcon,
+  UndoSvgIcon,
+  RetrySvgIcon,
+} from "./GameHUD";
 
 export function StartScreen({
   currentLevel,
@@ -22,18 +31,39 @@ export function StartScreen({
       {/* Background Animated Rays / Sunburst */}
       <div className="start-screen-sunburst" aria-hidden="true" />
 
-      {/* Cinematic Hero Badge */}
+      {/* Hero Mascot: 3D Golden Apple & Cartoon Worm Mascot */}
       <div className="hero-mascot-container">
         <div className="hero-portal-aura" aria-hidden="true" />
-        <div className="hero-giant-apple">
-          <span className="giant-apple-emoji">🍎</span>
+        <div className="hero-giant-apple-wrapper">
+          <AppleSvgIcon className="hero-giant-apple-svg" />
         </div>
-        <div className="hero-mascot-worm-wrapper">
-          <span className="hero-mascot-worm">🐛</span>
+        <div className="hero-worm-mascot-badge" aria-hidden="true">
+          <svg viewBox="0 0 48 48" className="hero-worm-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="18" fill="url(#heroWormGrad)" stroke="#15803d" strokeWidth="2" />
+            <circle cx="18" cy="20" r="4.5" fill="white" />
+            <circle cx="18" cy="20" r="2.2" fill="#0f172a" />
+            <circle cx="17" cy="18.5" r="1" fill="white" />
+            <circle cx="30" cy="20" r="4.5" fill="white" />
+            <circle cx="30" cy="20" r="2.2" fill="#0f172a" />
+            <circle cx="29" cy="18.5" r="1" fill="white" />
+            <ellipse cx="14" cy="25" rx="2.5" ry="1.5" fill="#f43f5e" opacity="0.5" />
+            <ellipse cx="34" cy="25" rx="2.5" ry="1.5" fill="#f43f5e" opacity="0.5" />
+            <path d="M20 27C21.5 29.5 26.5 29.5 28 27" stroke="#14532d" strokeWidth="2.2" strokeLinecap="round" />
+            <path d="M18 10C16 6 12 7 13 10M30 10C32 6 36 7 35 10" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" />
+            <circle cx="12.5" cy="7.5" r="2.5" fill="#4ade80" />
+            <circle cx="35.5" cy="7.5" r="2.5" fill="#4ade80" />
+            <defs>
+              <radialGradient id="heroWormGrad" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#86efac" />
+                <stop offset="60%" stopColor="#22c55e" />
+                <stop offset="100%" stopColor="#15803d" />
+              </radialGradient>
+            </defs>
+          </svg>
         </div>
-        <span className="hero-floating-star s1">⭐</span>
-        <span className="hero-floating-star s2">✨</span>
-        <span className="hero-floating-star s3">🌟</span>
+        <span className="hero-sparkle-dot sp-1" />
+        <span className="hero-sparkle-dot sp-2" />
+        <span className="hero-sparkle-dot sp-3" />
       </div>
 
       <span className="start-eyebrow">ARCADE PUZZLE ADVENTURE</span>
@@ -42,22 +72,26 @@ export function StartScreen({
         <span className="title-sub">ADVENTURE</span>
       </h2>
       <p className="start-description">
-        Munch sweet apples, dodge deadly spikes, discover secret keys, and enter the mystic cosmic portal!
+        Munch crisp apples, navigate crafty traps, collect keys, and slide safely into the cosmic portal!
       </p>
 
       {/* Quick Access Badges Bar */}
       <div className="start-quick-badges-bar">
-        <button type="button" className="quick-badge-btn" onClick={onOpenRewardCenter}>
-          <span>🎁</span> Reward Center
+        <button type="button" className="quick-badge-btn tactile-btn" onClick={onOpenRewardCenter}>
+          <GiftSvgIcon className="quick-badge-icon" />
+          <span>Reward Center</span>
         </button>
-        <button type="button" className="quick-badge-btn" onClick={onOpenLeaderboard}>
-          <span>🏆</span> Hall of Fame
+        <button type="button" className="quick-badge-btn tactile-btn" onClick={onOpenLeaderboard}>
+          <TrophySvgIcon className="quick-badge-icon" />
+          <span>Hall of Fame</span>
         </button>
-        <button type="button" className="quick-badge-btn" onClick={onOpenAchievements}>
-          <span>🎖️</span> Badges
+        <button type="button" className="quick-badge-btn tactile-btn" onClick={onOpenAchievements}>
+          <StarSvgIcon className="quick-badge-icon" />
+          <span>Badges</span>
         </button>
-        <button type="button" className="quick-badge-btn admin-quick-btn" onClick={onOpenAdmin}>
-          <span>⚙️</span> Economy Admin
+        <button type="button" className="quick-badge-btn admin-quick-btn tactile-btn" onClick={onOpenAdmin}>
+          <span>⚙️</span>
+          <span>Economy</span>
         </button>
       </div>
 
@@ -71,7 +105,7 @@ export function StartScreen({
               <button
                 key={name}
                 type="button"
-                className={`diff-pill-btn ${isSelected ? "selected" : ""}`}
+                className={`diff-pill-btn tactile-btn ${isSelected ? "selected" : ""}`}
                 onClick={() => {
                   audio.playClick();
                   onSelectDifficulty(name);
@@ -98,46 +132,44 @@ export function StartScreen({
         </div>
       </div>
 
-      {/* Primary Action Buttons */}
-      <div className="start-actions-group">
+      {/* Big Juicy Start Button */}
+      <button
+        type="button"
+        className="btn-start-adventure tactile-btn"
+        onClick={onStartGame}
+      >
+        <span className="btn-shine" />
+        <span className="btn-text">PLAY ADVENTURE</span>
+        <span className="btn-play-arrow">▶</span>
+      </button>
+
+      {/* Secondary Bottom Navigation Row */}
+      <div className="start-footer-actions">
         <button
           type="button"
-          className="btn-start-adventure tactile-btn"
-          onClick={onStartGame}
+          className="btn-footer-sub tactile-btn"
+          onClick={onOpenLevelPicker}
         >
-          <span className="btn-shine" />
-          <span className="play-icon">▶</span> START ADVENTURE
+          <span>🗺️</span>
+          <span>World Map ({unlockedLevel}/{totalLevels})</span>
         </button>
-
-        <div className="start-sub-actions">
-          <button
-            type="button"
-            className="btn-secondary-action tactile-btn"
-            onClick={onOpenLevelPicker}
-          >
-            <span>▦</span> Choose Level
-          </button>
-          <button
-            type="button"
-            className="btn-secondary-action tactile-btn"
-            onClick={onOpenSkins}
-          >
-            <span>👕</span> Worm Wardrobe
-          </button>
-        </div>
+        <button
+          type="button"
+          className="btn-footer-sub tactile-btn"
+          onClick={onOpenSkins}
+        >
+          <span>🎨</span>
+          <span>Worm Wardrobe</span>
+        </button>
       </div>
 
-      {/* Control Tips */}
-      <div className="start-controls-guide">
-        <div className="guide-item">
-          <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd>
-          <span>Move</span>
+      {/* Controls Hint */}
+      <div className="start-controls-hint">
+        <div className="control-tag">
+          <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>Arrows</kbd> to slither
         </div>
-        <div className="guide-item">
-          <kbd>Z</kbd><span>Undo move</span>
-        </div>
-        <div className="guide-item">
-          <kbd>📱</kbd><span>Swipe screen to slither</span>
+        <div className="control-tag">
+          <kbd>📱</kbd> Swipe screen or tap D-Pad on mobile
         </div>
       </div>
     </section>
@@ -145,7 +177,6 @@ export function StartScreen({
 }
 
 export function WinModal({
-  _level,
   levelNumber,
   moves,
   score,
@@ -167,7 +198,7 @@ export function WinModal({
         setTimeout(() => {
           setAnimatedStars(i);
           audio.playStar(i);
-        }, i * 320)
+        }, i * 300)
       );
     }
     return () => timers.forEach(clearTimeout);
@@ -180,12 +211,12 @@ export function WinModal({
 
       {/* Confetti Explosion */}
       <div className="confetti-particles" aria-hidden="true">
-        {Array.from({ length: 60 }, (_, i) => (
+        {Array.from({ length: 50 }, (_, i) => (
           <span
             key={i}
             className="confetti-dot"
             style={{
-              left: `${(i * 17) % 100}%`,
+              left: `${(i * 19) % 100}%`,
               backgroundColor: [
                 "#22c55e",
                 "#38bdf8",
@@ -194,18 +225,18 @@ export function WinModal({
                 "#a855f7",
                 "#f97316",
               ][i % 6],
-              animationDelay: `${(i % 12) * 0.1}s`,
-              animationDuration: `${2.2 + (i % 6) * 0.25}s`,
+              animationDelay: `${(i % 10) * 0.12}s`,
+              animationDuration: `${2.2 + (i % 5) * 0.3}s`,
             }}
           />
         ))}
       </div>
 
       <div className="modal-card win-modal-card">
-        {/* Glowing Trophy */}
+        {/* Golden Trophy Crest */}
         <div className="trophy-wrapper">
           <div className="trophy-ambient-glow" aria-hidden="true" />
-          <div className="win-trophy-icon">🏆</div>
+          <TrophySvgIcon className="win-trophy-svg" />
         </div>
 
         <span className="modal-eyebrow">MISSION ACCOMPLISHED</span>
@@ -213,7 +244,7 @@ export function WinModal({
         <p className="win-subtitle">
           {isMaxLevel
             ? "Legendary! You have conquered all 50 levels of the Apple Worm Adventure!"
-            : "Brilliant puzzle solving! Ready for the next challenge?"}
+            : "Superb slither skills! Ready for the next challenge?"}
         </p>
 
         {/* 3 Stars Award Animation */}
@@ -225,7 +256,7 @@ export function WinModal({
                 key={starNum}
                 className={`celebration-star ${isEarned ? "earned star-bounce" : "unearned"}`}
               >
-                ★
+                <StarSvgIcon filled={isEarned} className="star-svg-large" />
               </span>
             );
           })}
@@ -239,7 +270,9 @@ export function WinModal({
           </div>
           <div className="stat-pill">
             <small>COINS EARNED</small>
-            <strong className="coin-text">+{hasDoubled ? coinsEarned * 2 : coinsEarned} 💰</strong>
+            <strong className="coin-text">
+              +{hasDoubled ? coinsEarned * 2 : coinsEarned} ¢
+            </strong>
           </div>
           <div className="stat-pill highlight">
             <small>TOTAL SCORE</small>
@@ -251,8 +284,8 @@ export function WinModal({
         {!hasDoubled && onWatchAdDoubleReward && (
           <div className="ad-double-reward-banner">
             <div className="double-banner-content">
-              <span>⭐ VELoop SPONSORED MULTIPLIER</span>
-              <strong>Watch 1 ad to double both Score & Coins!</strong>
+              <span className="double-badge">⭐ VELoop 2X MULTIPLIER</span>
+              <strong>Watch 1 video to Double Coins & Score!</strong>
             </div>
             <button
               type="button"
@@ -260,13 +293,13 @@ export function WinModal({
               onClick={onWatchAdDoubleReward}
             >
               <span className="btn-shine" />
-              📺 Watch Ad → 2X Reward
+              <span>🎬 2X Double Reward</span>
             </button>
           </div>
         )}
 
-        {/* Modal Actions */}
-        <div className="win-modal-actions">
+        {/* Modal Primary Action Buttons */}
+        <div className="modal-actions-column">
           {!isMaxLevel ? (
             <button
               type="button"
@@ -274,16 +307,17 @@ export function WinModal({
               onClick={onNextLevel}
             >
               <span className="btn-shine" />
-              Next Level <span>→</span>
+              <span className="btn-label">NEXT LEVEL</span>
+              <span className="btn-arrow">▶</span>
             </button>
           ) : (
             <button
               type="button"
               className="btn-next-level tactile-btn"
-              onClick={() => onOpenLevelPicker()}
+              onClick={onOpenLevelPicker}
             >
               <span className="btn-shine" />
-              Explore All Worlds <span>★</span>
+              <span>Explore All Worlds ★</span>
             </button>
           )}
 
@@ -293,14 +327,16 @@ export function WinModal({
               className="btn-modal-sub tactile-btn"
               onClick={onReplay}
             >
-              <span>↻</span> Replay
+              <RetrySvgIcon className="btn-sub-svg" />
+              <span>Replay</span>
             </button>
             <button
               type="button"
               className="btn-modal-sub tactile-btn"
               onClick={onOpenLevelPicker}
             >
-              <span>▦</span> Levels
+              <span>🗺️</span>
+              <span>Levels</span>
             </button>
           </div>
         </div>
@@ -322,19 +358,37 @@ export function FailModal({
   return (
     <div className="modal-backdrop fail-backdrop" role="dialog" aria-modal="true">
       <div className="modal-card fail-modal-card">
+        {/* Comic Dizzy Worm Icon */}
         <div className="fail-mascot-wrapper">
-          <div className="fail-mascot-icon">🐛💥</div>
+          <svg viewBox="0 0 64 64" className="fail-mascot-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="26" fill="url(#failWormGrad)" stroke="#b91c1c" strokeWidth="2.5" />
+            {/* Dizzy X Eyes */}
+            <path d="M20 23L28 31M28 23L20 31" stroke="#450a0a" strokeWidth="3" strokeLinecap="round" />
+            <path d="M36 23L44 31M44 23L36 31" stroke="#450a0a" strokeWidth="3" strokeLinecap="round" />
+            {/* Wavy unhappy mouth */}
+            <path d="M22 44C26 40 30 46 34 40C38 46 42 40 44 42" stroke="#450a0a" strokeWidth="2.5" strokeLinecap="round" />
+            {/* Comic star above head */}
+            <path d="M32 6L33.5 10L37.5 11.5L33.5 13L32 17L30.5 13L26.5 11.5L30.5 10L32 6Z" fill="#facc15" stroke="#ca8a04" strokeWidth="1" />
+            <defs>
+              <radialGradient id="failWormGrad" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#fca5a5" />
+                <stop offset="60%" stopColor="#ef4444" />
+                <stop offset="100%" stopColor="#991b1b" />
+              </radialGradient>
+            </defs>
+          </svg>
         </div>
+
         <span className="modal-eyebrow">OUCH! TRY AGAIN</span>
-        <h2>Not quite this time</h2>
-        <p className="fail-reason-text">{reason}</p>
+        <h2>Not Quite This Time</h2>
+        <p className="fail-reason-text">{reason || "Watch out for obstacles and plan your path!"}</p>
 
         {/* VELoop Economy: Revive via Rewarded Ad */}
         {canRevive && onWatchAdRevive && (
           <div className="revive-ad-offer-box">
             <div className="revive-offer-meta">
-              <span>❤️ SECOND CHANCE</span>
-              <strong>Watch a short ad to continue from safe state!</strong>
+              <span className="revive-tag">❤️ SECOND CHANCE</span>
+              <strong>Watch a short video to revive at safe state!</strong>
             </div>
             <button
               type="button"
@@ -342,7 +396,7 @@ export function FailModal({
               onClick={onWatchAdRevive}
             >
               <span className="btn-shine" />
-              📺 Watch Ad & Revive
+              <span>📺 Watch Ad & Revive</span>
             </button>
           </div>
         )}
@@ -354,7 +408,7 @@ export function FailModal({
               className="btn-extra-moves-ad tactile-btn"
               onClick={onWatchAdExtraMoves}
             >
-              🎯 Get +5 Extra Moves (Ad)
+              <span>🎯 +5 Extra Moves (Ad)</span>
             </button>
           )}
 
@@ -364,7 +418,8 @@ export function FailModal({
               className="btn-undo-move tactile-btn"
               onClick={onUndo}
             >
-              <span>↶</span> Undo Last Move
+              <UndoSvgIcon className="btn-action-svg" />
+              <span>Undo Last Move</span>
             </button>
           )}
 
@@ -373,15 +428,17 @@ export function FailModal({
             className="btn-restart-level tactile-btn"
             onClick={onRestart}
           >
-            <span>↻</span> Restart Level
+            <RetrySvgIcon className="btn-action-svg" />
+            <span>Restart Level</span>
           </button>
 
           <button
             type="button"
-            className="btn-choose-level-sub"
+            className="btn-choose-level-sub tactile-btn"
             onClick={onOpenLevelPicker}
           >
-            <span>▦</span> Choose Level
+            <span>🗺️</span>
+            <span>Choose Level</span>
           </button>
         </div>
       </div>
@@ -392,7 +449,7 @@ export function FailModal({
 export function PauseModal({
   level,
   levelNumber,
-  _world,
+  world,
   applesLeft,
   sfxEnabled,
   musicEnabled,
@@ -402,91 +459,94 @@ export function PauseModal({
   onRestart,
   onOpenLevelPicker,
   onOpenSkins,
-  onOpenRewardCenter,
-  onCycleTheme,
-  currentTheme,
 }) {
   return (
     <div className="modal-backdrop pause-backdrop" role="dialog" aria-modal="true">
       <div className="modal-card pause-modal-card">
-        <div className="pause-mascot-wrapper">
-          <div className="pause-mascot-icon">🐛⏸️</div>
-        </div>
-        <span className="modal-eyebrow">GAME PAUSED</span>
-        <h2>Level {levelNumber}: {level.name}</h2>
-        <p className="pause-objective-reminder">
-          {applesLeft > 0
-            ? `${applesLeft} apple(s) left to collect before the portal unlocks.`
-            : "Portal is open! Guide your worm into the portal to complete the level."}
-        </p>
-
-        {/* Audio & Visual Toggles */}
-        <div className="pause-toggles-row">
+        <div className="modal-header">
+          <div className="modal-title-group">
+            <span className="modal-eyebrow">GAME PAUSED</span>
+            <h2>Level {levelNumber}: {level.name}</h2>
+          </div>
           <button
             type="button"
-            className={`pause-toggle-btn ${sfxEnabled ? "active" : ""}`}
+            className="modal-close-btn tactile-btn"
+            onClick={onResume}
+            aria-label="Resume"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Mission Objectives Summary */}
+        <div className="pause-mission-status">
+          <div className="mission-item">
+            <span className="mission-label">World</span>
+            <strong>{world.icon} {world.name}</strong>
+          </div>
+          <div className="mission-item">
+            <span className="mission-label">Apples Remaining</span>
+            <strong>{applesLeft} / {level.apples.length}</strong>
+          </div>
+          <div className="mission-item">
+            <span className="mission-label">Target Par</span>
+            <strong>≤{level.parMoves?.star3 || 25} Moves (3★)</strong>
+          </div>
+        </div>
+
+        {/* Audio Controls */}
+        <div className="pause-audio-controls">
+          <button
+            type="button"
+            className={`pause-audio-btn tactile-btn ${sfxEnabled ? "active" : ""}`}
             onClick={onToggleSfx}
           >
-            {sfxEnabled ? "🔊 Sound ON" : "🔇 Sound OFF"}
+            <SoundSvgIcon enabled={sfxEnabled} className="btn-audio-svg" />
+            <span>Sound Effects: {sfxEnabled ? "ON" : "OFF"}</span>
           </button>
           <button
             type="button"
-            className={`pause-toggle-btn ${musicEnabled ? "active" : ""}`}
+            className={`pause-audio-btn tactile-btn ${musicEnabled ? "active" : ""}`}
             onClick={onToggleMusic}
           >
-            {musicEnabled ? "🎵 Music ON" : "🎶 Music OFF"}
-          </button>
-          <button
-            type="button"
-            className="pause-toggle-btn theme-toggle-btn"
-            onClick={onCycleTheme}
-          >
-            {currentTheme?.icon} Theme: {currentTheme?.name}
+            <span>🎵 Music: {musicEnabled ? "ON" : "OFF"}</span>
           </button>
         </div>
 
-        {/* Actions */}
-        <div className="pause-actions-group">
+        {/* Action Buttons */}
+        <div className="pause-actions-list">
           <button
             type="button"
             className="btn-resume-game tactile-btn"
             onClick={onResume}
           >
             <span className="btn-shine" />
-            ▶ Resume Adventure
+            <span>RESUME PLAYING</span>
           </button>
-
           <button
             type="button"
-            className="btn-pause-secondary tactile-btn"
-            onClick={onOpenRewardCenter}
+            className="btn-pause-sub tactile-btn"
+            onClick={onRestart}
           >
-            🎁 Free Rewards & Boosts
+            <RetrySvgIcon className="btn-sub-svg" />
+            <span>Restart Level</span>
           </button>
-
-          <div className="pause-sub-row">
-            <button
-              type="button"
-              className="btn-modal-sub tactile-btn"
-              onClick={onRestart}
-            >
-              <span>↻</span> Restart
-            </button>
-            <button
-              type="button"
-              className="btn-modal-sub tactile-btn"
-              onClick={onOpenSkins}
-            >
-              <span>👕</span> Wardrobe
-            </button>
-            <button
-              type="button"
-              className="btn-modal-sub tactile-btn"
-              onClick={onOpenLevelPicker}
-            >
-              <span>▦</span> Levels
-            </button>
-          </div>
+          <button
+            type="button"
+            className="btn-pause-sub tactile-btn"
+            onClick={onOpenLevelPicker}
+          >
+            <span>🗺️</span>
+            <span>Choose Level</span>
+          </button>
+          <button
+            type="button"
+            className="btn-pause-sub tactile-btn"
+            onClick={onOpenSkins}
+          >
+            <span>🎨</span>
+            <span>Worm Wardrobe</span>
+          </button>
         </div>
       </div>
     </div>

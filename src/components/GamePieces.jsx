@@ -1,6 +1,9 @@
 import React from "react";
 
-// Ultra-Polished 3D-Styled SVG Game Assets for Apple Worm Adventure
+// ============================================================================
+// ULTRA-PREMIUM 3D CARTOON GAME PIECES FOR APPLE WORM ADVENTURE
+// Inspired by top-tier mobile arcade puzzle games (Snake Puzzle, Cut the Rope)
+// ============================================================================
 
 export function WormHead({ skin, facing = "right", isNearApple = false, isDead = false }) {
   const rotationMap = {
@@ -15,138 +18,161 @@ export function WormHead({ skin, facing = "right", isNearApple = false, isDead =
     <div
       className={`piece-worm-head ${isDead ? "dead" : ""} ${isNearApple ? "hungry" : ""}`}
       style={{
-        transform: `rotate(${rot}deg) scale(1.34)`,
+        transform: `rotate(${rot}deg) scale(1.36)`,
+        transformOrigin: "center center",
       }}
+      aria-label="Worm Head"
     >
-      <svg viewBox="0 0 48 48" className="worm-head-svg">
+      <svg viewBox="0 0 52 52" className="worm-head-svg">
         <defs>
-          {/* Rich 3D Radial Gradients */}
-          <radialGradient id={`head-3d-${skin.id}`} cx="32%" cy="26%" r="70%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
-            <stop offset="22%" stopColor={skin.headHighlight} />
-            <stop offset="62%" stopColor={skin.headColor} />
-            <stop offset="100%" stopColor={skin.bodySecondary} />
+          {/* Rich 3D Radial Gradients for Worm Head */}
+          <radialGradient id={`worm-head-sphere-${skin.id}`} cx="30%" cy="24%" r="75%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+            <stop offset="20%" stopColor={skin.headHighlight || "#86efac"} />
+            <stop offset="58%" stopColor={skin.headColor || "#22c55e"} />
+            <stop offset="85%" stopColor={skin.bodySecondary || "#15803d"} />
+            <stop offset="100%" stopColor="#0f4422" />
           </radialGradient>
 
-          <radialGradient id="eye-gloss" cx="28%" cy="28%" r="72%">
+          {/* Eye Gloss Gradient */}
+          <radialGradient id="worm-eye-gloss" cx="26%" cy="24%" r="76%">
             <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="70%" stopColor="#f1f5f9" />
+            <stop offset="65%" stopColor="#f8fafc" />
             <stop offset="100%" stopColor="#cbd5e1" />
           </radialGradient>
 
-          <filter id="head-3d-shadow" x="-30%" y="-30%" width="160%" height="160%">
-            <feDropShadow dx="0" dy="4" stdDeviation="2.8" floodColor="#0f172a" floodOpacity="0.4" />
+          {/* Head Ambient 3D Drop Shadow */}
+          <filter id="worm-head-depth" x="-35%" y="-35%" width="170%" height="170%">
+            <feDropShadow dx="0" dy="4" stdDeviation="3" floodColor="#0f172a" floodOpacity="0.45" />
           </filter>
         </defs>
 
-        {/* Dynamic Antennae with cute wiggle */}
-        <g className="worm-antennae">
+        {/* Dynamic Bouncy Antennae with glowing tips */}
+        <g className="worm-antennae-group">
+          {/* Left Antenna */}
           <path
-            d="M 18 10 Q 12 1 6 3"
+            d="M 19 12 Q 13 2 7 4"
             fill="none"
-            stroke={skin.bodySecondary}
-            strokeWidth="3.2"
+            stroke={skin.bodySecondary || "#15803d"}
+            strokeWidth="3.4"
             strokeLinecap="round"
           />
-          <circle cx="5" cy="3" r="3.8" fill={skin.sparkleColor} filter="drop-shadow(0 0 3px rgba(255,255,255,0.9))" />
+          <circle
+            cx="6"
+            cy="4"
+            r="4.2"
+            fill={skin.sparkleColor || "#facc15"}
+            filter="drop-shadow(0 0 4px rgba(250, 204, 21, 0.9))"
+          />
+          <circle cx="5" cy="3" r="1.5" fill="#ffffff" />
 
+          {/* Right Antenna */}
           <path
-            d="M 30 10 Q 36 1 42 3"
+            d="M 33 12 Q 39 2 45 4"
             fill="none"
-            stroke={skin.bodySecondary}
-            strokeWidth="3.2"
+            stroke={skin.bodySecondary || "#15803d"}
+            strokeWidth="3.4"
             strokeLinecap="round"
           />
-          <circle cx="43" cy="3" r="3.8" fill={skin.sparkleColor} filter="drop-shadow(0 0 3px rgba(255,255,255,0.9))" />
+          <circle
+            cx="46"
+            cy="4"
+            r="4.2"
+            fill={skin.sparkleColor || "#facc15"}
+            filter="drop-shadow(0 0 4px rgba(250, 204, 21, 0.9))"
+          />
+          <circle cx="45" cy="3" r="1.5" fill="#ffffff" />
         </g>
 
-        {/* Head Main Sphere with 3D lighting */}
+        {/* Head Main 3D Sphere */}
         <circle
-          cx="24"
-          cy="24"
-          r="19.5"
-          fill={`url(#head-3d-${skin.id})`}
-          filter="url(#head-3d-shadow)"
-          stroke={skin.bodySecondary}
-          strokeWidth="1.8"
+          cx="26"
+          cy="26"
+          r="21"
+          fill={`url(#worm-head-sphere-${skin.id})`}
+          filter="url(#worm-head-depth)"
+          stroke={skin.bodySecondary || "#15803d"}
+          strokeWidth="2"
         />
 
-        {/* Rosy Glowing Cheeks */}
-        <ellipse cx="10" cy="30" rx="4" ry="2.6" fill={skin.cheekColor} opacity="0.8" />
-        <ellipse cx="38" cy="30" rx="4" ry="2.6" fill={skin.cheekColor} opacity="0.8" />
+        {/* Rosy Blushing Cheeks */}
+        <ellipse cx="11" cy="32" rx="4.5" ry="3" fill={skin.cheekColor || "#f43f5e"} opacity="0.82" />
+        <ellipse cx="41" cy="32" rx="4.5" ry="3" fill={skin.cheekColor || "#f43f5e"} opacity="0.82" />
 
-        {/* Expressive Large Cartoon Eyes */}
+        {/* Expressive Cartoon Eyes */}
         {isDead ? (
-          // Comic Dizzy Spinning X Eyes
-          <g stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round">
-            <line x1="12" y1="14" x2="22" y2="24" />
-            <line x1="22" y1="14" x2="12" y2="24" />
-            <line x1="26" y1="14" x2="36" y2="24" />
-            <line x1="36" y1="14" x2="26" y2="24" />
+          // Dizzy Comic Spinning Eyes on Failure
+          <g stroke="#ffffff" strokeWidth="3.8" strokeLinecap="round">
+            <line x1="13" y1="15" x2="23" y2="25" />
+            <line x1="23" y1="15" x2="13" y2="25" />
+            <line x1="29" y1="15" x2="39" y2="25" />
+            <line x1="39" y1="15" x2="29" y2="25" />
           </g>
         ) : (
-          <g className="worm-eyes-group">
-            {/* Left Big Eye */}
-            <ellipse cx="16.5" cy="18.5" rx="6" ry="7.5" fill="url(#eye-gloss)" stroke="#0f172a" strokeWidth="1.2" />
-            <ellipse cx="18" cy="18.5" rx="3.5" ry="4.5" fill={skin.eyeColor} />
-            <circle cx="19.2" cy="16.5" r="1.8" fill="#ffffff" />
-            <circle cx="17" cy="21" r="1" fill="#ffffff" />
+          <g className="worm-eyes-animated">
+            {/* Left Big Shiny Eye */}
+            <ellipse cx="18" cy="20" rx="6.5" ry="8" fill="url(#worm-eye-gloss)" stroke="#0f172a" strokeWidth="1.4" />
+            <ellipse cx="19.5" cy="20" rx="3.8" ry="5" fill={skin.eyeColor || "#0f172a"} />
+            <circle cx="21" cy="17.5" r="2.2" fill="#ffffff" />
+            <circle cx="18" cy="22.5" r="1.2" fill="#ffffff" />
 
-            {/* Right Big Eye */}
-            <ellipse cx="31.5" cy="18.5" rx="6" ry="7.5" fill="url(#eye-gloss)" stroke="#0f172a" strokeWidth="1.2" />
-            <ellipse cx="33" cy="18.5" rx="3.5" ry="4.5" fill={skin.eyeColor} />
-            <circle cx="34.2" cy="16.5" r="1.8" fill="#ffffff" />
-            <circle cx="32" cy="21" r="1" fill="#ffffff" />
+            {/* Right Big Shiny Eye */}
+            <ellipse cx="34" cy="20" rx="6.5" ry="8" fill="url(#worm-eye-gloss)" stroke="#0f172a" strokeWidth="1.4" />
+            <ellipse cx="35.5" cy="20" rx="3.8" ry="5" fill={skin.eyeColor || "#0f172a"} />
+            <circle cx="37" cy="17.5" r="2.2" fill="#ffffff" />
+            <circle cx="34" cy="22.5" r="1.2" fill="#ffffff" />
           </g>
         )}
 
-        {/* Mouth */}
+        {/* Dynamic Mouth: Hungry Munch vs Cheerful Smile */}
         {isNearApple ? (
-          // Open Excited Munch Mouth
-          <g className="hungry-mouth">
+          <g className="worm-mouth-hungry">
+            {/* Open Happy Chomping Mouth */}
             <path
-              d="M 16 28 Q 24 40 32 28 Z"
+              d="M 17 30 Q 26 43 35 30 Z"
               fill="#e11d48"
-              stroke={skin.bodySecondary}
-              strokeWidth="2"
+              stroke={skin.bodySecondary || "#15803d"}
+              strokeWidth="2.2"
             />
-            {/* Cute front teeth */}
-            <rect x="21" y="28" width="6" height="3" rx="1" fill="#ffffff" />
+            {/* Cute Front Buck Teeth */}
+            <rect x="22.5" y="30" width="7" height="3.5" rx="1.2" fill="#ffffff" />
+            {/* Rosy Tongue */}
+            <path d="M 21 37 Q 26 34 31 37 Z" fill="#fda4af" />
           </g>
         ) : (
-          // Cheerful Glossy Smile
+          // Cheerful Confident Smile
           <path
-            d="M 17 28 Q 24 36 31 28"
+            d="M 18 30 Q 26 39 34 30"
             fill="none"
-            stroke={skin.bodySecondary}
-            strokeWidth="2.8"
+            stroke={skin.bodySecondary || "#15803d"}
+            strokeWidth="3.2"
             strokeLinecap="round"
           />
         )}
 
-        {/* Specular Top Shine */}
+        {/* Specular Curved Highlight */}
         <ellipse
-          cx="20"
-          cy="11"
-          rx="7.5"
-          ry="3.2"
+          cx="22"
+          cy="12"
+          rx="8"
+          ry="3.6"
           fill="#ffffff"
-          opacity="0.5"
-          transform="rotate(-15 20 11)"
+          opacity="0.55"
+          transform="rotate(-15 22 12)"
         />
 
         {/* Royal Crown for Golden Monarch Skin */}
         {skin.id === "golden" && (
-          <g className="golden-crown" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.35))">
+          <g className="golden-crown" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))">
             <path
-              d="M 13 10 L 18 14 L 24 5 L 30 14 L 35 10 L 33 16 L 15 16 Z"
-              fill="linear-gradient(#fde047, #ca8a04)"
+              d="M 14 11 L 20 15 L 26 6 L 32 15 L 38 11 L 36 17 L 16 17 Z"
+              fill="#facc15"
               stroke="#854d0e"
-              strokeWidth="1.6"
+              strokeWidth="1.8"
             />
-            <circle cx="24" cy="5" r="2.2" fill="#ef4444" />
-            <circle cx="13" cy="10" r="1.6" fill="#38bdf8" />
-            <circle cx="35" cy="10" r="1.6" fill="#38bdf8" />
+            <circle cx="26" cy="6" r="2.5" fill="#ef4444" />
+            <circle cx="14" cy="11" r="1.8" fill="#38bdf8" />
+            <circle cx="38" cy="11" r="1.8" fill="#38bdf8" />
           </g>
         )}
       </svg>
@@ -155,57 +181,60 @@ export function WormHead({ skin, facing = "right", isNearApple = false, isDead =
 }
 
 export function WormBody({ skin, index, totalLength }) {
-  // Plump, prominent body segments - scaled up for high visibility
-  const scale = Math.max(1.0, 1.25 - (index / totalLength) * 0.22);
+  // Gracefully tapered plump caterpillar segments
+  const scale = Math.max(1.02, 1.28 - (index / Math.max(1, totalLength)) * 0.24);
 
   return (
     <div
       className="piece-worm-body"
       style={{
         transform: `scale(${scale})`,
+        transformOrigin: "center center",
       }}
+      aria-label={`Worm Segment ${index}`}
     >
-      <svg viewBox="0 0 44 44" className="worm-body-svg">
+      <svg viewBox="0 0 46 46" className="worm-body-svg">
         <defs>
-          <radialGradient id={`body-3d-${skin.id}-${index}`} cx="32%" cy="26%" r="70%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
-            <stop offset="26%" stopColor={skin.headHighlight} />
-            <stop offset="66%" stopColor={skin.bodyPrimary} />
-            <stop offset="100%" stopColor={skin.bodySecondary} />
+          <radialGradient id={`worm-body-3d-${skin.id}-${index}`} cx="32%" cy="24%" r="72%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+            <stop offset="22%" stopColor={skin.headHighlight || "#86efac"} />
+            <stop offset="62%" stopColor={skin.bodyPrimary || "#22c55e"} />
+            <stop offset="88%" stopColor={skin.bodySecondary || "#15803d"} />
+            <stop offset="100%" stopColor="#0f4422" />
           </radialGradient>
 
-          <filter id={`body-shadow-${index}`} x="-30%" y="-30%" width="160%" height="160%">
-            <feDropShadow dx="0" dy="4" stdDeviation="2.4" floodColor="#0f172a" floodOpacity="0.35" />
+          <filter id={`body-drop-shadow-${index}`} x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="3.5" stdDeviation="2.5" floodColor="#0f172a" floodOpacity="0.38" />
           </filter>
         </defs>
 
-        {/* 3D Segment Sphere */}
+        {/* 3D Segment Body Sphere */}
         <circle
-          cx="22"
-          cy="22"
-          r="18"
-          fill={`url(#body-3d-${skin.id}-${index})`}
-          filter={`url(#body-shadow-${index})`}
-          stroke={skin.bodySecondary}
+          cx="23"
+          cy="23"
+          r="19"
+          fill={`url(#worm-body-3d-${skin.id}-${index})`}
+          filter={`url(#body-drop-shadow-${index})`}
+          stroke={skin.bodySecondary || "#15803d"}
           strokeWidth="1.8"
         />
 
-        {/* Belly Cushion Stripe */}
+        {/* Soft Cream Belly Cushion */}
         <ellipse
-          cx="22"
-          cy="26"
-          rx="12"
-          ry="6.5"
-          fill={skin.bellyColor}
-          opacity="0.8"
+          cx="23"
+          cy="28"
+          rx="12.5"
+          ry="7"
+          fill={skin.bellyColor || "#dcfce7"}
+          opacity="0.85"
         />
 
-        {/* Specular Gloss Reflection */}
+        {/* Glossy Specular Reflection Streak */}
         <ellipse
           cx="17"
           cy="14"
-          rx="6.5"
-          ry="3.2"
+          rx="7"
+          ry="3.4"
           fill="#ffffff"
           opacity="0.6"
           transform="rotate(-25 17 14)"
@@ -217,77 +246,83 @@ export function WormBody({ skin, index, totalLength }) {
 
 export function ApplePiece({ isGolden = false }) {
   return (
-    <div className={`piece-apple ${isGolden ? "golden" : "red"}`}>
-      <svg viewBox="0 0 44 44" className="apple-svg">
+    <div className={`piece-apple ${isGolden ? "golden" : "red"}`} aria-label={isGolden ? "Golden Apple" : "Red Apple"}>
+      {/* Floating Sparkle Halo for Golden Apple */}
+      {isGolden && <div className="golden-apple-halo" aria-hidden="true" />}
+
+      <svg viewBox="0 0 48 48" className="apple-svg">
         <defs>
-          {/* Ultra Juicy 3D Apple Gradient */}
-          <radialGradient id="apple-3d-red" cx="30%" cy="25%" r="72%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
-            <stop offset="20%" stopColor="#fca5a5" />
-            <stop offset="55%" stopColor="#ef4444" />
-            <stop offset="85%" stopColor="#dc2626" />
+          {/* Ultra Juicy 3D Red Apple Gradient */}
+          <radialGradient id="apple-3d-red-rich" cx="28%" cy="22%" r="75%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+            <stop offset="18%" stopColor="#fca5a5" />
+            <stop offset="50%" stopColor="#ef4444" />
+            <stop offset="82%" stopColor="#dc2626" />
             <stop offset="100%" stopColor="#7f1d1d" />
           </radialGradient>
 
-          <radialGradient id="apple-3d-gold" cx="30%" cy="25%" r="72%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-            <stop offset="25%" stopColor="#fef08a" />
-            <stop offset="60%" stopColor="#facc15" />
-            <stop offset="85%" stopColor="#eab308" />
-            <stop offset="100%" stopColor="#854d0e" />
+          {/* Gleaming 3D Golden Apple Gradient */}
+          <radialGradient id="apple-3d-gold-rich" cx="28%" cy="22%" r="75%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.98" />
+            <stop offset="22%" stopColor="#fef08a" />
+            <stop offset="55%" stopColor="#facc15" />
+            <stop offset="85%" stopColor="#ca8a04" />
+            <stop offset="100%" stopColor="#78350f" />
           </radialGradient>
 
-          <filter id="apple-drop-shadow" x="-30%" y="-30%" width="160%" height="160%">
+          {/* Rich Apple Drop Shadow */}
+          <filter id="apple-ambient-shadow" x="-35%" y="-35%" width="170%" height="170%">
             <feDropShadow
               dx="0"
               dy="5"
-              stdDeviation="3"
-              floodColor={isGolden ? "#eab308" : "#991b1b"}
-              floodOpacity={isGolden ? "0.6" : "0.45"}
+              stdDeviation="3.2"
+              floodColor={isGolden ? "#ca8a04" : "#7f1d1d"}
+              floodOpacity={isGolden ? "0.6" : "0.5"}
             />
           </filter>
         </defs>
 
-        {/* Apple Stem */}
+        {/* Stem */}
         <path
-          d="M 22 13 Q 25 5 28 3"
+          d="M 24 14 Q 27 5 31 3"
           fill="none"
           stroke="#78350f"
-          strokeWidth="2.8"
+          strokeWidth="3"
           strokeLinecap="round"
         />
 
-        {/* Glossy Green Leaf */}
+        {/* Crisp Green Leaf with Dew Drop */}
         <path
-          d="M 23 8 Q 33 4 33 12 Q 28 14 23 8"
+          d="M 25 9 Q 36 5 36 14 Q 30 16 25 9"
           fill={isGolden ? "#fde047" : "#4ade80"}
-          stroke={isGolden ? "#ca8a04" : "#166534"}
-          strokeWidth="1.4"
-          filter="drop-shadow(0 2px 2px rgba(0,0,0,0.15))"
+          stroke={isGolden ? "#ca8a04" : "#15803d"}
+          strokeWidth="1.5"
+          filter="drop-shadow(0 2px 3px rgba(0,0,0,0.2))"
         />
+        <circle cx="30" cy="10" r="1.2" fill="#ffffff" opacity="0.9" />
 
-        {/* Apple 3D Body */}
+        {/* Plump 3D Apple Body */}
         <path
-          d="M 22 14 C 14 11 8 17 8 25 C 8 35 17 38 22 36 C 27 38 36 35 36 25 C 36 17 30 11 22 14 Z"
-          fill={isGolden ? "url(#apple-3d-gold)" : "url(#apple-3d-red)"}
-          filter="url(#apple-drop-shadow)"
+          d="M 24 15 C 15 12 8 18 8 27 C 8 38 18 41 24 39 C 30 41 40 38 40 27 C 40 18 33 12 24 15 Z"
+          fill={isGolden ? "url(#apple-3d-gold-rich)" : "url(#apple-3d-red-rich)"}
+          filter="url(#apple-ambient-shadow)"
           stroke={isGolden ? "#a16207" : "#7f1d1d"}
           strokeWidth="1.6"
         />
 
-        {/* Specular Highlight Streak */}
+        {/* Curving Glassy Highlight Streak */}
         <path
-          d="M 13 20 C 13 16 16 14 20 15 C 17 17 15 22 16 26 C 14 24 13 22 13 20 Z"
+          d="M 14 21 C 14 17 18 15 22 16 C 18 18 16 23 17 28 C 15 26 14 24 14 21 Z"
           fill="#ffffff"
-          opacity="0.65"
+          opacity="0.68"
         />
-        <circle cx="20" cy="18" r="2.2" fill="#ffffff" opacity="0.85" />
+        <circle cx="21" cy="19" r="2.4" fill="#ffffff" opacity="0.9" />
 
-        {/* Rotating Sparkles on Golden Apple */}
+        {/* Twinkling Golden Apple Sparkles */}
         {isGolden && (
           <g className="golden-sparkles-spin">
-            <polygon points="34,8 35,11 38,12 35,13 34,16 33,13 30,12 33,11" fill="#fff" />
-            <polygon points="10,30 11,32 13,33 11,34 10,36 9,34 7,33 9,32" fill="#fff" />
+            <polygon points="36,9 37.5,12.5 41,13.5 37.5,14.5 36,18 34.5,14.5 31,13.5 34.5,12.5" fill="#ffffff" />
+            <polygon points="12,32 13,34.5 15.5,35.5 13,36.5 12,39 11,36.5 8.5,35.5 11,34.5" fill="#ffffff" />
           </g>
         )}
       </svg>
@@ -297,17 +332,19 @@ export function ApplePiece({ isGolden = false }) {
 
 export function WallPiece() {
   return (
-    <div className="piece-wall">
-      <svg viewBox="0 0 44 44" className="wall-svg">
+    <div className="piece-wall" aria-label="Stone Wall Obstacle">
+      <svg viewBox="0 0 46 46" className="wall-svg">
         <defs>
-          <linearGradient id="wall-3d-stone" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#cbd5e1" />
-            <stop offset="35%" stopColor="#94a3b8" />
-            <stop offset="80%" stopColor="#475569" />
+          {/* Weathered 3D Stone Gradient */}
+          <linearGradient id="wall-stone-texture" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#e2e8f0" />
+            <stop offset="25%" stopColor="#94a3b8" />
+            <stop offset="70%" stopColor="#475569" />
             <stop offset="100%" stopColor="#1e293b" />
           </linearGradient>
-          <filter id="wall-shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="4" stdDeviation="2" floodColor="#0f172a" floodOpacity="0.4" />
+
+          <filter id="wall-depth-shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="2.5" floodColor="#0f172a" floodOpacity="0.45" />
           </filter>
         </defs>
 
@@ -315,34 +352,35 @@ export function WallPiece() {
         <rect
           x="3"
           y="3"
-          width="38"
-          height="38"
-          rx="9"
-          fill="url(#wall-3d-stone)"
-          filter="url(#wall-shadow)"
+          width="40"
+          height="40"
+          rx="10"
+          fill="url(#wall-stone-texture)"
+          filter="url(#wall-depth-shadow)"
           stroke="#1e293b"
-          strokeWidth="2"
+          strokeWidth="2.2"
         />
 
-        {/* Top Rim Bevel Highlight */}
+        {/* Top Rim Bevel Light */}
         <path
-          d="M 8 5 L 36 5 Q 39 5 39 8 L 39 12 L 5 12 L 5 8 Q 5 5 8 5 Z"
+          d="M 8 5 L 38 5 Q 41 5 41 8 L 41 12 L 5 12 L 5 8 Q 5 5 8 5 Z"
           fill="#ffffff"
-          opacity="0.25"
+          opacity="0.32"
         />
 
-        {/* Cracks & Weathering */}
+        {/* Natural Weathering & Masonry Cracks */}
         <path
-          d="M 9 14 L 18 19 L 24 13 M 16 31 L 23 25 L 34 32"
+          d="M 10 16 L 20 21 L 26 15 M 17 32 L 25 26 L 36 33"
           fill="none"
-          stroke="#1e293b"
-          strokeWidth="1.8"
+          stroke="#0f172a"
+          strokeWidth="2"
           strokeLinecap="round"
         />
 
-        {/* Fresh Moss Dots */}
-        <circle cx="10" cy="10" r="3.2" fill="#4ade80" opacity="0.85" />
-        <circle cx="34" cy="33" r="2.8" fill="#4ade80" opacity="0.75" />
+        {/* Vibrant Moss Tufts on Rock Face */}
+        <circle cx="11" cy="11" r="3.5" fill="#4ade80" opacity="0.9" />
+        <circle cx="36" cy="34" r="3.2" fill="#22c55e" opacity="0.85" />
+        <circle cx="34" cy="12" r="2.2" fill="#86efac" opacity="0.8" />
       </svg>
     </div>
   );
@@ -350,10 +388,10 @@ export function WallPiece() {
 
 export function SpikePiece() {
   return (
-    <div className="piece-spike">
-      <svg viewBox="0 0 44 44" className="spike-svg">
+    <div className="piece-spike" aria-label="Hazard Spikes">
+      <svg viewBox="0 0 46 46" className="spike-svg">
         <defs>
-          <radialGradient id="spike-hazard" cx="50%" cy="50%" r="50%">
+          <radialGradient id="spike-plate-warning" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#f87171" />
             <stop offset="60%" stopColor="#dc2626" />
             <stop offset="100%" stopColor="#450a0a" />
@@ -361,20 +399,26 @@ export function SpikePiece() {
         </defs>
 
         {/* Hazard Ground Trap Ring */}
-        <circle cx="22" cy="22" r="18" fill="url(#spike-hazard)" opacity="0.45" />
-        <circle cx="22" cy="22" r="18" fill="none" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="5 3" />
+        <rect x="4" y="4" width="38" height="38" rx="8" fill="url(#spike-plate-warning)" opacity="0.4" stroke="#dc2626" strokeWidth="1.5" />
+        <line x1="6" y1="6" x2="40" y2="40" stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
 
-        {/* 3D Metallic Hazard Spikes */}
-        <polygon points="13,35 22,8 20,35" fill="#f87171" />
-        <polygon points="20,35 22,8 29,35" fill="#991b1b" />
+        {/* 3D Metallic Razor Spikes */}
+        {/* Center Giant Spike */}
+        <polygon points="14,37 23,7 21,37" fill="#f87171" />
+        <polygon points="21,37 23,7 31,37" fill="#7f1d1d" />
 
-        <polygon points="7,36 14,16 19,36" fill="#ef4444" />
-        <polygon points="25,36 30,16 37,36" fill="#7f1d1d" />
+        {/* Left Side Spike */}
+        <polygon points="7,38 15,16 20,38" fill="#ef4444" />
+        <polygon points="15,16 20,38 18,38" fill="#991b1b" />
 
-        {/* Sharp Metallic Glints */}
-        <circle cx="22" cy="8" r="2.2" fill="#ffffff" filter="drop-shadow(0 0 2px #fff)" />
-        <circle cx="14" cy="16" r="1.6" fill="#ffffff" />
-        <circle cx="30" cy="16" r="1.6" fill="#ffffff" />
+        {/* Right Side Spike */}
+        <polygon points="26,38 31,16 39,38" fill="#991b1b" />
+        <polygon points="31,16 34,38 39,38" fill="#450a0a" />
+
+        {/* Gleaming Metallic Sparkles */}
+        <circle cx="23" cy="7" r="2.4" fill="#ffffff" filter="drop-shadow(0 0 3px #ffffff)" />
+        <circle cx="15" cy="16" r="1.8" fill="#ffffff" />
+        <circle cx="31" cy="16" r="1.8" fill="#ffffff" />
       </svg>
     </div>
   );
@@ -382,31 +426,31 @@ export function SpikePiece() {
 
 export function KeyPiece() {
   return (
-    <div className="piece-key">
-      <svg viewBox="0 0 44 44" className="key-svg">
+    <div className="piece-key" aria-label="Golden Secret Key">
+      <svg viewBox="0 0 46 46" className="key-svg">
         <defs>
-          <linearGradient id="gold-key-3d" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="gold-key-radiance" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="30%" stopColor="#fef08a" />
-            <stop offset="65%" stopColor="#facc15" />
+            <stop offset="25%" stopColor="#fef08a" />
+            <stop offset="60%" stopColor="#facc15" />
             <stop offset="100%" stopColor="#a16207" />
           </linearGradient>
-          <filter id="key-radiance" x="-35%" y="-35%" width="170%" height="170%">
-            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#facc15" floodOpacity="0.85" />
+          <filter id="key-glow-bloom" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="0" stdDeviation="4.5" floodColor="#facc15" floodOpacity="0.9" />
           </filter>
         </defs>
 
-        <g filter="url(#key-radiance)" transform="rotate(-30 22 22)">
-          {/* Key Ring */}
-          <circle cx="15" cy="22" r="8" fill="none" stroke="url(#gold-key-3d)" strokeWidth="3.4" />
-          <circle cx="15" cy="22" r="4" fill="#a16207" opacity="0.3" />
+        <g filter="url(#key-glow-bloom)" transform="rotate(-30 23 23)">
+          {/* Key Ring Bow */}
+          <circle cx="15" cy="23" r="8.5" fill="none" stroke="url(#gold-key-radiance)" strokeWidth="3.6" />
+          <circle cx="15" cy="23" r="4.2" fill="#854d0e" opacity="0.3" />
 
           {/* Key Shaft */}
-          <line x1="23" y1="22" x2="36" y2="22" stroke="url(#gold-key-3d)" strokeWidth="3.6" strokeLinecap="round" />
+          <line x1="23.5" y1="23" x2="38" y2="23" stroke="url(#gold-key-radiance)" strokeWidth="3.8" strokeLinecap="round" />
 
-          {/* Key Teeth */}
-          <line x1="32" y1="22" x2="32" y2="29" stroke="url(#gold-key-3d)" strokeWidth="3.2" strokeLinecap="round" />
-          <line x1="36" y1="22" x2="36" y2="28" stroke="url(#gold-key-3d)" strokeWidth="3.2" strokeLinecap="round" />
+          {/* Key Bit / Teeth */}
+          <line x1="33" y1="23" x2="33" y2="30" stroke="url(#gold-key-radiance)" strokeWidth="3.4" strokeLinecap="round" />
+          <line x1="37" y1="23" x2="37" y2="29" stroke="url(#gold-key-radiance)" strokeWidth="3.4" strokeLinecap="round" />
         </g>
       </svg>
     </div>
@@ -415,31 +459,31 @@ export function KeyPiece() {
 
 export function GatePiece({ isUnlocked = false }) {
   return (
-    <div className={`piece-gate ${isUnlocked ? "unlocked" : "locked"}`}>
-      <svg viewBox="0 0 44 44" className="gate-svg">
+    <div className={`piece-gate ${isUnlocked ? "unlocked" : "locked"}`} aria-label={isUnlocked ? "Unlocked Gate" : "Locked Gate"}>
+      <svg viewBox="0 0 46 46" className="gate-svg">
         <defs>
-          <linearGradient id="gate-laser-glow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#fb7185" />
+          <linearGradient id="gate-laser-force" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#fda4af" />
             <stop offset="50%" stopColor="#f43f5e" />
             <stop offset="100%" stopColor="#be123c" />
           </linearGradient>
         </defs>
 
         {/* Heavy Stone Pillars */}
-        <rect x="2" y="3" width="8" height="38" rx="4" fill="#334155" stroke="#0f172a" strokeWidth="1.8" />
-        <rect x="34" y="3" width="8" height="38" rx="4" fill="#334155" stroke="#0f172a" strokeWidth="1.8" />
+        <rect x="2" y="3" width="9" height="40" rx="4.5" fill="#334155" stroke="#0f172a" strokeWidth="2" />
+        <rect x="35" y="3" width="9" height="40" rx="4.5" fill="#334155" stroke="#0f172a" strokeWidth="2" />
 
         {/* Forcefield Laser Grid */}
         {!isUnlocked && (
-          <g className="gate-lasers">
-            <rect x="10" y="9" width="24" height="4.5" rx="2" fill="url(#gate-laser-glow)" filter="drop-shadow(0 0 4px #f43f5e)" />
-            <rect x="10" y="20" width="24" height="4.5" rx="2" fill="url(#gate-laser-glow)" filter="drop-shadow(0 0 4px #f43f5e)" />
-            <rect x="10" y="31" width="24" height="4.5" rx="2" fill="url(#gate-laser-glow)" filter="drop-shadow(0 0 4px #f43f5e)" />
+          <g className="gate-laser-active">
+            <rect x="11" y="9" width="24" height="4.5" rx="2" fill="url(#gate-laser-force)" filter="drop-shadow(0 0 5px #f43f5e)" />
+            <rect x="11" y="21" width="24" height="4.5" rx="2" fill="url(#gate-laser-force)" filter="drop-shadow(0 0 5px #f43f5e)" />
+            <rect x="11" y="33" width="24" height="4.5" rx="2" fill="url(#gate-laser-force)" filter="drop-shadow(0 0 5px #f43f5e)" />
 
             {/* Central Padlock Shield */}
-            <circle cx="22" cy="22" r="8" fill="#881337" stroke="#f43f5e" strokeWidth="1.8" />
-            <rect x="19" y="21" width="6" height="5" rx="1" fill="#facc15" />
-            <path d="M 20 21 L 20 18 Q 22 16 24 18 L 24 21" fill="none" stroke="#facc15" strokeWidth="1.5" />
+            <circle cx="23" cy="23" r="8.5" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+            <rect x="20" y="22" width="6" height="5" rx="1.2" fill="#facc15" />
+            <path d="M 21 22 L 21 19 Q 23 17 25 19 L 25 22" fill="none" stroke="#facc15" strokeWidth="1.6" />
           </g>
         )}
       </svg>
@@ -449,30 +493,30 @@ export function GatePiece({ isUnlocked = false }) {
 
 export function TeleportPiece({ color = "#38bdf8" }) {
   return (
-    <div className="piece-teleport">
-      <svg viewBox="0 0 44 44" className="teleport-svg">
+    <div className="piece-teleport" aria-label="Wormhole Teleporter">
+      <svg viewBox="0 0 46 46" className="teleport-svg">
         <defs>
-          <filter id="tele-intense-glow" x="-35%" y="-35%" width="170%" height="170%">
-            <feDropShadow dx="0" dy="0" stdDeviation="4.5" floodColor={color} floodOpacity="0.9" />
+          <filter id="teleport-bloom" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor={color} floodOpacity="0.9" />
           </filter>
         </defs>
 
-        {/* Outer Spinning Stargate Rune Ring */}
+        {/* Outer Rotating Stargate Rune Ring */}
         <circle
-          cx="22"
-          cy="22"
-          r="18"
+          cx="23"
+          cy="23"
+          r="19"
           fill="none"
           stroke={color}
-          strokeWidth="3"
-          strokeDasharray="7 4"
-          filter="url(#tele-intense-glow)"
+          strokeWidth="3.2"
+          strokeDasharray="8 4"
+          filter="url(#teleport-bloom)"
           className="tele-spin-outer"
         />
 
         {/* Swirling Warp Core */}
-        <circle cx="22" cy="22" r="11" fill={color} opacity="0.4" />
-        <circle cx="22" cy="22" r="5" fill="#ffffff" filter="drop-shadow(0 0 3px #fff)" />
+        <circle cx="23" cy="23" r="12" fill={color} opacity="0.45" />
+        <circle cx="23" cy="23" r="5.5" fill="#ffffff" filter="drop-shadow(0 0 4px #ffffff)" />
       </svg>
     </div>
   );
@@ -480,76 +524,87 @@ export function TeleportPiece({ color = "#38bdf8" }) {
 
 export function PortalPiece({ isOpen = false }) {
   return (
-    <div className={`piece-portal ${isOpen ? "open" : "locked"}`}>
-      <svg viewBox="0 0 48 48" className="portal-svg">
+    <div className={`piece-portal ${isOpen ? "open" : "locked"}`} aria-label={isOpen ? "Awakened Cosmic Stargate" : "Locked Stargate Portal"}>
+      {/* Radiant Glow Burst Behind Portal when Open */}
+      {isOpen && <div className="portal-awakened-burst" aria-hidden="true" />}
+
+      <svg viewBox="0 0 52 52" className="portal-svg">
         <defs>
           {/* Cosmic Nebula Radiant Gradient */}
-          <radialGradient id="stargate-nebula" cx="50%" cy="50%" r="50%">
+          <radialGradient id="stargate-cosmic-singularity" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="25%" stopColor="#38bdf8" />
-            <stop offset="60%" stopColor="#a855f7" />
-            <stop offset="90%" stopColor="#7c3aed" />
+            <stop offset="22%" stopColor="#38bdf8" />
+            <stop offset="55%" stopColor="#a855f7" />
+            <stop offset="85%" stopColor="#7c3aed" />
             <stop offset="100%" stopColor="#2e1065" />
           </radialGradient>
 
-          <filter id="stargate-bloom" x="-40%" y="-40%" width="180%" height="180%">
-            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor={isOpen ? "#a855f7" : "#475569"} floodOpacity="0.9" />
+          <filter id="portal-stargate-bloom" x="-45%" y="-45%" width="190%" height="190%">
+            <feDropShadow
+              dx="0"
+              dy="0"
+              stdDeviation="7"
+              floodColor={isOpen ? "#c084fc" : "#475569"}
+              floodOpacity={isOpen ? "0.95" : "0.5"}
+            />
           </filter>
         </defs>
 
         {isOpen ? (
           // Radiant Hyperspace Stargate
-          <g filter="url(#stargate-bloom)">
-            {/* Outer Rotating Energy Rings */}
+          <g filter="url(#portal-stargate-bloom)">
+            {/* Outer Rotating Rune Ring */}
             <circle
-              cx="24"
-              cy="24"
-              r="20"
+              cx="26"
+              cy="26"
+              r="22"
               fill="none"
               stroke="#c084fc"
-              strokeWidth="3.2"
-              strokeDasharray="9 4"
+              strokeWidth="3.5"
+              strokeDasharray="10 4"
               className="portal-ring-outer"
             />
             {/* Pulsing Core */}
             <circle
-              cx="24"
-              cy="24"
-              r="16"
-              fill="url(#stargate-nebula)"
+              cx="26"
+              cy="26"
+              r="17"
+              fill="url(#stargate-cosmic-singularity)"
               className="portal-core-pulse"
             />
-            {/* Spiral Hyperspace Arms */}
+            {/* Spiral Hyperspace Vortex Arms */}
             <path
-              d="M 24 10 Q 34 20 24 24 Q 14 28 24 38"
+              d="M 26 11 Q 37 21 26 26 Q 15 31 26 41"
               fill="none"
               stroke="#ffffff"
-              strokeWidth="2.2"
+              strokeWidth="2.4"
               opacity="0.9"
               className="portal-spiral"
             />
-            <circle cx="24" cy="24" r="4" fill="#ffffff" filter="drop-shadow(0 0 4px #fff)" />
+            <circle cx="26" cy="26" r="4.5" fill="#ffffff" filter="drop-shadow(0 0 5px #ffffff)" />
           </g>
         ) : (
           // Locked Ancient Obsidian Portal
-          <g filter="url(#stargate-bloom)">
+          <g filter="url(#portal-stargate-bloom)">
             <circle
-              cx="24"
-              cy="24"
-              r="19"
+              cx="26"
+              cy="26"
+              r="21"
               fill="#0f172a"
-              stroke="#334155"
-              strokeWidth="3"
+              stroke="#475569"
+              strokeWidth="3.5"
             />
+            <circle cx="26" cy="26" r="14" fill="#1e293b" opacity="0.6" stroke="#334155" strokeWidth="1.5" />
             {/* Giant Golden Padlock */}
-            <rect x="17" y="23" width="14" height="11" rx="2.5" fill="#eab308" stroke="#a16207" strokeWidth="1.8" />
+            <rect x="18" y="24" width="16" height="13" rx="3" fill="#eab308" stroke="#a16207" strokeWidth="2" />
             <path
-              d="M 19 23 L 19 17 Q 24 12 29 17 L 29 23"
+              d="M 21 24 L 21 18 Q 26 13 31 18 L 31 24"
               fill="none"
               stroke="#eab308"
-              strokeWidth="2.6"
+              strokeWidth="3"
               strokeLinecap="round"
             />
+            <circle cx="26" cy="30" r="1.8" fill="#78350f" />
           </g>
         )}
       </svg>

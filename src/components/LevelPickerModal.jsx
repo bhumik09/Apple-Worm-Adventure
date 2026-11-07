@@ -1,5 +1,17 @@
 import React, { useState } from "react";
 import { WORLDS, LEVELS } from "../data/levels";
+import { StarSvgIcon } from "./GameHUD";
+
+function LockSvgIcon({ className = "card-lock-svg" }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="5" y="10" width="14" height="11" rx="2.5" fill="#64748b" stroke="#334155" strokeWidth="1.5" />
+      <path d="M8 10V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V10" stroke="#475569" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="12" cy="15" r="1.5" fill="#e2e8f0" />
+      <path d="M12 16.5V18.5" stroke="#e2e8f0" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function LevelPickerModal({
   currentLevel,
@@ -28,6 +40,7 @@ export default function LevelPickerModal({
     0
   );
   const maxWorldStars = worldLevels.length * 3;
+  const worldPercent = Math.round((worldTotalStars / (maxWorldStars || 1)) * 100);
 
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="Select Level">
@@ -40,7 +53,7 @@ export default function LevelPickerModal({
           </div>
           <button
             type="button"
-            className="modal-close-btn"
+            className="modal-close-btn tactile-btn"
             onClick={onClose}
             aria-label="Close"
           >
@@ -60,7 +73,7 @@ export default function LevelPickerModal({
                 type="button"
                 role="tab"
                 aria-selected={isCurrent}
-                className={`world-tab-btn ${isCurrent ? "active" : ""} ${
+                className={`world-tab-btn tactile-btn ${isCurrent ? "active" : ""} ${
                   !isUnlocked ? "locked" : ""
                 }`}
                 onClick={() => setSelectedWorldId(w.id)}
@@ -75,14 +88,24 @@ export default function LevelPickerModal({
           })}
         </div>
 
-        {/* Active World Banner */}
+        {/* Active World Banner with Progress Bar */}
         <div className="world-banner" style={{ borderColor: activeWorld.color }}>
           <div className="world-banner-text">
             <h3>{activeWorld.icon} {activeWorld.name}</h3>
             <p>{activeWorld.description}</p>
           </div>
-          <div className="world-stars-badge">
-            <span>⭐ {worldTotalStars} / {maxWorldStars}</span>
+          <div className="world-banner-progress">
+            <div className="world-stars-badge">
+              <StarSvgIcon className="world-star-icon" />
+              <strong>{worldTotalStars} / {maxWorldStars}</strong>
+              <small>({worldPercent}%)</small>
+            </div>
+            <div className="world-progress-bar-track">
+              <div
+                className="world-progress-bar-fill"
+                style={{ width: `${worldPercent}%`, backgroundColor: activeWorld.color }}
+              />
+            </div>
           </div>
         </div>
 
@@ -99,7 +122,7 @@ export default function LevelPickerModal({
                 key={lvl.id}
                 type="button"
                 disabled={isLocked}
-                className={`world-level-card ${isCurrent ? "current" : ""} ${
+                className={`world-level-card tactile-btn ${isCurrent ? "current" : ""} ${
                   isLocked ? "locked" : "unlocked"
                 }`}
                 onClick={() => {
@@ -110,7 +133,7 @@ export default function LevelPickerModal({
                 <div className="card-top-row">
                   <span className="card-level-num">#{lvl.id}</span>
                   {isLocked ? (
-                    <span className="card-lock-icon">🔒</span>
+                    <LockSvgIcon className="card-lock-svg" />
                   ) : stars > 0 ? (
                     <span className="card-cleared-tag">✓</span>
                   ) : null}
@@ -121,9 +144,11 @@ export default function LevelPickerModal({
                 {!isLocked && (
                   <div className="card-stars-row">
                     {[1, 2, 3].map((s) => (
-                      <span key={s} className={`star-icon ${s <= stars ? "lit" : "dim"}`}>
-                        ★
-                      </span>
+                      <StarSvgIcon
+                        key={s}
+                        filled={s <= stars}
+                        className={`picker-star-svg ${s <= stars ? "lit" : "dim"}`}
+                      />
                     ))}
                   </div>
                 )}
@@ -133,7 +158,7 @@ export default function LevelPickerModal({
                 )}
 
                 {isLocked && (
-                  <small className="card-lock-hint">Beat Lv. {lvl.id - 1}</small>
+                  <small className="card-lock-hint">Unlock at Lv. {lvl.id - 1}</small>
                 )}
               </button>
             );
@@ -142,7 +167,7 @@ export default function LevelPickerModal({
 
         {/* Footer Note */}
         <div className="modal-footer-info">
-          <span>Earn up to 3 stars per level by solving within par moves!</span>
+          <span>Earn up to 3 stars per level by beating the par moves!</span>
         </div>
       </div>
     </div>

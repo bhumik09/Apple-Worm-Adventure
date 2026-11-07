@@ -1050,20 +1050,45 @@ button:focus-visible {
   100% { transform: translate(-10px, 15px) scale(0.7); opacity: 0.4; }
 }
 
-/* Theme Board Borders */
-.world-theme-2 .board-grid-wrapper {
-  border-color: #fde68a;
-  background: linear-gradient(145deg, #fffbeb, #fef3c7);
+/* Theme Board Borders & Rich World Chassis */
+.board-grid-wrapper.world-chassis-1 {
+  border-color: #22c55e;
+  background: linear-gradient(150deg, #f0fdf4 0%, #dcfce7 60%, #bbf7d0 100%);
+  box-shadow:
+    0 18px 40px rgba(22, 163, 74, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    inset 0 3px 6px rgba(255, 255, 255, 0.9),
+    inset 0 -4px 8px rgba(21, 128, 61, 0.2);
 }
 
-.world-theme-3 .board-grid-wrapper {
-  border-color: #fbcfe8;
-  background: linear-gradient(145deg, #fdf2f8, #fce7f3);
+.board-grid-wrapper.world-chassis-2 {
+  border-color: #f59e0b;
+  background: linear-gradient(150deg, #fffbeb 0%, #fef3c7 60%, #fde68a 100%);
+  box-shadow:
+    0 18px 40px rgba(217, 119, 6, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    inset 0 3px 6px rgba(255, 255, 255, 0.9),
+    inset 0 -4px 8px rgba(180, 83, 9, 0.2);
 }
 
-.world-theme-4 .board-grid-wrapper {
-  border-color: #c4b5fd;
-  background: linear-gradient(145deg, #faf5ff, #ede9fe);
+.board-grid-wrapper.world-chassis-3 {
+  border-color: #a855f7;
+  background: linear-gradient(150deg, #faf5ff 0%, #f3e8ff 60%, #e9d5ff 100%);
+  box-shadow:
+    0 18px 40px rgba(147, 51, 234, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    inset 0 3px 6px rgba(255, 255, 255, 0.9),
+    inset 0 -4px 8px rgba(126, 34, 206, 0.2);
+}
+
+.board-grid-wrapper.world-chassis-4 {
+  border-color: #38bdf8;
+  background: linear-gradient(150deg, #0f172a 0%, #1e1b4b 60%, #020617 100%);
+  box-shadow:
+    0 18px 40px rgba(56, 189, 248, 0.28),
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 3px 6px rgba(125, 211, 252, 0.5),
+    inset 0 -4px 8px rgba(3, 105, 161, 0.5);
 }
 
 .board-grid {
@@ -1087,26 +1112,40 @@ button:focus-visible {
   transition: background-color 0.15s ease;
 }
 
+/* Light & Dark Checkerboard Tiles with 3D Depth */
 .tile-light {
-  background-color: rgba(255, 255, 255, 0.85);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(0, 0, 0, 0.04);
+  background-color: rgba(255, 255, 255, 0.88);
+  box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.95), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .tile-dark {
-  background-color: rgba(220, 252, 231, 0.55);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  background-color: rgba(220, 252, 231, 0.72);
+  box-shadow: inset 0 1px 2px rgba(22, 163, 74, 0.12);
 }
 
+.world-theme-2 .tile-light {
+  background-color: rgba(255, 255, 255, 0.9);
+}
 .world-theme-2 .tile-dark {
-  background-color: rgba(254, 243, 199, 0.55);
+  background-color: rgba(254, 243, 199, 0.75);
+  box-shadow: inset 0 1px 2px rgba(217, 119, 6, 0.12);
 }
 
+.world-theme-3 .tile-light {
+  background-color: rgba(255, 255, 255, 0.9);
+}
 .world-theme-3 .tile-dark {
-  background-color: rgba(251, 207, 232, 0.55);
+  background-color: rgba(243, 232, 255, 0.75);
+  box-shadow: inset 0 1px 2px rgba(147, 51, 234, 0.12);
 }
 
+.world-theme-4 .tile-light {
+  background-color: rgba(30, 41, 59, 0.85);
+  box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.1), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
 .world-theme-4 .tile-dark {
-  background-color: rgba(224, 231, 255, 0.55);
+  background-color: rgba(15, 23, 42, 0.92);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .tile-3d-highlight {
@@ -1118,6 +1157,41 @@ button:focus-visible {
   background: rgba(255, 255, 255, 0.65);
   border-radius: 4px;
   pointer-events: none;
+}
+
+/* Ambient Garden & World Flora SVGs */
+.garden-deco-svg {
+  width: 58%;
+  height: 58%;
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.88;
+  animation: gentle-deco-sway 4s ease-in-out infinite alternate;
+}
+
+.flower-deco {
+  filter: drop-shadow(0 1px 2px rgba(234, 88, 12, 0.25));
+}
+.clover-deco {
+  filter: drop-shadow(0 1px 2px rgba(22, 163, 74, 0.25));
+}
+.sprout-deco {
+  filter: drop-shadow(0 1px 2px rgba(34, 197, 94, 0.25));
+}
+.leaf-deco {
+  filter: drop-shadow(0 1px 2px rgba(194, 65, 12, 0.25));
+}
+.crystal-deco {
+  filter: drop-shadow(0 1px 3px rgba(126, 34, 206, 0.35));
+}
+.spark-deco {
+  filter: drop-shadow(0 0 4px rgba(103, 232, 249, 0.6));
+}
+
+@keyframes gentle-deco-sway {
+  0% { transform: scale(0.96) rotate(-2deg); }
+  100% { transform: scale(1.04) rotate(2deg); }
 }
 
 /* ================= GAME PIECES (SVG) ================= */
@@ -3083,13 +3157,13 @@ button:focus-visible {
   }
 
   /* Intelligent Dynamic Board Sizing:
-     Always leaves space for header (50px) + cockpit (130px) + padding (20px) = 200px
-     Never pushes controls off-screen! */
+     Always leaves space for header (48px) + cockpit (116px) + padding (20px) = 184px
+     Guarantees that all 4 D-Pad arrows and buttons are 100% visible on any mobile device */
   .worm-board-container {
     flex: 0 1 auto;
     width: 100%;
-    max-width: min(calc(100vw - 20px), calc(100dvh - 205px), 360px);
-    max-height: min(calc(100vw - 20px), calc(100dvh - 205px), 360px);
+    max-width: min(calc(100vw - 20px), calc(100dvh - 225px), 325px);
+    max-height: min(calc(100vw - 20px), calc(100dvh - 225px), 325px);
     aspect-ratio: 1;
     margin: 0 auto;
     touch-action: pan-y;
@@ -3109,14 +3183,15 @@ button:focus-visible {
     border-radius: 5px;
   }
 
-  /* Mobile Integrated Controller Cockpit - Elevated and Compact */
+  /* Mobile Integrated Controller Cockpit - Elevated and Ergonomic */
   .mobile-cockpit-wrapper {
     display: flex;
     width: 100%;
-    max-width: 440px;
+    max-width: 400px;
     margin: 0 auto;
     flex-shrink: 0;
     padding: 0 4px;
+    padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
   }
 
   .mobile-control-cockpit {
@@ -3130,31 +3205,33 @@ button:focus-visible {
   .cockpit-wing {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     align-items: center;
+    justify-content: center;
   }
 
   .cockpit-round-btn {
-    width: clamp(44px, 11.5vw, 50px);
-    height: clamp(44px, 11.5vw, 50px);
-    border-radius: 14px;
+    width: clamp(38px, 10vw, 44px);
+    height: clamp(38px, 10vw, 44px);
+    border-radius: 13px;
+    padding: 2px;
   }
 
-  .cockpit-btn-icon {
-    font-size: 18px;
-    line-height: 1;
+  .cockpit-svg-icon {
+    width: 18px;
+    height: 18px;
   }
 
   .cockpit-btn-label {
-    font-size: 8.5px;
+    font-size: 8px;
     font-weight: 900;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.2px;
   }
 
   /* Arcade D-Pad: Sized & Raised so all 4 arrows are 100% visible */
   .arcade-dpad-chassis {
-    width: clamp(122px, 29vw, 136px);
-    height: clamp(122px, 29vw, 136px);
+    width: clamp(106px, 27vw, 120px);
+    height: clamp(106px, 27vw, 120px);
     border-width: 2.5px;
     box-shadow:
       0 6px 14px rgba(0, 0, 0, 0.14),
@@ -3163,46 +3240,46 @@ button:focus-visible {
   }
 
   .arcade-dpad-btn {
-    width: clamp(40px, 9.5vw, 45px);
-    height: clamp(36px, 8.5vw, 40px);
-    font-size: 14px;
-    border-radius: 10px;
+    width: clamp(36px, 8.8vw, 40px);
+    height: clamp(32px, 7.8vw, 36px);
+    font-size: 13px;
+    border-radius: 9px;
   }
 
   .arcade-dpad-btn.btn-up {
-    top: 3px;
-    border-radius: 12px 12px 6px 6px;
+    top: 2px;
+    border-radius: 11px 11px 5px 5px;
   }
 
   .arcade-dpad-btn.btn-down {
-    bottom: 3px;
-    border-radius: 6px 6px 12px 12px;
+    bottom: 2px;
+    border-radius: 5px 5px 11px 11px;
   }
 
   .arcade-dpad-mid {
-    padding: 0 3px;
+    padding: 0 2px;
   }
 
   .arcade-dpad-btn.btn-left {
-    width: clamp(36px, 8.5vw, 40px);
-    height: clamp(40px, 9.5vw, 45px);
-    border-radius: 12px 6px 6px 12px;
+    width: clamp(32px, 7.8vw, 36px);
+    height: clamp(36px, 8.8vw, 40px);
+    border-radius: 11px 5px 5px 11px;
   }
 
   .arcade-dpad-btn.btn-right {
-    width: clamp(36px, 8.5vw, 40px);
-    height: clamp(40px, 9.5vw, 45px);
-    border-radius: 6px 12px 12px 6px;
+    width: clamp(32px, 7.8vw, 36px);
+    height: clamp(36px, 8.8vw, 40px);
+    border-radius: 5px 11px 11px 5px;
   }
 
   .arcade-dpad-hub {
-    width: clamp(34px, 8vw, 38px);
-    height: clamp(34px, 8vw, 38px);
+    width: clamp(30px, 7.5vw, 34px);
+    height: clamp(30px, 7.5vw, 34px);
   }
 
   .hub-core {
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
   }
 
   /* Start Screen inside mobile frame */
@@ -3241,8 +3318,8 @@ button:focus-visible {
   }
 }
 
-/* Extra Compact Screens (Narrow phones ≤ 380px or short screens ≤ 620px) */
-@media (max-width: 380px), (max-height: 620px) and (max-width: 900px) {
+/* Extra Compact Screens (Narrow phones ≤ 380px or short screens ≤ 640px) */
+@media (max-width: 380px), (max-height: 640px) and (max-width: 900px) {
   .mobile-game-header {
     padding: 4px 6px;
   }
@@ -3263,40 +3340,40 @@ button:focus-visible {
   }
 
   .worm-board-container {
-    max-width: min(calc(100vw - 16px), calc(100dvh - 180px), 310px);
-    max-height: min(calc(100vw - 16px), calc(100dvh - 180px), 310px);
+    max-width: min(calc(100vw - 16px), calc(100dvh - 195px), 275px);
+    max-height: min(calc(100vw - 16px), calc(100dvh - 195px), 275px);
   }
 
   .arcade-dpad-chassis {
-    width: 116px;
-    height: 116px;
+    width: 98px;
+    height: 98px;
   }
 
   .arcade-dpad-btn {
-    width: 37px;
-    height: 33px;
-    font-size: 12px;
+    width: 32px;
+    height: 28px;
+    font-size: 11px;
   }
 
   .arcade-dpad-btn.btn-left,
   .arcade-dpad-btn.btn-right {
-    width: 33px;
-    height: 37px;
-  }
-
-  .arcade-dpad-hub {
-    width: 32px;
+    width: 28px;
     height: 32px;
   }
 
-  .cockpit-round-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+  .arcade-dpad-hub {
+    width: 26px;
+    height: 26px;
   }
 
-  .cockpit-btn-icon {
-    font-size: 16px;
+  .cockpit-round-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cockpit-svg-icon {
+    width: 16px;
+    height: 16px;
   }
 
   .cockpit-btn-label {
@@ -3304,7 +3381,7 @@ button:focus-visible {
   }
 
   .cockpit-wing {
-    gap: 4px;
+    gap: 3px;
   }
 }
 
@@ -4993,4 +5070,243 @@ button:focus-visible {
   }
 
   .btn-extra-moves-ad { width: 100%; justify-content: center; }
+}
+
+/* =========================================================================
+   VECTOR SVG ARCADE ICONS & VISUAL UPGRADES
+   ========================================================================= */
+
+.hud-svg-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.hud-metric-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.badge-svg-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.h-svg-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.cockpit-svg-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: 0 auto;
+}
+
+.dock-svg-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pill-coin-icon,
+.pill-star-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.icon-btn-svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin: auto;
+}
+
+.skin-btn-svg {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.btn-sub-svg,
+.btn-action-svg,
+.btn-audio-svg {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.quick-badge-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.micro-star {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.micro-star.lit {
+  filter: drop-shadow(0 0 3px #fde047);
+}
+
+.micro-star.dim {
+  opacity: 0.35;
+}
+
+.brand-svg-apple {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 3px 6px rgba(220, 38, 38, 0.4));
+}
+
+/* Hero Mascot in StartScreen */
+.hero-giant-apple-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-giant-apple-svg {
+  width: 82px;
+  height: 82px;
+  filter: drop-shadow(0 10px 20px rgba(220, 38, 38, 0.45));
+  animation: apple-float 3.5s ease-in-out infinite;
+}
+
+.hero-worm-mascot-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -6px;
+  width: 48px;
+  height: 48px;
+  z-index: 3;
+  filter: drop-shadow(0 4px 10px rgba(22, 163, 74, 0.45));
+  animation: hero-worm-wiggle 3s ease-in-out infinite alternate;
+}
+
+.hero-worm-svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes hero-worm-wiggle {
+  0% { transform: translateY(0) rotate(-4deg); }
+  100% { transform: translateY(-4px) rotate(4deg); }
+}
+
+.hero-sparkle-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 8px #fef08a, 0 0 16px #facc15;
+  animation: pulse-sparkle 2s ease-in-out infinite alternate;
+}
+.hero-sparkle-dot.sp-1 { width: 8px; height: 8px; top: 10%; left: 10%; }
+.hero-sparkle-dot.sp-2 { width: 6px; height: 6px; top: 60%; right: 5%; animation-delay: 0.7s; }
+.hero-sparkle-dot.sp-3 { width: 7px; height: 7px; bottom: 15%; left: 15%; animation-delay: 1.4s; }
+
+/* Win Modal Trophy */
+.win-trophy-svg {
+  width: 68px;
+  height: 68px;
+  filter: drop-shadow(0 8px 18px rgba(234, 179, 8, 0.5));
+  animation: trophy-wobble 4s ease-in-out infinite;
+}
+
+@keyframes trophy-wobble {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-3deg) scale(1.03); }
+  75% { transform: rotate(3deg) scale(1.03); }
+}
+
+.star-svg-large {
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 4px 10px rgba(234, 179, 8, 0.45));
+}
+
+/* Fail Modal Mascot */
+.fail-mascot-wrapper {
+  margin: 0 auto 12px;
+  width: 72px;
+  height: 72px;
+}
+
+.fail-mascot-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 6px 14px rgba(239, 68, 68, 0.35));
+  animation: dizzy-shake 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes dizzy-shake {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+/* Level Picker World Progress Bar & Cards */
+.world-banner-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.world-star-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.world-progress-bar-track {
+  width: 120px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.world-progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.picker-star-svg {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+}
+
+.picker-star-svg.lit {
+  filter: drop-shadow(0 0 3px #fde047);
+}
+
+.picker-star-svg.dim {
+  opacity: 0.35;
+}
+
+.card-lock-svg {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
 }
