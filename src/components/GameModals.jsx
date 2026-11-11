@@ -8,6 +8,7 @@ import {
   SoundSvgIcon,
   UndoSvgIcon,
   RetrySvgIcon,
+  WardrobeSvgIcon,
 } from "./GameHUD";
 
 export function StartScreen({
@@ -27,150 +28,140 @@ export function StartScreen({
   onOpenAdmin,
 }) {
   return (
-    <section className="start-screen-card" aria-label="Game Start Screen">
-      {/* Background Animated Rays / Sunburst */}
-      <div className="start-screen-sunburst" aria-hidden="true" />
+    <section className="mobile-game-start-hub" aria-label="Game Title Screen">
+      {/* Sunburst Rays Behind Logo */}
+      <div className="title-sunburst-rays" aria-hidden="true" />
 
-      {/* Hero Mascot: 3D Golden Apple & Cartoon Worm Mascot */}
-      <div className="hero-mascot-container">
-        <div className="hero-portal-aura" aria-hidden="true" />
-        <div className="hero-giant-apple-wrapper">
+      {/* 3D Animated Hero Mascot */}
+      <div className="title-hero-display">
+        <div className="hero-apple-core">
           <AppleSvgIcon className="hero-giant-apple-svg" />
         </div>
-        <div className="hero-worm-mascot-badge" aria-hidden="true">
-          <svg viewBox="0 0 48 48" className="hero-worm-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="18" fill="url(#heroWormGrad)" stroke="#15803d" strokeWidth="2" />
-            <circle cx="18" cy="20" r="4.5" fill="white" />
-            <circle cx="18" cy="20" r="2.2" fill="#0f172a" />
-            <circle cx="17" cy="18.5" r="1" fill="white" />
-            <circle cx="30" cy="20" r="4.5" fill="white" />
-            <circle cx="30" cy="20" r="2.2" fill="#0f172a" />
-            <circle cx="29" cy="18.5" r="1" fill="white" />
-            <ellipse cx="14" cy="25" rx="2.5" ry="1.5" fill="#f43f5e" opacity="0.5" />
-            <ellipse cx="34" cy="25" rx="2.5" ry="1.5" fill="#f43f5e" opacity="0.5" />
-            <path d="M20 27C21.5 29.5 26.5 29.5 28 27" stroke="#14532d" strokeWidth="2.2" strokeLinecap="round" />
-            <path d="M18 10C16 6 12 7 13 10M30 10C32 6 36 7 35 10" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" />
-            <circle cx="12.5" cy="7.5" r="2.5" fill="#4ade80" />
-            <circle cx="35.5" cy="7.5" r="2.5" fill="#4ade80" />
+        <div className="hero-worm-mascot" aria-hidden="true">
+          <svg viewBox="0 0 64 64" className="hero-mascot-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="22" fill="url(#heroMascotGrad)" stroke="#166534" strokeWidth="2.5" />
+            {/* Eyes */}
+            <ellipse cx="23" cy="27" rx="5.5" ry="7" fill="white" />
+            <circle cx="24" cy="27" r="3.2" fill="#0f172a" />
+            <circle cx="22" cy="25" r="1.4" fill="white" />
+            <ellipse cx="41" cy="27" rx="5.5" ry="7" fill="white" />
+            <circle cx="40" cy="27" r="3.2" fill="#0f172a" />
+            <circle cx="38" cy="25" r="1.4" fill="white" />
+            {/* Cheeks */}
+            <ellipse cx="17" cy="34" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6" />
+            <ellipse cx="47" cy="34" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6" />
+            {/* Smile */}
+            <path d="M26 36C28 40 36 40 38 36" stroke="#14532d" strokeWidth="2.6" strokeLinecap="round" />
+            {/* Antennae */}
+            <path d="M23 13C21 8 16 9 17 13M41 13C43 8 48 9 47 13" stroke="#15803d" strokeWidth="2.6" strokeLinecap="round" />
+            <circle cx="16" cy="8" r="3" fill="#4ade80" />
+            <circle cx="48" cy="8" r="3" fill="#4ade80" />
             <defs>
-              <radialGradient id="heroWormGrad" cx="35%" cy="30%" r="70%">
+              <radialGradient id="heroMascotGrad" cx="35%" cy="30%" r="70%">
                 <stop offset="0%" stopColor="#86efac" />
-                <stop offset="60%" stopColor="#22c55e" />
+                <stop offset="55%" stopColor="#22c55e" />
                 <stop offset="100%" stopColor="#15803d" />
               </radialGradient>
             </defs>
           </svg>
         </div>
-        <span className="hero-sparkle-dot sp-1" />
-        <span className="hero-sparkle-dot sp-2" />
-        <span className="hero-sparkle-dot sp-3" />
       </div>
 
-      <span className="start-eyebrow">ARCADE PUZZLE ADVENTURE</span>
-      <h2 className="start-title">
-        <span className="title-gradient">Apple Worm</span>
-        <span className="title-sub">ADVENTURE</span>
-      </h2>
-      <p className="start-description">
-        Munch crisp apples, navigate crafty traps, collect keys, and slide safely into the cosmic portal!
-      </p>
-
-      {/* Quick Access Badges Bar */}
-      <div className="start-quick-badges-bar">
-        <button type="button" className="quick-badge-btn tactile-btn" onClick={onOpenRewardCenter}>
-          <GiftSvgIcon className="quick-badge-icon" />
-          <span>Reward Center</span>
-        </button>
-        <button type="button" className="quick-badge-btn tactile-btn" onClick={onOpenLeaderboard}>
-          <TrophySvgIcon className="quick-badge-icon" />
-          <span>Hall of Fame</span>
-        </button>
-        <button type="button" className="quick-badge-btn tactile-btn" onClick={onOpenAchievements}>
-          <StarSvgIcon className="quick-badge-icon" />
-          <span>Badges</span>
-        </button>
-        <button type="button" className="quick-badge-btn admin-quick-btn tactile-btn" onClick={onOpenAdmin}>
-          <span>⚙️</span>
-          <span>Economy</span>
-        </button>
-      </div>
-
-      {/* Difficulty Selection */}
-      <div className="difficulty-selection-box">
-        <span className="section-label">CHOOSE DIFFICULTY</span>
-        <div className="difficulty-pills-row">
-          {Object.entries(difficulties).map(([name, config]) => {
-            const isSelected = difficulty === name;
-            return (
-              <button
-                key={name}
-                type="button"
-                className={`diff-pill-btn tactile-btn ${isSelected ? "selected" : ""}`}
-                onClick={() => {
-                  audio.playClick();
-                  onSelectDifficulty(name);
-                }}
-              >
-                <span className="diff-icon">{config.icon}</span>
-                <strong>{name}</strong>
-                <small>{config.time}s • {config.bonus}</small>
-              </button>
-            );
-          })}
+      {/* Modern Game Title Banner */}
+      <div className="title-banner-cluster">
+        <span className="title-eyebrow-tag">★ ARCADE PUZZLE ★</span>
+        <h1 className="game-3d-title">
+          <span className="title-word-apple">APPLE</span>
+          <span className="title-word-worm">WORM</span>
+        </h1>
+        <div className="title-ribbon-sub">
+          <span>ADVENTURE</span>
         </div>
       </div>
 
-      {/* Level Info Bar */}
-      <div className="start-level-meta">
-        <div className="meta-item">
-          <span>CURRENT MISSION</span>
-          <strong>Level {currentLevel}: {levelName}</strong>
-        </div>
-        <div className="meta-item">
-          <span>ADVENTURE PROGRESS</span>
-          <strong>{unlockedLevel} / {totalLevels} Unlocked</strong>
-        </div>
-      </div>
-
-      {/* Big Juicy Start Button */}
+      {/* Big Juicy Pulsing PLAY Button */}
       <button
         type="button"
-        className="btn-start-adventure tactile-btn"
+        className="game-candy-play-btn"
         onClick={onStartGame}
       >
-        <span className="btn-shine" />
-        <span className="btn-text">PLAY ADVENTURE</span>
-        <span className="btn-play-arrow">▶</span>
+        <span className="play-btn-sheen" />
+        <span className="play-btn-text">TAP TO PLAY</span>
+        <span className="play-btn-arrow">▶</span>
       </button>
 
-      {/* Secondary Bottom Navigation Row */}
-      <div className="start-footer-actions">
-        <button
-          type="button"
-          className="btn-footer-sub tactile-btn"
-          onClick={onOpenLevelPicker}
-        >
-          <span>🗺️</span>
-          <span>World Map ({unlockedLevel}/{totalLevels})</span>
-        </button>
-        <button
-          type="button"
-          className="btn-footer-sub tactile-btn"
-          onClick={onOpenSkins}
-        >
-          <span>🎨</span>
-          <span>Worm Wardrobe</span>
-        </button>
+      {/* Difficulty Selector Pills */}
+      <div className="difficulty-candy-bar">
+        {Object.entries(difficulties).map(([name, config]) => {
+          const isSelected = difficulty === name;
+          return (
+            <button
+              key={name}
+              type="button"
+              className={`diff-candy-pill ${isSelected ? "active" : ""}`}
+              onClick={() => {
+                audio.playClick();
+                onSelectDifficulty(name);
+              }}
+            >
+              <span className="diff-icon">{config.icon}</span>
+              <span className="diff-name">{name}</span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Controls Hint */}
-      <div className="start-controls-hint">
-        <div className="control-tag">
-          <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>Arrows</kbd> to slither
+      {/* Mission Meta Plaque */}
+      <div className="start-meta-plaque">
+        <div className="meta-plaque-col">
+          <small>CURRENT LEVEL</small>
+          <strong>Lv. {currentLevel} • {levelName}</strong>
         </div>
-        <div className="control-tag">
-          <kbd>📱</kbd> Swipe screen or tap D-Pad on mobile
+        <div className="meta-plaque-col right">
+          <small>PROGRESS</small>
+          <strong>{unlockedLevel} / {totalLevels} Cleared</strong>
         </div>
+      </div>
+
+      {/* Floating Bottom Menu Bar */}
+      <div className="start-bottom-candy-dock">
+        <button type="button" className="candy-dock-item" onClick={onOpenLevelPicker} title="Worlds">
+          <div className="dock-item-circle levels-circle">🗺️</div>
+          <span className="dock-item-label">Worlds</span>
+        </button>
+
+        <button type="button" className="candy-dock-item" onClick={onOpenSkins} title="Skins">
+          <div className="dock-item-circle skins-circle">
+            <WardrobeSvgIcon className="dock-icon-svg" />
+          </div>
+          <span className="dock-item-label">Wardrobe</span>
+        </button>
+
+        <button type="button" className="candy-dock-item" onClick={onOpenAchievements} title="Badges">
+          <div className="dock-item-circle badge-circle">
+            <StarSvgIcon className="dock-icon-svg" />
+          </div>
+          <span className="dock-item-label">Badges</span>
+        </button>
+
+        <button type="button" className="candy-dock-item" onClick={onOpenRewardCenter} title="Daily Gifts">
+          <div className="dock-item-circle gifts-circle">
+            <GiftSvgIcon className="dock-icon-svg" />
+          </div>
+          <span className="dock-item-label">Rewards</span>
+        </button>
+
+        <button type="button" className="candy-dock-item" onClick={onOpenLeaderboard} title="Ranks">
+          <div className="dock-item-circle rank-circle">
+            <TrophySvgIcon className="dock-icon-svg" />
+          </div>
+          <span className="dock-item-label">Ranks</span>
+        </button>
+
+        <button type="button" className="candy-dock-item admin-dock-item" onClick={onOpenAdmin} title="Admin">
+          <div className="dock-item-circle admin-circle">⚙️</div>
+          <span className="dock-item-label">Admin</span>
+        </button>
       </div>
     </section>
   );
@@ -198,7 +189,7 @@ export function WinModal({
         setTimeout(() => {
           setAnimatedStars(i);
           audio.playStar(i);
-        }, i * 300)
+        }, i * 280)
       );
     }
     return () => timers.forEach(clearTimeout);
@@ -206,137 +197,109 @@ export function WinModal({
 
   return (
     <div className="modal-backdrop celebration-backdrop" role="dialog" aria-modal="true">
-      {/* Rotating Sunburst Rays */}
       <div className="celebration-sunburst-rays" aria-hidden="true" />
 
       {/* Confetti Explosion */}
       <div className="confetti-particles" aria-hidden="true">
-        {Array.from({ length: 50 }, (_, i) => (
+        {Array.from({ length: 45 }, (_, i) => (
           <span
             key={i}
             className="confetti-dot"
             style={{
               left: `${(i * 19) % 100}%`,
-              backgroundColor: [
-                "#22c55e",
-                "#38bdf8",
-                "#facc15",
-                "#ec4899",
-                "#a855f7",
-                "#f97316",
-              ][i % 6],
-              animationDelay: `${(i % 10) * 0.12}s`,
-              animationDuration: `${2.2 + (i % 5) * 0.3}s`,
+              backgroundColor: ["#22c55e", "#38bdf8", "#facc15", "#ec4899", "#a855f7", "#f97316"][i % 6],
+              animationDelay: `${(i % 8) * 0.12}s`,
+              animationDuration: `${2.2 + (i % 5) * 0.25}s`,
             }}
           />
         ))}
       </div>
 
-      <div className="modal-card win-modal-card">
+      <div className="modal-card modern-game-modal win-card">
         {/* Golden Trophy Crest */}
-        <div className="trophy-wrapper">
-          <div className="trophy-ambient-glow" aria-hidden="true" />
-          <TrophySvgIcon className="win-trophy-svg" />
+        <div className="modal-trophy-crest">
+          <TrophySvgIcon className="trophy-crest-svg" />
         </div>
 
-        <span className="modal-eyebrow">MISSION ACCOMPLISHED</span>
-        <h2>{isMaxLevel ? "Grand Master Worm!" : `Level ${levelNumber} Cleared!`}</h2>
-        <p className="win-subtitle">
-          {isMaxLevel
-            ? "Legendary! You have conquered all 50 levels of the Apple Worm Adventure!"
-            : "Superb slither skills! Ready for the next challenge?"}
-        </p>
+        <span className="modal-arcade-tag">VICTORY!</span>
+        <h2 className="modal-arcade-title">{isMaxLevel ? "Grand Master Worm!" : `Level ${levelNumber} Cleared!`}</h2>
 
-        {/* 3 Stars Award Animation */}
-        <div className="win-stars-display" aria-label={`${earnedStars} stars earned`}>
+        {/* 3 Giant Slamming Stars */}
+        <div className="modal-stars-row" aria-label={`${earnedStars} stars earned`}>
           {[1, 2, 3].map((starNum) => {
             const isEarned = starNum <= animatedStars;
             return (
-              <span
+              <div
                 key={starNum}
-                className={`celebration-star ${isEarned ? "earned star-bounce" : "unearned"}`}
+                className={`slam-star-wrapper ${isEarned ? "slam-active" : "slam-unearned"}`}
               >
-                <StarSvgIcon filled={isEarned} className="star-svg-large" />
-              </span>
+                <StarSvgIcon filled={isEarned} className="slam-star-svg" />
+              </div>
             );
           })}
         </div>
 
-        {/* Stats & Economy Rewards Grid */}
-        <div className="win-stats-grid">
-          <div className="stat-pill">
+        {/* Stats Pill Card */}
+        <div className="modal-stats-pill-grid">
+          <div className="stat-pill-box">
             <small>MOVES</small>
             <strong>{moves}</strong>
           </div>
-          <div className="stat-pill">
-            <small>COINS EARNED</small>
-            <strong className="coin-text">
-              +{hasDoubled ? coinsEarned * 2 : coinsEarned} ¢
-            </strong>
+          <div className="stat-pill-box">
+            <small>COINS</small>
+            <strong className="coin-text">+{hasDoubled ? coinsEarned * 2 : coinsEarned} ¢</strong>
           </div>
-          <div className="stat-pill highlight">
-            <small>TOTAL SCORE</small>
-            <strong>+{hasDoubled ? score * 2 : score} pts</strong>
+          <div className="stat-pill-box highlight">
+            <small>SCORE</small>
+            <strong>+{hasDoubled ? score * 2 : score}</strong>
           </div>
         </div>
 
-        {/* Double Reward Rewarded-Ad Callout */}
+        {/* Double Reward Callout */}
         {!hasDoubled && onWatchAdDoubleReward && (
-          <div className="ad-double-reward-banner">
-            <div className="double-banner-content">
-              <span className="double-badge">⭐ VELoop 2X MULTIPLIER</span>
-              <strong>Watch 1 video to Double Coins & Score!</strong>
+          <div className="double-reward-ad-card">
+            <div className="double-card-info">
+              <span>⭐ VELoop 2X BOOSTER</span>
+              <strong>Double Coins & Score with 1 short video!</strong>
             </div>
             <button
               type="button"
-              className="btn-double-reward tactile-btn"
+              className="btn-double-candy"
               onClick={onWatchAdDoubleReward}
             >
-              <span className="btn-shine" />
               <span>🎬 2X Double Reward</span>
             </button>
           </div>
         )}
 
-        {/* Modal Primary Action Buttons */}
-        <div className="modal-actions-column">
+        {/* Primary Action Button */}
+        <div className="modal-bottom-actions">
           {!isMaxLevel ? (
             <button
               type="button"
-              className="btn-next-level tactile-btn"
+              className="btn-modal-primary-candy"
               onClick={onNextLevel}
             >
-              <span className="btn-shine" />
-              <span className="btn-label">NEXT LEVEL</span>
-              <span className="btn-arrow">▶</span>
+              <span className="btn-shine-streak" />
+              <span>NEXT LEVEL ▶</span>
             </button>
           ) : (
             <button
               type="button"
-              className="btn-next-level tactile-btn"
+              className="btn-modal-primary-candy"
               onClick={onOpenLevelPicker}
             >
-              <span className="btn-shine" />
-              <span>Explore All Worlds ★</span>
+              <span>ALL WORLDS ★</span>
             </button>
           )}
 
-          <div className="secondary-actions-row">
-            <button
-              type="button"
-              className="btn-modal-sub tactile-btn"
-              onClick={onReplay}
-            >
+          <div className="modal-secondary-buttons">
+            <button type="button" className="btn-modal-sub-candy" onClick={onReplay}>
               <RetrySvgIcon className="btn-sub-svg" />
               <span>Replay</span>
             </button>
-            <button
-              type="button"
-              className="btn-modal-sub tactile-btn"
-              onClick={onOpenLevelPicker}
-            >
-              <span>🗺️</span>
-              <span>Levels</span>
+            <button type="button" className="btn-modal-sub-candy" onClick={onOpenLevelPicker}>
+              <span>🗺️ Levels</span>
             </button>
           </div>
         </div>
@@ -357,55 +320,51 @@ export function FailModal({
 }) {
   return (
     <div className="modal-backdrop fail-backdrop" role="dialog" aria-modal="true">
-      <div className="modal-card fail-modal-card">
-        {/* Comic Dizzy Worm Icon */}
-        <div className="fail-mascot-wrapper">
+      <div className="modal-card modern-game-modal fail-card">
+        {/* Comic Dizzy Mascot */}
+        <div className="modal-fail-mascot">
           <svg viewBox="0 0 64 64" className="fail-mascot-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="32" r="26" fill="url(#failWormGrad)" stroke="#b91c1c" strokeWidth="2.5" />
-            {/* Dizzy X Eyes */}
-            <path d="M20 23L28 31M28 23L20 31" stroke="#450a0a" strokeWidth="3" strokeLinecap="round" />
-            <path d="M36 23L44 31M44 23L36 31" stroke="#450a0a" strokeWidth="3" strokeLinecap="round" />
-            {/* Wavy unhappy mouth */}
-            <path d="M22 44C26 40 30 46 34 40C38 46 42 40 44 42" stroke="#450a0a" strokeWidth="2.5" strokeLinecap="round" />
-            {/* Comic star above head */}
-            <path d="M32 6L33.5 10L37.5 11.5L33.5 13L32 17L30.5 13L26.5 11.5L30.5 10L32 6Z" fill="#facc15" stroke="#ca8a04" strokeWidth="1" />
+            <circle cx="32" cy="32" r="24" fill="url(#failFaceGrad)" stroke="#b91c1c" strokeWidth="2.5" />
+            <path d="M20 24L28 32M28 24L20 32" stroke="#450a0a" strokeWidth="3" strokeLinecap="round" />
+            <path d="M36 24L44 32M44 24L36 32" stroke="#450a0a" strokeWidth="3" strokeLinecap="round" />
+            <path d="M22 44C26 39 30 46 34 40C38 46 42 39 44 42" stroke="#450a0a" strokeWidth="2.6" strokeLinecap="round" />
             <defs>
-              <radialGradient id="failWormGrad" cx="35%" cy="30%" r="70%">
+              <radialGradient id="failFaceGrad" cx="35%" cy="30%" r="70%">
                 <stop offset="0%" stopColor="#fca5a5" />
-                <stop offset="60%" stopColor="#ef4444" />
+                <stop offset="55%" stopColor="#ef4444" />
                 <stop offset="100%" stopColor="#991b1b" />
               </radialGradient>
             </defs>
           </svg>
         </div>
 
-        <span className="modal-eyebrow">OUCH! TRY AGAIN</span>
-        <h2>Not Quite This Time</h2>
-        <p className="fail-reason-text">{reason || "Watch out for obstacles and plan your path!"}</p>
+        <span className="modal-arcade-tag fail-tag">OUCH!</span>
+        <h2 className="modal-arcade-title">Try Again!</h2>
+        <p className="fail-modal-subtitle">{reason || "Watch out for obstacles and navigate wisely!"}</p>
 
-        {/* VELoop Economy: Revive via Rewarded Ad */}
+        {/* Second Chance Revive Button */}
         {canRevive && onWatchAdRevive && (
-          <div className="revive-ad-offer-box">
-            <div className="revive-offer-meta">
-              <span className="revive-tag">❤️ SECOND CHANCE</span>
-              <strong>Watch a short video to revive at safe state!</strong>
+          <div className="revive-candy-offer">
+            <div className="revive-info">
+              <span>❤️ SECOND CHANCE</span>
+              <strong>Revive safely to continue your progress!</strong>
             </div>
             <button
               type="button"
-              className="btn-watch-ad-revive tactile-btn"
+              className="btn-revive-candy"
               onClick={onWatchAdRevive}
             >
-              <span className="btn-shine" />
+              <span className="btn-shine-streak" />
               <span>📺 Watch Ad & Revive</span>
             </button>
           </div>
         )}
 
-        <div className="fail-actions-group">
+        <div className="fail-buttons-column">
           {onWatchAdExtraMoves && (
             <button
               type="button"
-              className="btn-extra-moves-ad tactile-btn"
+              className="btn-extra-moves-candy"
               onClick={onWatchAdExtraMoves}
             >
               <span>🎯 +5 Extra Moves (Ad)</span>
@@ -413,32 +372,27 @@ export function FailModal({
           )}
 
           {canUndo && (
-            <button
-              type="button"
-              className="btn-undo-move tactile-btn"
-              onClick={onUndo}
-            >
-              <UndoSvgIcon className="btn-action-svg" />
+            <button type="button" className="btn-modal-sub-candy full" onClick={onUndo}>
+              <UndoSvgIcon className="btn-sub-svg" />
               <span>Undo Last Move</span>
             </button>
           )}
 
           <button
             type="button"
-            className="btn-restart-level tactile-btn"
+            className="btn-modal-primary-candy restart-theme"
             onClick={onRestart}
           >
-            <RetrySvgIcon className="btn-action-svg" />
-            <span>Restart Level</span>
+            <span className="btn-shine-streak" />
+            <span>TRY AGAIN ↻</span>
           </button>
 
           <button
             type="button"
-            className="btn-choose-level-sub tactile-btn"
+            className="btn-modal-sub-candy full"
             onClick={onOpenLevelPicker}
           >
-            <span>🗺️</span>
-            <span>Choose Level</span>
+            <span>🗺️ Choose Level</span>
           </button>
         </div>
       </div>
@@ -462,51 +416,44 @@ export function PauseModal({
 }) {
   return (
     <div className="modal-backdrop pause-backdrop" role="dialog" aria-modal="true">
-      <div className="modal-card pause-modal-card">
-        <div className="modal-header">
-          <div className="modal-title-group">
-            <span className="modal-eyebrow">GAME PAUSED</span>
-            <h2>Level {levelNumber}: {level.name}</h2>
-          </div>
-          <button
-            type="button"
-            className="modal-close-btn tactile-btn"
-            onClick={onResume}
-            aria-label="Resume"
-          >
+      <div className="modal-card modern-game-modal pause-card">
+        <div className="modal-header-simple">
+          <span className="modal-arcade-tag">PAUSED</span>
+          <h2 className="modal-arcade-title">Level {levelNumber}: {level.name}</h2>
+          <button type="button" className="modal-close-round" onClick={onResume} aria-label="Close">
             ✕
           </button>
         </div>
 
-        {/* Mission Objectives Summary */}
-        <div className="pause-mission-status">
-          <div className="mission-item">
-            <span className="mission-label">World</span>
+        {/* Mission Status */}
+        <div className="pause-mission-status-box">
+          <div className="mission-stat">
+            <small>WORLD</small>
             <strong>{world.icon} {world.name}</strong>
           </div>
-          <div className="mission-item">
-            <span className="mission-label">Apples Remaining</span>
+          <div className="mission-stat">
+            <small>APPLES LEFT</small>
             <strong>{applesLeft} / {level.apples.length}</strong>
           </div>
-          <div className="mission-item">
-            <span className="mission-label">Target Par</span>
-            <strong>≤{level.parMoves?.star3 || 25} Moves (3★)</strong>
+          <div className="mission-stat">
+            <small>3★ PAR TARGET</small>
+            <strong>≤{level.parMoves?.star3 || 25} Moves</strong>
           </div>
         </div>
 
-        {/* Audio Controls */}
-        <div className="pause-audio-controls">
+        {/* Audio Toggles */}
+        <div className="pause-audio-row">
           <button
             type="button"
-            className={`pause-audio-btn tactile-btn ${sfxEnabled ? "active" : ""}`}
+            className={`pause-toggle-pill ${sfxEnabled ? "active" : ""}`}
             onClick={onToggleSfx}
           >
-            <SoundSvgIcon enabled={sfxEnabled} className="btn-audio-svg" />
-            <span>Sound Effects: {sfxEnabled ? "ON" : "OFF"}</span>
+            <SoundSvgIcon enabled={sfxEnabled} className="pill-audio-svg" />
+            <span>SFX: {sfxEnabled ? "ON" : "OFF"}</span>
           </button>
           <button
             type="button"
-            className={`pause-audio-btn tactile-btn ${musicEnabled ? "active" : ""}`}
+            className={`pause-toggle-pill ${musicEnabled ? "active" : ""}`}
             onClick={onToggleMusic}
           >
             <span>🎵 Music: {musicEnabled ? "ON" : "OFF"}</span>
@@ -514,39 +461,24 @@ export function PauseModal({
         </div>
 
         {/* Action Buttons */}
-        <div className="pause-actions-list">
-          <button
-            type="button"
-            className="btn-resume-game tactile-btn"
-            onClick={onResume}
-          >
-            <span className="btn-shine" />
-            <span>RESUME PLAYING</span>
+        <div className="pause-actions-stack">
+          <button type="button" className="btn-modal-primary-candy" onClick={onResume}>
+            <span className="btn-shine-streak" />
+            <span>RESUME PLAYING ▶</span>
           </button>
-          <button
-            type="button"
-            className="btn-pause-sub tactile-btn"
-            onClick={onRestart}
-          >
-            <RetrySvgIcon className="btn-sub-svg" />
-            <span>Restart Level</span>
-          </button>
-          <button
-            type="button"
-            className="btn-pause-sub tactile-btn"
-            onClick={onOpenLevelPicker}
-          >
-            <span>🗺️</span>
-            <span>Choose Level</span>
-          </button>
-          <button
-            type="button"
-            className="btn-pause-sub tactile-btn"
-            onClick={onOpenSkins}
-          >
-            <span>🎨</span>
-            <span>Worm Wardrobe</span>
-          </button>
+
+          <div className="modal-secondary-buttons">
+            <button type="button" className="btn-modal-sub-candy" onClick={onRestart}>
+              <RetrySvgIcon className="btn-sub-svg" />
+              <span>Restart</span>
+            </button>
+            <button type="button" className="btn-modal-sub-candy" onClick={onOpenLevelPicker}>
+              <span>🗺️ Levels</span>
+            </button>
+            <button type="button" className="btn-modal-sub-candy" onClick={onOpenSkins}>
+              <span>🎨 Skins</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

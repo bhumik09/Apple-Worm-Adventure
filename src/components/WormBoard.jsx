@@ -17,7 +17,7 @@ function sameCell(a, b) {
   return a && b && a.x === b.x && a.y === b.y;
 }
 
-// Vector botanical & world ambiance decorations (replaces raw emojis)
+// Vector botanical & world ambiance decorations
 function BoardDeco({ type, worldId = 1 }) {
   if (type === "flower") {
     return (
@@ -57,26 +57,6 @@ function BoardDeco({ type, worldId = 1 }) {
     );
   }
 
-  if (type === "sprout") {
-    return (
-      <svg
-        className="garden-deco-svg sprout-deco"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M12 19V11C12 11 9 9 7 11C5 13 8 15 12 14C12 14 15 11 17 12C19 13 17 16 12 16"
-          fill="#86efac"
-          stroke="#22c55e"
-          strokeWidth="1"
-        />
-      </svg>
-    );
-  }
-
-  // World 2: Autumn amber leaf
   if (worldId === 2) {
     return (
       <svg
@@ -97,7 +77,6 @@ function BoardDeco({ type, worldId = 1 }) {
     );
   }
 
-  // World 3: Amethyst Rune / Crystal
   if (worldId === 3) {
     return (
       <svg
@@ -112,7 +91,6 @@ function BoardDeco({ type, worldId = 1 }) {
     );
   }
 
-  // World 4: Cosmic Sparkle
   return (
     <svg
       className="garden-deco-svg spark-deco"
@@ -142,13 +120,14 @@ export default function WormBoard({
   onSwipe,
   floatingTexts = [],
 }) {
-  const touchStartRef = useRef({ x: 0, y: 0 });
+  const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
 
   const handleTouchStart = (e) => {
     if (!e.touches || e.touches.length === 0) return;
     touchStartRef.current = {
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
+      time: Date.now(),
     };
   };
 
@@ -156,7 +135,7 @@ export default function WormBoard({
     if (!e.changedTouches || e.changedTouches.length === 0 || !onSwipe) return;
     const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
     const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
-    const minSwipe = 24;
+    const minSwipe = 18;
 
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
       if (Math.abs(deltaX) >= minSwipe) {
@@ -178,22 +157,23 @@ export default function WormBoard({
 
   return (
     <div
-      className={`worm-board-container world-theme-${world.id} ${world.bgClass}`}
+      className={`floating-island-stage world-theme-${world.id}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* 3D Beveled Floating Island Frame */}
-      <div
-        className={`board-grid-wrapper world-chassis-${world.id} ${
-          status === "won" ? "board-won-glow" : ""
-        }`}
-      >
-        {/* Floating Ambient World Fireflies / Dust */}
-        <div className="ambient-fireflies" aria-hidden="true">
-          <span className="firefly f1" />
-          <span className="firefly f2" />
-          <span className="firefly f3" />
-          <span className="firefly f4" />
+      {/* 3D Floating Terrain Island Chunk */}
+      <div className={`island-chunk-wrapper world-chassis-${world.id} ${status === "won" ? "island-won-glow" : ""}`}>
+        {/* Corner Golden Brackets */}
+        <span className="island-bracket top-left" aria-hidden="true" />
+        <span className="island-bracket top-right" aria-hidden="true" />
+        <span className="island-bracket bottom-left" aria-hidden="true" />
+        <span className="island-bracket bottom-right" aria-hidden="true" />
+
+        {/* Floating Ambient World Fireflies */}
+        <div className="ambient-island-fireflies" aria-hidden="true">
+          <span className="island-firefly if1" />
+          <span className="island-firefly if2" />
+          <span className="island-firefly if3" />
         </div>
 
         {/* 10x10 Grid Tiles */}
@@ -231,10 +211,8 @@ export default function WormBoard({
               !teleportItem &&
               wormIndex === -1;
 
-            // Deterministic decorative flora on select empty tiles
             const hasFlower = isEmpty && (x * 7 + y * 13) % 17 === 0;
             const hasClover = isEmpty && !hasFlower && (x * 5 + y * 11) % 19 === 0;
-            const hasSprout = isEmpty && !hasFlower && !hasClover && (x * 3 + y * 7) % 23 === 0;
 
             return (
               <div
@@ -245,13 +223,12 @@ export default function WormBoard({
                 role="gridcell"
                 aria-label={`Cell ${x},${y}`}
               >
-                {/* 3D Tile Highlight */}
+                {/* 3D Chamfered Highlight */}
                 <span className="tile-3d-highlight" aria-hidden="true" />
 
-                {/* Vector World Flora & Runes */}
+                {/* Subtle World Botanical Elements */}
                 {hasFlower && <BoardDeco type="flower" worldId={world.id} />}
                 {hasClover && <BoardDeco type="clover" worldId={world.id} />}
-                {hasSprout && <BoardDeco type="sprout" worldId={world.id} />}
 
                 {/* Game Entities */}
                 {hasWall && <WallPiece />}
@@ -282,6 +259,12 @@ export default function WormBoard({
               </div>
             );
           })}
+        </div>
+
+        {/* 3D Cliff Underneath Island (Adds thick physical depth) */}
+        <div className="island-cliff-edge" aria-hidden="true">
+          <div className="cliff-rock-strata" />
+          <div className="cliff-moss-fringe" />
         </div>
 
         {/* Floating Effects / Particle Layer */}
