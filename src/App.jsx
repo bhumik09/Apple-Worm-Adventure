@@ -13,6 +13,7 @@ import {
   AdventureLeftRail,
   AdventureDiamondPad,
   TopBar,
+  CitySkylineBackdrop,
 } from "./components/GameHUD";
 import LevelPickerModal from "./components/LevelPickerModal";
 import SkinsModal from "./components/SkinsModal";
@@ -832,13 +833,7 @@ export default function App() {
         <div className="cartoon-cloud cloud-1" />
         <div className="cartoon-cloud cloud-2" />
         <div className="cartoon-cloud cloud-3" />
-        <div className="cartoon-hills-backdrop" />
-        <div className="bg-glow-orb orb-1" />
-        <div className="bg-glow-orb orb-2" />
-        <span className="bg-floating-element el-1">🍃</span>
-        <span className="bg-floating-element el-2">✨</span>
-        <span className="bg-floating-element el-3">🌸</span>
-        <span className="bg-floating-element el-4">⭐</span>
+        <CitySkylineBackdrop />
       </div>
 
       {/* Top Bar Header (Shown on Start Screen for Quick Access) */}
@@ -931,6 +926,8 @@ export default function App() {
                 setSfxEnabled(next);
                 audio.setSfxEnabled(next);
               }}
+              onRestart={handleRestart}
+              onNextLevel={handleNextLevel}
               onHint={handleHint}
               onOpenPause={() => {
                 audio.playClick();
@@ -943,6 +940,10 @@ export default function App() {
               onOpenRewardCenter={() => {
                 audio.playClick();
                 setShowRewardCenter(true);
+              }}
+              onOpenSkins={() => {
+                audio.playClick();
+                setShowSkins(true);
               }}
             />
 

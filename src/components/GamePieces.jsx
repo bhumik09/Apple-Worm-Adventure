@@ -18,227 +18,115 @@ export function WormHead({ skin, facing = "right", isNearApple = false, isDead =
     <div
       className={`piece-worm-head ${isDead ? "dead" : ""} ${isNearApple ? "hungry" : ""}`}
       style={{
-        transform: `rotate(${rot}deg) scale(1.36)`,
+        transform: `rotate(${rot}deg)`,
         transformOrigin: "center center",
       }}
       aria-label="Worm Head"
     >
-      <svg viewBox="0 0 52 52" className="worm-head-svg">
+      <svg viewBox="0 0 46 46" className="worm-head-svg">
         <defs>
-          {/* Rich 3D Radial Gradients for Worm Head */}
-          <radialGradient id={`worm-head-sphere-${skin.id}`} cx="30%" cy="24%" r="75%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-            <stop offset="20%" stopColor={skin.headHighlight || "#86efac"} />
-            <stop offset="58%" stopColor={skin.headColor || "#22c55e"} />
-            <stop offset="85%" stopColor={skin.bodySecondary || "#15803d"} />
-            <stop offset="100%" stopColor="#0f4422" />
-          </radialGradient>
-
-          {/* Eye Gloss Gradient */}
-          <radialGradient id="worm-eye-gloss" cx="26%" cy="24%" r="76%">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="65%" stopColor="#f8fafc" />
-            <stop offset="100%" stopColor="#cbd5e1" />
-          </radialGradient>
-
-          {/* Head Ambient 3D Drop Shadow */}
-          <filter id="worm-head-depth" x="-35%" y="-35%" width="170%" height="170%">
-            <feDropShadow dx="0" dy="4" stdDeviation="3" floodColor="#0f172a" floodOpacity="0.45" />
-          </filter>
+          <linearGradient id={`worm-head-grad-${skin.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={skin.headHighlight || "#4ade80"} />
+            <stop offset="60%" stopColor={skin.headColor || "#22c55e"} />
+            <stop offset="100%" stopColor={skin.bodySecondary || "#16a34a"} />
+          </linearGradient>
         </defs>
 
-        {/* Dynamic Bouncy Antennae with glowing tips */}
-        <g className="worm-antennae-group">
-          {/* Left Antenna */}
-          <path
-            d="M 19 12 Q 13 2 7 4"
-            fill="none"
-            stroke={skin.bodySecondary || "#15803d"}
-            strokeWidth="3.4"
-            strokeLinecap="round"
-          />
-          <circle
-            cx="6"
-            cy="4"
-            r="4.2"
-            fill={skin.sparkleColor || "#facc15"}
-            filter="drop-shadow(0 0 4px rgba(250, 204, 21, 0.9))"
-          />
-          <circle cx="5" cy="3" r="1.5" fill="#ffffff" />
-
-          {/* Right Antenna */}
-          <path
-            d="M 33 12 Q 39 2 45 4"
-            fill="none"
-            stroke={skin.bodySecondary || "#15803d"}
-            strokeWidth="3.4"
-            strokeLinecap="round"
-          />
-          <circle
-            cx="46"
-            cy="4"
-            r="4.2"
-            fill={skin.sparkleColor || "#facc15"}
-            filter="drop-shadow(0 0 4px rgba(250, 204, 21, 0.9))"
-          />
-          <circle cx="45" cy="3" r="1.5" fill="#ffffff" />
-        </g>
-
-        {/* Head Main 3D Sphere */}
-        <circle
-          cx="26"
-          cy="26"
-          r="21"
-          fill={`url(#worm-head-sphere-${skin.id})`}
-          filter="url(#worm-head-depth)"
-          stroke={skin.bodySecondary || "#15803d"}
-          strokeWidth="2"
+        {/* Continuous Plump Cartoon Head Body (Matching Reference Images 2, 3, 4) */}
+        <rect
+          x="1"
+          y="3"
+          width="44"
+          height="40"
+          rx="15"
+          fill={`url(#worm-head-grad-${skin.id})`}
+          stroke="#14532d"
+          strokeWidth="2.4"
         />
 
-        {/* Rosy Blushing Cheeks */}
-        <ellipse cx="11" cy="32" rx="4.5" ry="3" fill={skin.cheekColor || "#f43f5e"} opacity="0.82" />
-        <ellipse cx="41" cy="32" rx="4.5" ry="3" fill={skin.cheekColor || "#f43f5e"} opacity="0.82" />
+        {/* Lime/Yellow Underbelly */}
+        <path
+          d="M 1 27 Q 23 37 45 27 V 33 Q 23 44 1 33 Z"
+          fill={skin.bellyColor || "#a3e635"}
+          stroke="#14532d"
+          strokeWidth="1.2"
+        />
 
-        {/* Expressive Cartoon Eyes */}
+        {/* Expressive Cartoon Eyes with Eyelids & Lashes (Matching Images 2, 3, 4) */}
         {isDead ? (
-          // Dizzy Comic Spinning Eyes on Failure
-          <g stroke="#ffffff" strokeWidth="3.8" strokeLinecap="round">
-            <line x1="13" y1="15" x2="23" y2="25" />
-            <line x1="23" y1="15" x2="13" y2="25" />
-            <line x1="29" y1="15" x2="39" y2="25" />
-            <line x1="39" y1="15" x2="29" y2="25" />
+          <g stroke="#ffffff" strokeWidth="3.6" strokeLinecap="round">
+            <line x1="14" y1="12" x2="24" y2="22" />
+            <line x1="24" y1="12" x2="14" y2="22" />
+            <line x1="26" y1="12" x2="36" y2="22" />
+            <line x1="36" y1="12" x2="26" y2="22" />
           </g>
         ) : (
-          <g className="worm-eyes-animated">
-            {/* Left Big Shiny Eye */}
-            <ellipse cx="18" cy="20" rx="6.5" ry="8" fill="url(#worm-eye-gloss)" stroke="#0f172a" strokeWidth="1.4" />
-            <ellipse cx="19.5" cy="20" rx="3.8" ry="5" fill={skin.eyeColor || "#0f172a"} />
-            <circle cx="21" cy="17.5" r="2.2" fill="#ffffff" />
-            <circle cx="18" cy="22.5" r="1.2" fill="#ffffff" />
+          <g className="worm-eyes-reference">
+            {/* Eyelids / Lashes */}
+            <path d="M 15 8 Q 23 5 31 8" stroke="#0f172a" strokeWidth="2.6" strokeLinecap="round" />
+            <line x1="16" y1="7" x2="13" y2="4" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" />
+            <line x1="30" y1="7" x2="33" y2="4" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" />
 
-            {/* Right Big Shiny Eye */}
-            <ellipse cx="34" cy="20" rx="6.5" ry="8" fill="url(#worm-eye-gloss)" stroke="#0f172a" strokeWidth="1.4" />
-            <ellipse cx="35.5" cy="20" rx="3.8" ry="5" fill={skin.eyeColor || "#0f172a"} />
-            <circle cx="37" cy="17.5" r="2.2" fill="#ffffff" />
-            <circle cx="34" cy="22.5" r="1.2" fill="#ffffff" />
+            {/* Left Big Eye */}
+            <ellipse cx="19" cy="15" rx="6" ry="7" fill="#ffffff" stroke="#0f172a" strokeWidth="1.8" />
+            <circle cx="21" cy="15" r="3.2" fill="#0f172a" />
+            <circle cx="22" cy="13.5" r="1.3" fill="#ffffff" />
+
+            {/* Right Big Eye */}
+            <ellipse cx="29" cy="15" rx="6" ry="7" fill="#ffffff" stroke="#0f172a" strokeWidth="1.8" />
+            <circle cx="31" cy="15" r="3.2" fill="#0f172a" />
+            <circle cx="32" cy="13.5" r="1.3" fill="#ffffff" />
           </g>
         )}
 
-        {/* Dynamic Mouth: Hungry Munch vs Cheerful Smile */}
+        {/* Snout & Mouth */}
         {isNearApple ? (
-          <g className="worm-mouth-hungry">
-            {/* Open Happy Chomping Mouth */}
-            <path
-              d="M 17 30 Q 26 43 35 30 Z"
-              fill="#e11d48"
-              stroke={skin.bodySecondary || "#15803d"}
-              strokeWidth="2.2"
-            />
-            {/* Cute Front Buck Teeth */}
-            <rect x="22.5" y="30" width="7" height="3.5" rx="1.2" fill="#ffffff" />
-            {/* Rosy Tongue */}
-            <path d="M 21 37 Q 26 34 31 37 Z" fill="#fda4af" />
-          </g>
+          <path d="M 18 30 Q 23 38 28 30 Z" fill="#ef4444" stroke="#14532d" strokeWidth="1.8" />
         ) : (
-          // Cheerful Confident Smile
-          <path
-            d="M 18 30 Q 26 39 34 30"
-            fill="none"
-            stroke={skin.bodySecondary || "#15803d"}
-            strokeWidth="3.2"
-            strokeLinecap="round"
-          />
-        )}
-
-        {/* Specular Curved Highlight */}
-        <ellipse
-          cx="22"
-          cy="12"
-          rx="8"
-          ry="3.6"
-          fill="#ffffff"
-          opacity="0.55"
-          transform="rotate(-15 22 12)"
-        />
-
-        {/* Royal Crown for Golden Monarch Skin */}
-        {skin.id === "golden" && (
-          <g className="golden-crown" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))">
-            <path
-              d="M 14 11 L 20 15 L 26 6 L 32 15 L 38 11 L 36 17 L 16 17 Z"
-              fill="#facc15"
-              stroke="#854d0e"
-              strokeWidth="1.8"
-            />
-            <circle cx="26" cy="6" r="2.5" fill="#ef4444" />
-            <circle cx="14" cy="11" r="1.8" fill="#38bdf8" />
-            <circle cx="38" cy="11" r="1.8" fill="#38bdf8" />
-          </g>
+          <path d="M 17 29 Q 23 35 29 29" fill="none" stroke="#14532d" strokeWidth="2.4" strokeLinecap="round" />
         )}
       </svg>
     </div>
   );
 }
 
-export function WormBody({ skin, index, totalLength }) {
-  // Gracefully tapered plump caterpillar segments
-  const scale = Math.max(1.02, 1.28 - (index / Math.max(1, totalLength)) * 0.24);
-
+export function WormBody({ skin, index, totalLength: _totalLength }) {
   return (
     <div
       className="piece-worm-body"
-      style={{
-        transform: `scale(${scale})`,
-        transformOrigin: "center center",
-      }}
       aria-label={`Worm Segment ${index}`}
     >
       <svg viewBox="0 0 46 46" className="worm-body-svg">
         <defs>
-          <radialGradient id={`worm-body-3d-${skin.id}-${index}`} cx="32%" cy="24%" r="72%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
-            <stop offset="22%" stopColor={skin.headHighlight || "#86efac"} />
-            <stop offset="62%" stopColor={skin.bodyPrimary || "#22c55e"} />
-            <stop offset="88%" stopColor={skin.bodySecondary || "#15803d"} />
-            <stop offset="100%" stopColor="#0f4422" />
-          </radialGradient>
-
-          <filter id={`body-drop-shadow-${index}`} x="-30%" y="-30%" width="160%" height="160%">
-            <feDropShadow dx="0" dy="3.5" stdDeviation="2.5" floodColor="#0f172a" floodOpacity="0.38" />
-          </filter>
+          <linearGradient id={`worm-body-grad-${skin.id}-${index}`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={skin.headHighlight || "#4ade80"} />
+            <stop offset="60%" stopColor={skin.bodyPrimary || "#22c55e"} />
+            <stop offset="100%" stopColor={skin.bodySecondary || "#16a34a"} />
+          </linearGradient>
         </defs>
 
-        {/* 3D Segment Body Sphere */}
-        <circle
-          cx="23"
-          cy="23"
-          r="19"
-          fill={`url(#worm-body-3d-${skin.id}-${index})`}
-          filter={`url(#body-drop-shadow-${index})`}
-          stroke={skin.bodySecondary || "#15803d"}
-          strokeWidth="1.8"
+        {/* Continuous Plump Tubular Body Block (Matching Images 2, 3, 4) */}
+        <rect
+          x="0"
+          y="3"
+          width="46"
+          height="40"
+          rx="12"
+          fill={`url(#worm-body-grad-${skin.id}-${index})`}
+          stroke="#14532d"
+          strokeWidth="2.2"
         />
 
-        {/* Soft Cream Belly Cushion */}
-        <ellipse
-          cx="23"
-          cy="28"
-          rx="12.5"
-          ry="7"
-          fill={skin.bellyColor || "#dcfce7"}
-          opacity="0.85"
+        {/* Lime/Yellow Belly Strip */}
+        <path
+          d="M 0 27 Q 23 37 46 27 V 33 Q 23 44 0 33 Z"
+          fill={skin.bellyColor || "#a3e635"}
+          stroke="#14532d"
+          strokeWidth="1.2"
         />
 
-        {/* Glossy Specular Reflection Streak */}
-        <ellipse
-          cx="17"
-          cy="14"
-          rx="7"
-          ry="3.4"
-          fill="#ffffff"
-          opacity="0.6"
-          transform="rotate(-25 17 14)"
-        />
+        {/* Specular Highlight Streak */}
+        <rect x="4" y="6" width="38" height="3" rx="1.5" fill="#ffffff" opacity="0.35" />
       </svg>
     </div>
   );
@@ -332,47 +220,26 @@ export function ApplePiece({ isGolden = false }) {
 
 export function WallPiece() {
   return (
-    <div className="piece-wall" aria-label="Earth Platform Block">
-      <svg viewBox="0 0 46 46" className="wall-svg">
+    <div className="piece-wall" aria-label="3D Wooden Platform Block">
+      <svg viewBox="0 0 48 48" className="wall-svg">
         <defs>
-          {/* Rich Cartoon Earthen Wood / Soil Gradient */}
-          <linearGradient id="wall-earth-texture" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#633219" />
-            <stop offset="20%" stopColor="#4e2511" />
-            <stop offset="85%" stopColor="#3d1c0c" />
-            <stop offset="100%" stopColor="#2b1307" />
+          <linearGradient id="wall-top-bevel" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#9c6843" />
+            <stop offset="100%" stopColor="#80502e" />
           </linearGradient>
-
-          {/* Top Surface Lighter Wood Rim */}
-          <linearGradient id="wall-top-rim" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#824322" />
-            <stop offset="100%" stopColor="#5c2e17" />
+          <linearGradient id="wall-front-bevel" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#5d351b" />
+            <stop offset="100%" stopColor="#432410" />
           </linearGradient>
         </defs>
 
-        {/* Seamless Platform Block */}
-        <rect
-          x="0"
-          y="0"
-          width="46"
-          height="46"
-          fill="url(#wall-earth-texture)"
-          stroke="#1a0b04"
-          strokeWidth="1.5"
-        />
+        {/* 3D Drop/Side Face */}
+        <rect x="0.5" y="0.5" width="47" height="47" rx="6" fill="url(#wall-front-bevel)" stroke="#261308" strokeWidth="2" />
 
-        {/* Top Rim Highlight (stepped platform edge) */}
-        <rect
-          x="0"
-          y="0"
-          width="46"
-          height="4.5"
-          fill="url(#wall-top-rim)"
-        />
-
-        {/* Subtle Horizontal Wood/Rock Strata lines */}
-        <line x1="4" y1="16" x2="22" y2="16" stroke="#2b1307" strokeWidth="1.2" opacity="0.6" strokeLinecap="round" />
-        <line x1="28" y1="28" x2="42" y2="28" stroke="#2b1307" strokeWidth="1.2" opacity="0.6" strokeLinecap="round" />
+        {/* Top 3D Lighter Platform Deck */}
+        <rect x="1.5" y="1.5" width="45" height="22" rx="5" fill="url(#wall-top-bevel)" />
+        {/* Soft highlight line on top edge */}
+        <rect x="3" y="2" width="42" height="3" rx="1.5" fill="#b07d57" opacity="0.6" />
       </svg>
     </div>
   );
@@ -516,51 +383,43 @@ export function TeleportPiece({ color = "#38bdf8" }) {
 
 export function PortalPiece({ isOpen = false }) {
   return (
-    <div className={`piece-portal ${isOpen ? "open" : "locked"}`} aria-label={isOpen ? "Open Spiral Exit Hole" : "Locked Portal"}>
+    <div className={`piece-portal ${isOpen ? "open" : "locked"}`} aria-label="Spiral Exit Hole">
       {isOpen && <div className="portal-awakened-burst" aria-hidden="true" />}
 
       <svg viewBox="0 0 52 52" className="portal-svg">
         <defs>
           <radialGradient id="portal-black-hole" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor={isOpen ? "#1e1b4b" : "#020617"} />
-            <stop offset="60%" stopColor={isOpen ? "#0f172a" : "#090d16"} />
-            <stop offset="100%" stopColor="#000000" />
+            <stop offset="0%" stopColor="#1e182f" />
+            <stop offset="70%" stopColor="#110d1c" />
+            <stop offset="100%" stopColor="#08060e" />
           </radialGradient>
         </defs>
 
-        {/* Outer Circular Rim */}
+        {/* Outer Circular Black Disc */}
         <circle
           cx="26"
           cy="26"
-          r="22"
+          r="23"
           fill="url(#portal-black-hole)"
           stroke="#000000"
-          strokeWidth="3.2"
+          strokeWidth="2.5"
         />
 
-        {/* Concentric Swirling Ridges (Like reference game screenshot) */}
-        <circle cx="26" cy="26" r="17" fill="none" stroke="#334155" strokeWidth="2.4" opacity="0.8" />
-        <circle cx="26" cy="26" r="12" fill="none" stroke="#475569" strokeWidth="2" opacity="0.65" />
-        <circle cx="26" cy="26" r="7" fill="none" stroke="#64748b" strokeWidth="1.8" opacity="0.5" />
-        <circle cx="26" cy="26" r="3.2" fill={isOpen ? "#c084fc" : "#000000"} />
+        {/* Concentric Swirling Ridges (Spiral Wormhole from Reference Screenshot) */}
+        <circle cx="26" cy="26" r="18" fill="none" stroke="#373052" strokeWidth="2.2" opacity="0.8" />
+        <circle cx="26" cy="26" r="13" fill="none" stroke="#4a406c" strokeWidth="2" opacity="0.75" />
+        <circle cx="26" cy="26" r="8" fill="none" stroke="#5f5388" strokeWidth="1.8" opacity="0.6" />
+        <circle cx="26" cy="26" r="3.5" fill="#1e182f" />
 
         {/* Swirling Spiral Path */}
         <path
-          d="M 26 6 A 20 20 0 0 1 46 26 A 15 15 0 0 1 26 41 A 10 10 0 0 1 16 26 A 6 6 0 0 1 26 20"
+          d="M 26 5 A 21 21 0 0 1 47 26 A 16 16 0 0 1 26 42 A 11 11 0 0 1 15 26 A 7 7 0 0 1 26 19 A 3.5 3.5 0 0 1 26 26"
           fill="none"
-          stroke={isOpen ? "#c084fc" : "#1e293b"}
-          strokeWidth="2.4"
+          stroke={isOpen ? "#a855f7" : "#5a507e"}
+          strokeWidth="2.6"
           strokeLinecap="round"
-          className={isOpen ? "portal-swirl-active" : ""}
+          className="portal-swirl-active"
         />
-
-        {!isOpen && (
-          // Small discreet golden lock badge when locked
-          <g transform="translate(18, 18) scale(0.65)">
-            <rect x="3" y="10" width="18" height="13" rx="3" fill="#eab308" stroke="#713f12" strokeWidth="1.5" />
-            <path d="M 7 10 V 6 A 5 5 0 0 1 17 6 V 10" fill="none" stroke="#eab308" strokeWidth="2.5" />
-          </g>
-        )}
       </svg>
     </div>
   );

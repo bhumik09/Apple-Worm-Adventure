@@ -226,12 +226,40 @@ export function WinModal({
       </div>
 
       <div className="modal-card modern-game-modal win-card">
-        {/* Golden Trophy Crest */}
-        <div className="modal-trophy-crest">
-          <TrophySvgIcon className="trophy-crest-svg" />
+        {/* NEW SKIN Ribbon from Image 5 */}
+        <div className="new-skin-ribbon-banner">
+          <div className="ribbon-tail left" />
+          <div className="ribbon-center">
+            <span>NEW SKIN</span>
+          </div>
+          <div className="ribbon-tail right" />
         </div>
 
-        <span className="modal-arcade-tag">VICTORY!</span>
+        {/* 30% Skin Progress Bar with Dog Costume Preview from Image 5 */}
+        <div className="new-skin-progress-section">
+          <div className="skin-unlock-capsule">
+            <div className="capsule-fill-bar" />
+            <div className="capsule-percentage">30%</div>
+            <div className="capsule-worm-avatar">
+              <svg viewBox="0 0 90 40" className="capsule-dog-svg">
+                {/* Accordion worm segments */}
+                <path d="M 5 10 Q 8 20 5 30 L 35 30 Q 32 20 35 10 Z" fill="#64748b" stroke="#334155" strokeWidth="2" />
+                <line x1="14" y1="10" x2="14" y2="30" stroke="#1e293b" strokeWidth="2" />
+                <line x1="23" y1="10" x2="23" y2="30" stroke="#1e293b" strokeWidth="2" />
+                {/* Dog Mascot Head */}
+                <ellipse cx="56" cy="20" rx="18" ry="15" fill="#92400e" stroke="#451a03" strokeWidth="2" />
+                <ellipse cx="44" cy="14" rx="7" ry="11" transform="rotate(-25 44 14)" fill="#451a03" />
+                <ellipse cx="58" cy="16" rx="4.5" ry="6" fill="#ffffff" stroke="#1e293b" strokeWidth="1" />
+                <circle cx="59.5" cy="16" r="2.8" fill="#1e293b" />
+                <circle cx="61" cy="14.5" r="1" fill="#ffffff" />
+                <circle cx="70" cy="21" r="2.2" fill="#1e293b" />
+                {/* Tongue */}
+                <ellipse cx="68" cy="28" rx="3.5" ry="4" fill="#fb7185" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         <h2 className="modal-arcade-title">{isMaxLevel ? "Grand Master Worm!" : `Level ${levelNumber} Cleared!`}</h2>
 
         {/* 3 Giant Slamming Stars */}

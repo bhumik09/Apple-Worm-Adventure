@@ -6747,3 +6747,333 @@ button:focus-visible {
   font-weight: 900;
   letter-spacing: 0.4px;
 }
+
+/* =========================================================================
+   TRUE REFERENCE STYLING OVERHAUL (MATCHING IMAGES 2, 3, 4, 5)
+   ========================================================================= */
+
+/* 1. Global Pastel Sky Background Override */
+.apple-worm-app,
+.apple-worm-app.theme-world-meadow,
+.apple-worm-app.theme-world-thorns,
+.apple-worm-app.theme-world-citadel,
+.apple-worm-app.theme-world-cosmic,
+.apple-worm-app.mode-emerald,
+.apple-worm-app.mode-sunset,
+.apple-worm-app.mode-night {
+  background: linear-gradient(180deg, #bfe3f7 0%, #d8ecf8 45%, #e9f5fc 75%, #edf7fc 100%) !important;
+}
+
+/* 2. City Skyline Backdrop (Bottom Skyscraper Silhouettes) */
+.city-skyline-backdrop {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: clamp(180px, 34vh, 320px);
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.city-skyline-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 3. Reference Top Bar (.ref-top-game-bar) */
+.ref-top-game-bar {
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.ref-top-left-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.ref-slate-box-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #64748b;
+  border: 2px solid #475569;
+  box-shadow: 0 4px 0 #334155, 0 6px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ref-slate-box-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #334155;
+}
+
+.ref-top-center-group {
+  pointer-events: auto;
+}
+
+.ref-level-pill {
+  background: rgba(90, 110, 130, 0.82);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  padding: 6px 26px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.ref-top-right-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.ref-top-icon-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ref-top-icon-btn:hover {
+  transform: scale(1.08);
+}
+
+.ref-top-icon-btn:active {
+  transform: scale(0.92);
+}
+
+.ref-top-svg {
+  width: 38px;
+  height: 38px;
+  display: block;
+}
+
+/* 4. Bottom-Right Frosted Glass Diamond Controller */
+.ref-glass-diamond-pad {
+  position: absolute;
+  bottom: clamp(16px, 3vh, 32px);
+  right: clamp(16px, 3vw, 36px);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(4px, 1vmin, 8px);
+  pointer-events: auto;
+}
+
+.glass-diamond-mid-row {
+  display: flex;
+  gap: clamp(46px, 7.5vmin, 62px);
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-circle-btn {
+  position: relative;
+  width: clamp(52px, 8.5vmin, 68px);
+  height: clamp(52px, 8.5vmin, 68px);
+  border-radius: 50%;
+  background: rgba(135, 160, 180, 0.42);
+  backdrop-filter: blur(4px);
+  border: 3.5px solid rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 6px 14px rgba(15, 23, 42, 0.18),
+    inset 0 2px 4px rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.glass-circle-btn:active {
+  transform: scale(0.92);
+  background: rgba(100, 130, 155, 0.65);
+}
+
+.glass-inner-ring {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+.glass-chevron-svg {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+/* 5. Win Screen: Image 5 "NEW SKIN" Red Ribbon & 30% Progress Capsule */
+.celebration-sunburst-rays {
+  position: absolute;
+  inset: -50%;
+  background: repeating-conic-gradient(
+    rgba(254, 240, 138, 0.35) 0deg 15deg,
+    transparent 15deg 30deg
+  );
+  animation: spin-sunburst 24s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes spin-sunburst {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.new-skin-ribbon-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.ribbon-center {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 60%, #b91c1c 100%);
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  padding: 8px 36px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.35);
+  border: 2px solid #f87171;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.ribbon-tail {
+  width: 20px;
+  height: 32px;
+  background: #991b1b;
+  position: relative;
+}
+
+.ribbon-tail.left {
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  margin-right: -6px;
+}
+
+.ribbon-tail.right {
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  margin-left: -6px;
+}
+
+.new-skin-progress-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px 0 16px;
+}
+
+.skin-unlock-capsule {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 240px;
+  height: 52px;
+  background: #334155;
+  border-radius: 9999px;
+  border: 3.5px solid #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 0 12px;
+}
+
+.capsule-fill-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 30%;
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+  border-radius: 9999px 0 0 9999px;
+  z-index: 1;
+}
+
+.capsule-percentage {
+  position: relative;
+  z-index: 5;
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-left: 20px;
+}
+
+.capsule-worm-avatar {
+  position: relative;
+  z-index: 5;
+  width: 90px;
+  height: 40px;
+}
+
+.capsule-dog-svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .ref-top-game-bar {
+    top: 6px;
+    left: 8px;
+    right: 8px;
+  }
+  .ref-slate-box-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+  .ref-top-svg {
+    width: 32px;
+    height: 32px;
+  }
+  .ref-level-pill {
+    font-size: 17px;
+    padding: 4px 18px;
+  }
+  .ref-top-right-group {
+    gap: 4px;
+  }
+  .glass-circle-btn {
+    width: 48px;
+    height: 48px;
+  }
+  .glass-diamond-mid-row {
+    gap: 38px;
+  }
+}
