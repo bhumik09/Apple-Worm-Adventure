@@ -4003,7 +4003,6 @@ button:focus-visible {
     box-sizing: border-box;
   }
 
-  .desktop-topbar-wrapper,
   .desktop-only,
   .desktop-controls-wrapper {
     display: none !important;
@@ -6698,8 +6697,10 @@ button:focus-visible {
 
 .adventure-start-dock {
   display: flex;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
   justify-content: center;
+  max-width: 440px;
   margin-top: 6px;
 }
 
@@ -6708,11 +6709,11 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  width: 64px;
-  height: 64px;
-  border-radius: 18px;
+  width: clamp(52px, 13.5vw, 62px);
+  height: clamp(52px, 13.5vw, 62px);
+  border-radius: 16px;
   background: radial-gradient(circle at 35% 30%, #475569 0%, #334155 60%, #1e293b 100%);
-  border: 2.5px solid #0f172a;
+  border: 2px solid #0f172a;
   box-shadow:
     0 4px 0 #090d16,
     0 6px 14px rgba(0, 0, 0, 0.3),

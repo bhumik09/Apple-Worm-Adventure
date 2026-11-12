@@ -24,8 +24,8 @@ export function StartScreen({
   onOpenSkins,
   onOpenRewardCenter,
   onOpenLeaderboard,
-  onOpenAchievements: _onOpenAchievements,
-  onOpenAdmin: _onOpenAdmin,
+  onOpenAchievements,
+  onOpenAdmin,
 }) {
   return (
     <section className="adventure-start-screen" aria-label="Game Title Screen">
@@ -151,6 +151,26 @@ export function StartScreen({
         >
           <TrophySvgIcon className="start-btn-svg" />
           <span className="start-btn-text">Ranks</span>
+        </button>
+
+        <button
+          type="button"
+          className="start-slate-btn"
+          onClick={onOpenAchievements}
+          title="Badges & Achievements"
+        >
+          <StarSvgIcon className="start-btn-svg" />
+          <span className="start-btn-text">Badges</span>
+        </button>
+
+        <button
+          type="button"
+          className="start-slate-btn admin-btn"
+          onClick={onOpenAdmin}
+          title="Economy Admin"
+        >
+          <span className="start-btn-emoji">⚙️</span>
+          <span className="start-btn-text">Admin</span>
         </button>
       </div>
     </section>
@@ -403,6 +423,7 @@ export function PauseModal({
   onRestart,
   onOpenLevelPicker,
   onOpenSkins,
+  onGoHome,
 }) {
   return (
     <div className="modal-backdrop pause-backdrop" role="dialog" aria-modal="true">
@@ -468,6 +489,11 @@ export function PauseModal({
             <button type="button" className="btn-modal-sub-candy" onClick={onOpenSkins}>
               <span>🎨 Skins</span>
             </button>
+            {onGoHome && (
+              <button type="button" className="btn-modal-sub-candy" onClick={onGoHome}>
+                <span>🏠 Menu</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

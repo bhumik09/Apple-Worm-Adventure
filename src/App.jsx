@@ -122,7 +122,7 @@ export default function App() {
     return localStorage.getItem("appleWorm_themeMode") || "dynamic";
   });
   const [difficulty, setDifficulty] = useState("Normal");
-  const [hasStarted, setHasStarted] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
 
   // Modals
   const [showLevelPicker, setShowLevelPicker] = useState(false);
@@ -1022,6 +1022,10 @@ export default function App() {
           onOpenRewardCenter={() => {
             setShowPauseModal(false);
             setShowRewardCenter(true);
+          }}
+          onGoHome={() => {
+            setShowPauseModal(false);
+            setHasStarted(false);
           }}
           onCycleTheme={handleCycleTheme}
           currentTheme={THEME_MODES.find((t) => t.id === themeMode)}
