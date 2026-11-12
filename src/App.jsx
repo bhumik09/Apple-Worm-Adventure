@@ -122,7 +122,7 @@ export default function App() {
     return localStorage.getItem("appleWorm_themeMode") || "dynamic";
   });
   const [difficulty, setDifficulty] = useState("Normal");
-  const [hasStarted, setHasStarted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(true);
 
   // Modals
   const [showLevelPicker, setShowLevelPicker] = useState(false);

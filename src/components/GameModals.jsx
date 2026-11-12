@@ -24,143 +24,133 @@ export function StartScreen({
   onOpenSkins,
   onOpenRewardCenter,
   onOpenLeaderboard,
-  onOpenAchievements,
-  onOpenAdmin,
+  onOpenAchievements: _onOpenAchievements,
+  onOpenAdmin: _onOpenAdmin,
 }) {
   return (
-    <section className="mobile-game-start-hub" aria-label="Game Title Screen">
-      {/* Sunburst Rays Behind Logo */}
-      <div className="title-sunburst-rays" aria-hidden="true" />
-
-      {/* 3D Animated Hero Mascot */}
-      <div className="title-hero-display">
-        <div className="hero-apple-core">
-          <AppleSvgIcon className="hero-giant-apple-svg" />
+    <section className="adventure-start-screen" aria-label="Game Title Screen">
+      {/* Cartoon Floating Logo Crest */}
+      <div className="adventure-title-crest">
+        <div className="crest-mascot-cluster">
+          <div className="crest-apple-wrap">
+            <AppleSvgIcon className="crest-apple-svg" />
+          </div>
+          <div className="crest-worm-peeking" aria-hidden="true">
+            <svg viewBox="0 0 64 64" className="crest-worm-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="22" fill="url(#heroMascotGrad2)" stroke="#166534" strokeWidth="2.5" />
+              <ellipse cx="23" cy="27" rx="5.5" ry="7" fill="white" />
+              <circle cx="24" cy="27" r="3.2" fill="#0f172a" />
+              <circle cx="22" cy="25" r="1.4" fill="white" />
+              <ellipse cx="41" cy="27" rx="5.5" ry="7" fill="white" />
+              <circle cx="40" cy="27" r="3.2" fill="#0f172a" />
+              <circle cx="38" cy="25" r="1.4" fill="white" />
+              <ellipse cx="17" cy="34" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6" />
+              <ellipse cx="47" cy="34" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6" />
+              <path d="M26 36C28 40 36 40 38 36" stroke="#14532d" strokeWidth="2.6" strokeLinecap="round" />
+              <path d="M23 13C21 8 16 9 17 13M41 13C43 8 48 9 47 13" stroke="#15803d" strokeWidth="2.6" strokeLinecap="round" />
+              <circle cx="16" cy="8" r="3" fill="#4ade80" />
+              <circle cx="48" cy="8" r="3" fill="#4ade80" />
+              <defs>
+                <radialGradient id="heroMascotGrad2" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stopColor="#86efac" />
+                  <stop offset="55%" stopColor="#22c55e" />
+                  <stop offset="100%" stopColor="#15803d" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
         </div>
-        <div className="hero-worm-mascot" aria-hidden="true">
-          <svg viewBox="0 0 64 64" className="hero-mascot-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="32" r="22" fill="url(#heroMascotGrad)" stroke="#166534" strokeWidth="2.5" />
-            {/* Eyes */}
-            <ellipse cx="23" cy="27" rx="5.5" ry="7" fill="white" />
-            <circle cx="24" cy="27" r="3.2" fill="#0f172a" />
-            <circle cx="22" cy="25" r="1.4" fill="white" />
-            <ellipse cx="41" cy="27" rx="5.5" ry="7" fill="white" />
-            <circle cx="40" cy="27" r="3.2" fill="#0f172a" />
-            <circle cx="38" cy="25" r="1.4" fill="white" />
-            {/* Cheeks */}
-            <ellipse cx="17" cy="34" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6" />
-            <ellipse cx="47" cy="34" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6" />
-            {/* Smile */}
-            <path d="M26 36C28 40 36 40 38 36" stroke="#14532d" strokeWidth="2.6" strokeLinecap="round" />
-            {/* Antennae */}
-            <path d="M23 13C21 8 16 9 17 13M41 13C43 8 48 9 47 13" stroke="#15803d" strokeWidth="2.6" strokeLinecap="round" />
-            <circle cx="16" cy="8" r="3" fill="#4ade80" />
-            <circle cx="48" cy="8" r="3" fill="#4ade80" />
-            <defs>
-              <radialGradient id="heroMascotGrad" cx="35%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#86efac" />
-                <stop offset="55%" stopColor="#22c55e" />
-                <stop offset="100%" stopColor="#15803d" />
-              </radialGradient>
-            </defs>
-          </svg>
-        </div>
-      </div>
 
-      {/* Modern Game Title Banner */}
-      <div className="title-banner-cluster">
-        <span className="title-eyebrow-tag">★ ARCADE PUZZLE ★</span>
-        <h1 className="game-3d-title">
-          <span className="title-word-apple">APPLE</span>
-          <span className="title-word-worm">WORM</span>
-        </h1>
-        <div className="title-ribbon-sub">
-          <span>ADVENTURE</span>
+        {/* Parchment Title Sign */}
+        <div className="adventure-parchment-sign">
+          <span className="sign-subtitle">SNAKE PUZZLE</span>
+          <h1 className="sign-main-title">APPLE WORM</h1>
+          <div className="sign-ribbon">
+            <span>ADVENTURE</span>
+          </div>
         </div>
       </div>
 
-      {/* Big Juicy Pulsing PLAY Button */}
+      {/* Big 3D Emerald PLAY Button */}
       <button
         type="button"
-        className="game-candy-play-btn"
+        className="adventure-play-btn"
         onClick={onStartGame}
+        aria-label="Play Game"
       >
-        <span className="play-btn-sheen" />
-        <span className="play-btn-text">TAP TO PLAY</span>
-        <span className="play-btn-arrow">▶</span>
+        <span className="play-shine" />
+        <span className="play-icon">▶</span>
+        <span className="play-text">PLAY LEVEL {currentLevel}</span>
       </button>
 
       {/* Difficulty Selector Pills */}
-      <div className="difficulty-candy-bar">
+      <div className="adventure-diff-row">
         {Object.entries(difficulties).map(([name, config]) => {
           const isSelected = difficulty === name;
           return (
             <button
               key={name}
               type="button"
-              className={`diff-candy-pill ${isSelected ? "active" : ""}`}
+              className={`adventure-diff-pill ${isSelected ? "active" : ""}`}
               onClick={() => {
                 audio.playClick();
                 onSelectDifficulty(name);
               }}
             >
-              <span className="diff-icon">{config.icon}</span>
-              <span className="diff-name">{name}</span>
+              <span>{config.icon}</span>
+              <span>{name}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Mission Meta Plaque */}
-      <div className="start-meta-plaque">
-        <div className="meta-plaque-col">
-          <small>CURRENT LEVEL</small>
-          <strong>Lv. {currentLevel} • {levelName}</strong>
-        </div>
-        <div className="meta-plaque-col right">
-          <small>PROGRESS</small>
-          <strong>{unlockedLevel} / {totalLevels} Cleared</strong>
-        </div>
+      {/* Level & Progress Info */}
+      <div className="adventure-start-meta">
+        <span>Level {currentLevel}: <strong>{levelName}</strong></span>
+        <span className="meta-sep">•</span>
+        <span>{unlockedLevel} / {totalLevels} Cleared</span>
       </div>
 
-      {/* Floating Bottom Menu Bar */}
-      <div className="start-bottom-candy-dock">
-        <button type="button" className="candy-dock-item" onClick={onOpenLevelPicker} title="Worlds">
-          <div className="dock-item-circle levels-circle">🗺️</div>
-          <span className="dock-item-label">Worlds</span>
+      {/* Floating Slate Action Bar (Matching Reference Game Buttons) */}
+      <div className="adventure-start-dock">
+        <button
+          type="button"
+          className="start-slate-btn"
+          onClick={onOpenLevelPicker}
+          title="World Map / Levels"
+        >
+          <span className="start-btn-emoji">🗺️</span>
+          <span className="start-btn-text">Worlds</span>
         </button>
 
-        <button type="button" className="candy-dock-item" onClick={onOpenSkins} title="Skins">
-          <div className="dock-item-circle skins-circle">
-            <WardrobeSvgIcon className="dock-icon-svg" />
-          </div>
-          <span className="dock-item-label">Wardrobe</span>
+        <button
+          type="button"
+          className="start-slate-btn"
+          onClick={onOpenSkins}
+          title="Worm Wardrobe"
+        >
+          <WardrobeSvgIcon className="start-btn-svg" />
+          <span className="start-btn-text">Skins</span>
         </button>
 
-        <button type="button" className="candy-dock-item" onClick={onOpenAchievements} title="Badges">
-          <div className="dock-item-circle badge-circle">
-            <StarSvgIcon className="dock-icon-svg" />
-          </div>
-          <span className="dock-item-label">Badges</span>
+        <button
+          type="button"
+          className="start-slate-btn"
+          onClick={onOpenRewardCenter}
+          title="Daily Gifts & Coins"
+        >
+          <GiftSvgIcon className="start-btn-svg" />
+          <span className="start-btn-text">Rewards</span>
         </button>
 
-        <button type="button" className="candy-dock-item" onClick={onOpenRewardCenter} title="Daily Gifts">
-          <div className="dock-item-circle gifts-circle">
-            <GiftSvgIcon className="dock-icon-svg" />
-          </div>
-          <span className="dock-item-label">Rewards</span>
-        </button>
-
-        <button type="button" className="candy-dock-item" onClick={onOpenLeaderboard} title="Ranks">
-          <div className="dock-item-circle rank-circle">
-            <TrophySvgIcon className="dock-icon-svg" />
-          </div>
-          <span className="dock-item-label">Ranks</span>
-        </button>
-
-        <button type="button" className="candy-dock-item admin-dock-item" onClick={onOpenAdmin} title="Admin">
-          <div className="dock-item-circle admin-circle">⚙️</div>
-          <span className="dock-item-label">Admin</span>
+        <button
+          type="button"
+          className="start-slate-btn"
+          onClick={onOpenLeaderboard}
+          title="Leaderboard Rankings"
+        >
+          <TrophySvgIcon className="start-btn-svg" />
+          <span className="start-btn-text">Ranks</span>
         </button>
       </div>
     </section>
