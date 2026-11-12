@@ -9,12 +9,10 @@ import { GAME_NAME } from "./config/gameConfig";
 
 import WormBoard from "./components/WormBoard";
 import {
+  AdventureTopHUD,
+  AdventureLeftRail,
+  AdventureDiamondPad,
   TopBar,
-  ArcadeHUD,
-  ActionDock,
-  TouchDPad,
-  MobileGameHeader,
-  MobileControlCockpit,
 } from "./components/GameHUD";
 import LevelPickerModal from "./components/LevelPickerModal";
 import SkinsModal from "./components/SkinsModal";
@@ -843,49 +841,51 @@ export default function App() {
         <span className="bg-floating-element el-4">⭐</span>
       </div>
 
-      {/* Top Bar Header (Desktop only) */}
-      <div className="desktop-topbar-wrapper">
-        <TopBar
-          currentLevel={currentLevel}
-          totalLevels={LEVELS.length}
-          world={world}
-          totalStars={totalStars}
-          coins={coins}
-          sfxEnabled={sfxEnabled}
-          musicEnabled={musicEnabled}
-          themeMode={themeMode}
-          themeModes={THEME_MODES}
-          onToggleSfx={() => {
-            const next = !sfxEnabled;
-            setSfxEnabled(next);
-            audio.setSfxEnabled(next);
-          }}
-          onToggleMusic={() => {
-            const next = !musicEnabled;
-            setMusicEnabled(next);
-            audio.setMusicEnabled(next);
-          }}
-          onCycleTheme={handleCycleTheme}
-          onOpenLevelPicker={() => {
-            audio.playClick();
-            setShowLevelPicker(true);
-          }}
-          onOpenSkins={() => {
-            audio.playClick();
-            setShowSkins(true);
-          }}
-          onOpenWallet={() => {
-            audio.playClick();
-            setShowWalletLedger(true);
-          }}
-          onOpenRewardCenter={() => {
-            audio.playClick();
-            setShowRewardCenter(true);
-          }}
-          onOpenLeaderboard={handleOpenLeaderboard}
-          onOpenAuth={() => setShowAuthModal(true)}
-        />
-      </div>
+      {/* Top Bar Header (Shown on Start Screen for Quick Access) */}
+      {!hasStarted && (
+        <div className="desktop-topbar-wrapper">
+          <TopBar
+            currentLevel={currentLevel}
+            totalLevels={LEVELS.length}
+            world={world}
+            totalStars={totalStars}
+            coins={coins}
+            sfxEnabled={sfxEnabled}
+            musicEnabled={musicEnabled}
+            themeMode={themeMode}
+            themeModes={THEME_MODES}
+            onToggleSfx={() => {
+              const next = !sfxEnabled;
+              setSfxEnabled(next);
+              audio.setSfxEnabled(next);
+            }}
+            onToggleMusic={() => {
+              const next = !musicEnabled;
+              setMusicEnabled(next);
+              audio.setMusicEnabled(next);
+            }}
+            onCycleTheme={handleCycleTheme}
+            onOpenLevelPicker={() => {
+              audio.playClick();
+              setShowLevelPicker(true);
+            }}
+            onOpenSkins={() => {
+              audio.playClick();
+              setShowSkins(true);
+            }}
+            onOpenWallet={() => {
+              audio.playClick();
+              setShowWalletLedger(true);
+            }}
+            onOpenRewardCenter={() => {
+              audio.playClick();
+              setShowRewardCenter(true);
+            }}
+            onOpenLeaderboard={handleOpenLeaderboard}
+            onOpenAuth={() => setShowAuthModal(true)}
+          />
+        </div>
+      )}
 
       {/* Main Game Stage */}
       <main className="game-main-stage">
@@ -915,45 +915,54 @@ export default function App() {
             onOpenAdmin={handleOpenAdmin}
           />
         ) : (
-          <div className="gameplay-wrapper">
-            {/* Mobile Native Game Header (Displayed on mobile/tablet) */}
-            <div className="mobile-header-wrapper">
-              <MobileGameHeader
-                level={level}
-                world={world}
-                applesLeft={apples.length}
-                totalApples={level.apples.length}
-                goldenApplesLeft={goldenApples.length}
-                moves={moves}
-                timeLeft={timeLeft}
-                onOpenPause={() => {
-                  audio.playClick();
-                  setShowPauseModal(true);
-                }}
-                onCycleTheme={handleCycleTheme}
-                currentTheme={THEME_MODES.find((t) => t.id === themeMode)}
-                sfxEnabled={sfxEnabled}
-                onToggleSfx={() => {
-                  const next = !sfxEnabled;
-                  setSfxEnabled(next);
-                  audio.setSfxEnabled(next);
-                }}
-              />
-            </div>
+          <div className="adventure-gameplay-viewport">
+            {/* Top Floating Arcade HUD (Reference Fidelity) */}
+            <AdventureTopHUD
+              level={level}
+              world={world}
+              applesLeft={apples.length}
+              totalApples={level.apples.length}
+              timeLeft={timeLeft}
+              moves={moves}
+              coins={coins}
+              sfxEnabled={sfxEnabled}
+              onToggleSfx={() => {
+                const next = !sfxEnabled;
+                setSfxEnabled(next);
+                audio.setSfxEnabled(next);
+              }}
+              onHint={handleHint}
+              onOpenPause={() => {
+                audio.playClick();
+                setShowPauseModal(true);
+              }}
+              onOpenWallet={() => {
+                audio.playClick();
+                setShowWalletLedger(true);
+              }}
+              onOpenRewardCenter={() => {
+                audio.playClick();
+                setShowRewardCenter(true);
+              }}
+            />
 
-            {/* Left / Center Board Area */}
-            <div className="board-column">
-              <div className="board-top-info desktop-only">
-                <div className="mission-title">
-                  <span className="world-tag">{world.icon} {world.name}</span>
-                  <h2>{level.name}</h2>
-                </div>
-                <div className="level-par-tag">
-                  <span>Par 3★: ≤{level.parMoves?.star3 || 25} moves</span>
-                </div>
-              </div>
+            {/* Left Floating Action Rail (Home, Undo, Restart, Skins) */}
+            <AdventureLeftRail
+              canUndo={undoStack.length > 0 && status === "playing"}
+              onUndo={handleUndo}
+              onRestart={handleRestart}
+              onOpenLevelPicker={() => {
+                audio.playClick();
+                setShowLevelPicker(true);
+              }}
+              onOpenSkins={() => {
+                audio.playClick();
+                setShowSkins(true);
+              }}
+            />
 
-              {/* The Game Board */}
+            {/* Center Stage: Floating 10x10 Puzzle in Adventure Sky */}
+            <div className="adventure-board-stage">
               <WormBoard
                 level={level}
                 world={world}
@@ -967,139 +976,10 @@ export default function App() {
                 onSwipe={([dx, dy]) => moveWorm(dx, dy)}
                 floatingTexts={floatingTexts}
               />
-
-              {/* Desktop Controls (Action Dock + D-Pad) */}
-              <div className="desktop-controls-wrapper">
-                <ActionDock
-                  canUndo={undoStack.length > 0 && status === "playing"}
-                  onUndo={handleUndo}
-                  onRestart={handleRestart}
-                  onHint={handleHint}
-                  onOpenSkins={() => setShowSkins(true)}
-                />
-                <TouchDPad onMove={(dx, dy) => moveWorm(dx, dy)} />
-              </div>
-
-              {/* Mobile Real-Game Integrated Bottom Cockpit */}
-              <div className="mobile-cockpit-wrapper">
-                <MobileControlCockpit
-                  canUndo={undoStack.length > 0 && status === "playing"}
-                  onUndo={handleUndo}
-                  onRestart={handleRestart}
-                  onHint={handleHint}
-                  onOpenSkins={() => setShowSkins(true)}
-                  onMove={(dx, dy) => moveWorm(dx, dy)}
-                />
-              </div>
             </div>
 
-            {/* Right Side Status & Mission Panel (Desktop only) */}
-            <aside className="gameplay-sidebar desktop-only">
-              <div className="desktop-hud-container">
-                <ArcadeHUD
-                  level={level}
-                  applesLeft={apples.length}
-                  totalApples={level.apples.length}
-                  goldenApplesLeft={goldenApples.length}
-                  moves={moves}
-                  score={score}
-                  timeLeft={timeLeft}
-                  status={status}
-                  collectedKeys={collectedKeys}
-                />
-              </div>
-
-              {/* Mission Objectives Card */}
-              <div className="sidebar-card mission-card">
-                <div className="card-header-row">
-                  <span className="card-header-icon">🎯</span>
-                  <strong>LEVEL OBJECTIVES</strong>
-                </div>
-                <ul className="objective-checklist">
-                  <li className={apples.length === 0 ? "done" : ""}>
-                    <span className="check-box">{apples.length === 0 ? "✓" : "1"}</span>
-                    <div>
-                      <strong>Eat all apples</strong>
-                      <small>
-                        {apples.length === 0
-                          ? "All apples eaten!"
-                          : `${apples.length} apple(s) left`}
-                      </small>
-                    </div>
-                  </li>
-
-                  {(level.keys || []).length > 0 && (
-                    <li className={collectedKeys.length === level.keys.length ? "done" : ""}>
-                      <span className="check-box">
-                        {collectedKeys.length === level.keys.length ? "✓" : "2"}
-                      </span>
-                      <div>
-                        <strong>Collect Golden Key</strong>
-                        <small>
-                          {collectedKeys.length === level.keys.length
-                            ? "Gate unlocked!"
-                            : "Find key to lower energy barrier"}
-                        </small>
-                      </div>
-                    </li>
-                  )}
-
-                  <li className={status === "won" ? "done" : ""}>
-                    <span className="check-box">{status === "won" ? "✓" : "3"}</span>
-                    <div>
-                      <strong>Enter the Stargate Portal</strong>
-                      <small>
-                        {apples.length === 0
-                          ? "Portal is open! Slither inside."
-                          : "Locked until all apples are eaten"}
-                      </small>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              {/* World Journey Progress Card */}
-              <div className="sidebar-card world-progress-card">
-                <div className="card-header-row">
-                  <span className="card-header-icon">🏆</span>
-                  <strong>ADVENTURE PROGRESS</strong>
-                </div>
-                <div className="world-progress-bar">
-                  <span
-                    className="world-progress-fill"
-                    style={{ width: `${(unlockedLevel / LEVELS.length) * 100}%` }}
-                  />
-                </div>
-                <div className="progress-card-stats">
-                  <div>
-                    <small>UNLOCKED</small>
-                    <strong>{unlockedLevel} / {LEVELS.length}</strong>
-                  </div>
-                  <div>
-                    <small>TOTAL STARS</small>
-                    <strong>⭐ {totalStars}</strong>
-                  </div>
-                  <div>
-                    <small>WALLET</small>
-                    <strong>💰 {coins}</strong>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tactical Tip */}
-              <div className="sidebar-card tip-card">
-                <span className="tip-eyebrow">💡 TACTICAL TIP</span>
-                <p>
-                  {status === "failed"
-                    ? "Made a mistake? Hit Undo (Z) or Watch Ad to Revive from your safe state!"
-                    : apples.length === 0
-                    ? "The cosmic portal is open! Plan your path and crawl inside to win!"
-                    : (level.spikes || []).length > 0
-                    ? "Watch out for red thorns! They are lethal to the worm's head."
-                    : "Plan a few moves ahead. The worm grows each time you eat an apple!"}
-                </p>
-              </div>
-            </aside>
+            {/* Bottom-Right Floating Stone Diamond D-Pad Controller */}
+            <AdventureDiamondPad onMove={(dx, dy) => moveWorm(dx, dy)} />
           </div>
         )}
       </main>

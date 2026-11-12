@@ -332,55 +332,47 @@ export function ApplePiece({ isGolden = false }) {
 
 export function WallPiece() {
   return (
-    <div className="piece-wall" aria-label="Stone Wall Obstacle">
+    <div className="piece-wall" aria-label="Earth Platform Block">
       <svg viewBox="0 0 46 46" className="wall-svg">
         <defs>
-          {/* Weathered 3D Stone Gradient */}
-          <linearGradient id="wall-stone-texture" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#e2e8f0" />
-            <stop offset="25%" stopColor="#94a3b8" />
-            <stop offset="70%" stopColor="#475569" />
-            <stop offset="100%" stopColor="#1e293b" />
+          {/* Rich Cartoon Earthen Wood / Soil Gradient */}
+          <linearGradient id="wall-earth-texture" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#633219" />
+            <stop offset="20%" stopColor="#4e2511" />
+            <stop offset="85%" stopColor="#3d1c0c" />
+            <stop offset="100%" stopColor="#2b1307" />
           </linearGradient>
 
-          <filter id="wall-depth-shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="4" stdDeviation="2.5" floodColor="#0f172a" floodOpacity="0.45" />
-          </filter>
+          {/* Top Surface Lighter Wood Rim */}
+          <linearGradient id="wall-top-rim" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#824322" />
+            <stop offset="100%" stopColor="#5c2e17" />
+          </linearGradient>
         </defs>
 
-        {/* 3D Carved Stone Block */}
+        {/* Seamless Platform Block */}
         <rect
-          x="3"
-          y="3"
-          width="40"
-          height="40"
-          rx="10"
-          fill="url(#wall-stone-texture)"
-          filter="url(#wall-depth-shadow)"
-          stroke="#1e293b"
-          strokeWidth="2.2"
+          x="0"
+          y="0"
+          width="46"
+          height="46"
+          fill="url(#wall-earth-texture)"
+          stroke="#1a0b04"
+          strokeWidth="1.5"
         />
 
-        {/* Top Rim Bevel Light */}
-        <path
-          d="M 8 5 L 38 5 Q 41 5 41 8 L 41 12 L 5 12 L 5 8 Q 5 5 8 5 Z"
-          fill="#ffffff"
-          opacity="0.32"
+        {/* Top Rim Highlight (stepped platform edge) */}
+        <rect
+          x="0"
+          y="0"
+          width="46"
+          height="4.5"
+          fill="url(#wall-top-rim)"
         />
 
-        {/* Natural Weathering & Masonry Cracks */}
-        <path
-          d="M 10 16 L 20 21 L 26 15 M 17 32 L 25 26 L 36 33"
-          fill="none"
-          stroke="#0f172a"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-
-        {/* Vibrant Moss Tufts on Rock Face */}
-        <circle cx="11" cy="11" r="3.5" fill="#4ade80" opacity="0.9" />
-        <circle cx="36" cy="34" r="3.2" fill="#22c55e" opacity="0.85" />
-        <circle cx="34" cy="12" r="2.2" fill="#86efac" opacity="0.8" />
+        {/* Subtle Horizontal Wood/Rock Strata lines */}
+        <line x1="4" y1="16" x2="22" y2="16" stroke="#2b1307" strokeWidth="1.2" opacity="0.6" strokeLinecap="round" />
+        <line x1="28" y1="28" x2="42" y2="28" stroke="#2b1307" strokeWidth="1.2" opacity="0.6" strokeLinecap="round" />
       </svg>
     </div>
   );
@@ -524,87 +516,49 @@ export function TeleportPiece({ color = "#38bdf8" }) {
 
 export function PortalPiece({ isOpen = false }) {
   return (
-    <div className={`piece-portal ${isOpen ? "open" : "locked"}`} aria-label={isOpen ? "Awakened Cosmic Stargate" : "Locked Stargate Portal"}>
-      {/* Radiant Glow Burst Behind Portal when Open */}
+    <div className={`piece-portal ${isOpen ? "open" : "locked"}`} aria-label={isOpen ? "Open Spiral Exit Hole" : "Locked Portal"}>
       {isOpen && <div className="portal-awakened-burst" aria-hidden="true" />}
 
       <svg viewBox="0 0 52 52" className="portal-svg">
         <defs>
-          {/* Cosmic Nebula Radiant Gradient */}
-          <radialGradient id="stargate-cosmic-singularity" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="22%" stopColor="#38bdf8" />
-            <stop offset="55%" stopColor="#a855f7" />
-            <stop offset="85%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#2e1065" />
+          <radialGradient id="portal-black-hole" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={isOpen ? "#1e1b4b" : "#020617"} />
+            <stop offset="60%" stopColor={isOpen ? "#0f172a" : "#090d16"} />
+            <stop offset="100%" stopColor="#000000" />
           </radialGradient>
-
-          <filter id="portal-stargate-bloom" x="-45%" y="-45%" width="190%" height="190%">
-            <feDropShadow
-              dx="0"
-              dy="0"
-              stdDeviation="7"
-              floodColor={isOpen ? "#c084fc" : "#475569"}
-              floodOpacity={isOpen ? "0.95" : "0.5"}
-            />
-          </filter>
         </defs>
 
-        {isOpen ? (
-          // Radiant Hyperspace Stargate
-          <g filter="url(#portal-stargate-bloom)">
-            {/* Outer Rotating Rune Ring */}
-            <circle
-              cx="26"
-              cy="26"
-              r="22"
-              fill="none"
-              stroke="#c084fc"
-              strokeWidth="3.5"
-              strokeDasharray="10 4"
-              className="portal-ring-outer"
-            />
-            {/* Pulsing Core */}
-            <circle
-              cx="26"
-              cy="26"
-              r="17"
-              fill="url(#stargate-cosmic-singularity)"
-              className="portal-core-pulse"
-            />
-            {/* Spiral Hyperspace Vortex Arms */}
-            <path
-              d="M 26 11 Q 37 21 26 26 Q 15 31 26 41"
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="2.4"
-              opacity="0.9"
-              className="portal-spiral"
-            />
-            <circle cx="26" cy="26" r="4.5" fill="#ffffff" filter="drop-shadow(0 0 5px #ffffff)" />
-          </g>
-        ) : (
-          // Locked Ancient Obsidian Portal
-          <g filter="url(#portal-stargate-bloom)">
-            <circle
-              cx="26"
-              cy="26"
-              r="21"
-              fill="#0f172a"
-              stroke="#475569"
-              strokeWidth="3.5"
-            />
-            <circle cx="26" cy="26" r="14" fill="#1e293b" opacity="0.6" stroke="#334155" strokeWidth="1.5" />
-            {/* Giant Golden Padlock */}
-            <rect x="18" y="24" width="16" height="13" rx="3" fill="#eab308" stroke="#a16207" strokeWidth="2" />
-            <path
-              d="M 21 24 L 21 18 Q 26 13 31 18 L 31 24"
-              fill="none"
-              stroke="#eab308"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-            <circle cx="26" cy="30" r="1.8" fill="#78350f" />
+        {/* Outer Circular Rim */}
+        <circle
+          cx="26"
+          cy="26"
+          r="22"
+          fill="url(#portal-black-hole)"
+          stroke="#000000"
+          strokeWidth="3.2"
+        />
+
+        {/* Concentric Swirling Ridges (Like reference game screenshot) */}
+        <circle cx="26" cy="26" r="17" fill="none" stroke="#334155" strokeWidth="2.4" opacity="0.8" />
+        <circle cx="26" cy="26" r="12" fill="none" stroke="#475569" strokeWidth="2" opacity="0.65" />
+        <circle cx="26" cy="26" r="7" fill="none" stroke="#64748b" strokeWidth="1.8" opacity="0.5" />
+        <circle cx="26" cy="26" r="3.2" fill={isOpen ? "#c084fc" : "#000000"} />
+
+        {/* Swirling Spiral Path */}
+        <path
+          d="M 26 6 A 20 20 0 0 1 46 26 A 15 15 0 0 1 26 41 A 10 10 0 0 1 16 26 A 6 6 0 0 1 26 20"
+          fill="none"
+          stroke={isOpen ? "#c084fc" : "#1e293b"}
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          className={isOpen ? "portal-swirl-active" : ""}
+        />
+
+        {!isOpen && (
+          // Small discreet golden lock badge when locked
+          <g transform="translate(18, 18) scale(0.65)">
+            <rect x="3" y="10" width="18" height="13" rx="3" fill="#eab308" stroke="#713f12" strokeWidth="1.5" />
+            <path d="M 7 10 V 6 A 5 5 0 0 1 17 6 V 10" fill="none" stroke="#eab308" strokeWidth="2.5" />
           </g>
         )}
       </svg>

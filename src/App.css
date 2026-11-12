@@ -166,13 +166,30 @@ body {
 
 .cartoon-hills-backdrop {
   position: absolute;
-  bottom: -20px;
-  left: -5%;
-  right: -5%;
-  height: 180px;
-  background: radial-gradient(ellipse at 50% 100%, #16a34a 0%, #15803d 70%, transparent 100%);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  opacity: 0.22;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36%;
+  background:
+    radial-gradient(ellipse at 15% 100%, #38a169 0%, #22543d 50%, transparent 75%),
+    radial-gradient(ellipse at 85% 100%, #2f855a 0%, #1c4532 55%, transparent 75%),
+    radial-gradient(ellipse at 50% 100%, #48bb78 0%, #276749 60%, transparent 80%),
+    linear-gradient(180deg, transparent 0%, rgba(39, 103, 73, 0.4) 40%, #1c4532 100%);
+  border-radius: 50% 50% 0 0 / 22% 22% 0 0;
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.cartoon-hills-backdrop::before {
+  content: "";
+  position: absolute;
+  bottom: 55%;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background:
+    radial-gradient(ellipse at 25% 100%, rgba(144, 205, 244, 0.65) 0%, rgba(104, 211, 145, 0.35) 55%, transparent 80%),
+    radial-gradient(ellipse at 75% 100%, rgba(154, 230, 180, 0.55) 0%, rgba(99, 179, 237, 0.35) 60%, transparent 85%);
   pointer-events: none;
 }
 
@@ -346,12 +363,14 @@ button:focus-visible {
 
 .apple-worm-app {
   position: relative;
+  width: 100vw;
+  height: 100dvh;
   min-height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: clamp(8px, 1.5vh, 16px) clamp(12px, 2vw, 24px);
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 0;
+  margin: 0;
   z-index: 1;
 }
 
@@ -6005,4 +6024,467 @@ button:focus-visible {
   height: 15px;
   display: inline-block;
   vertical-align: middle;
+}
+
+
+/* ==========================================================================
+   AUTHENTIC CARTOON ADVENTURE GAMEPLAY STAGE (Reference Fidelity)
+   ========================================================================== */
+
+.adventure-gameplay-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+/* 1. TOP FLOATING ARCADE HUD */
+.ref-floating-top-hud {
+  position: absolute;
+  top: clamp(10px, 2.2vh, 22px);
+  left: clamp(12px, 3vw, 32px);
+  right: clamp(12px, 3vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.ref-floating-top-hud > * {
+  pointer-events: auto;
+}
+
+/* Top-Left Stamina / Coins Capsule */
+.ref-stamina-capsule {
+  display: flex;
+  align-items: center;
+  background: #2b3442;
+  border: 2.5px solid #141b24;
+  border-radius: 9999px;
+  padding: 4px 6px 4px 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  gap: 8px;
+  transition: transform 0.15s ease;
+}
+
+.ref-stamina-capsule:hover {
+  transform: scale(1.04);
+}
+
+.capsule-icon-wrap {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 6px #facc15);
+}
+
+.capsule-energy-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.capsule-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  padding-right: 4px;
+}
+
+.capsule-stamina-row strong {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  font-family: var(--font-arcade);
+}
+
+.capsule-timer-row {
+  display: flex;
+  align-items: center;
+}
+
+.capsule-timer {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.capsule-plus-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f87171, #ef4444 60%, #b91c1c 100%);
+  border: 2px solid #7f1d1d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.12s ease;
+}
+
+.capsule-plus-btn:active {
+  transform: scale(0.92);
+}
+
+.plus-svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Top-Center Parchment Level Plaque */
+.ref-parchment-plaque {
+  background: #fffdf5;
+  border: 3.5px solid #2d180b;
+  border-radius: 14px;
+  padding: 6px clamp(20px, 4vw, 38px);
+  box-shadow:
+    0 5px 0 #1c0e06,
+    0 8px 16px rgba(0, 0, 0, 0.25),
+    inset 0 2px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 0 rgba(217, 119, 6, 0.15);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  outline: none;
+}
+
+.ref-parchment-plaque:hover {
+  transform: translateY(-2px);
+}
+
+.ref-parchment-plaque:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1c0e06;
+}
+
+.plaque-title {
+  font-family: var(--font-arcade);
+  font-size: clamp(17px, 2.5vw, 22px);
+  font-weight: 900;
+  color: #331707;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Top-Right Action Group */
+.ref-top-right-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ref-camera-hint-btn {
+  width: clamp(44px, 6.5vmin, 54px);
+  height: clamp(44px, 6.5vmin, 54px);
+  border-radius: 14px;
+  background: radial-gradient(circle at 35% 30%, #fef08a, #facc15 50%, #ca8a04 100%);
+  border: 2.5px solid #78350f;
+  box-shadow:
+    0 4px 0 #572507,
+    0 6px 14px rgba(202, 138, 4, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.ref-camera-hint-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #572507;
+}
+
+.camera-hint-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.ref-audio-toggle-btn {
+  width: clamp(40px, 5.5vmin, 48px);
+  height: clamp(40px, 5.5vmin, 48px);
+  border-radius: 14px;
+  background: radial-gradient(circle at 35% 30%, #3e4c5e, #2b3442 70%, #171e27 100%);
+  border: 2.5px solid #141b24;
+  box-shadow:
+    0 4px 0 #0c1117,
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.ref-audio-toggle-btn.muted {
+  opacity: 0.6;
+}
+
+.ref-audio-toggle-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0c1117;
+}
+
+.ref-audio-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* 2. LEFT FLOATING ACTION RAIL */
+.ref-floating-left-rail {
+  position: absolute;
+  top: clamp(80px, 12vh, 110px);
+  left: clamp(12px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 50;
+  pointer-events: auto;
+}
+
+.ref-slate-square-btn {
+  width: clamp(46px, 6.8vmin, 56px);
+  height: clamp(46px, 6.8vmin, 56px);
+  border-radius: 14px;
+  background: radial-gradient(circle at 35% 30%, #475569 0%, #334155 60%, #1e293b 100%);
+  border: 2.5px solid #0f172a;
+  box-shadow:
+    0 4px 0 #090d16,
+    0 6px 14px rgba(0, 0, 0, 0.35),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.25);
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.ref-slate-square-btn:hover {
+  transform: translateY(-2px);
+  background: radial-gradient(circle at 35% 30%, #64748b 0%, #475569 60%, #334155 100%);
+}
+
+.ref-slate-square-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #090d16;
+}
+
+.ref-slate-square-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 0 #090d16;
+}
+
+.slate-btn-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 3. CENTER BOARD STAGE */
+.adventure-board-stage {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.adventure-level-board {
+  position: relative;
+  width: min(84vmin, 560px);
+  height: min(84vmin, 560px);
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  touch-action: none;
+}
+
+.puzzle-grid-surface {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 100%;
+  height: 100%;
+  gap: 0;
+}
+
+.puzzle-cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.cell-air {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.cell-wall {
+  background: transparent;
+  width: 100%;
+  height: 100%;
+}
+
+.cell-wall .piece-wall {
+  width: 100%;
+  height: 100%;
+}
+
+.cell-wall .wall-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 4. BOTTOM-RIGHT STONE DIAMOND CONTROLLER */
+.ref-stone-diamond-pad {
+  position: absolute;
+  bottom: clamp(16px, 3vh, 36px);
+  right: clamp(16px, 3vw, 36px);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1.2vmin, 10px);
+  pointer-events: auto;
+}
+
+.stone-diamond-mid-row {
+  display: flex;
+  gap: clamp(48px, 8vmin, 66px);
+  align-items: center;
+  justify-content: center;
+}
+
+.stone-circle-btn {
+  position: relative;
+  width: clamp(52px, 8.5vmin, 66px);
+  height: clamp(52px, 8.5vmin, 66px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #475569 0%, #334155 50%, #1e293b 85%, #0f172a 100%);
+  border: 2.8px solid #0f172a;
+  box-shadow:
+    0 5px 0 #090d16,
+    0 8px 18px rgba(0, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stone-circle-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #090d16;
+}
+
+/* Subtle Stone Carved Notches */
+.stone-notch {
+  position: absolute;
+  background: #0f172a;
+  opacity: 0.6;
+  border-radius: 2px;
+}
+
+.notch-top {
+  width: 4px;
+  height: 3px;
+  top: 3px;
+  left: calc(50% - 2px);
+}
+
+.notch-bottom {
+  width: 4px;
+  height: 3px;
+  bottom: 3px;
+  left: calc(50% - 2px);
+}
+
+.notch-left {
+  width: 3px;
+  height: 4px;
+  left: 3px;
+  top: calc(50% - 2px);
+}
+
+.notch-right {
+  width: 3px;
+  height: 4px;
+  right: 3px;
+  top: calc(50% - 2px);
+}
+
+.stone-chevron {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+/* Responsive adjustments across Mobile & Tablet */
+@media (max-width: 600px) {
+  .adventure-level-board {
+    width: min(88vmin, 380px);
+    height: min(88vmin, 380px);
+  }
+
+  .ref-stone-diamond-pad {
+    bottom: 14px;
+    right: 14px;
+    gap: 4px;
+  }
+
+  .stone-circle-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .stone-diamond-mid-row {
+    gap: 42px;
+  }
+
+  .stone-chevron {
+    width: 22px;
+    height: 22px;
+  }
+
+  .ref-floating-left-rail {
+    top: 72px;
+    left: 10px;
+    gap: 8px;
+  }
+
+  .ref-slate-square-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .slate-btn-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
